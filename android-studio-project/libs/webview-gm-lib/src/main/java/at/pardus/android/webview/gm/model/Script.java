@@ -317,12 +317,15 @@ public class Script extends ScriptMetadata {
       resourceArr = resources.toArray(new ScriptResource[resources.size()]);
     }
     if (exclude.size() > 0) {
+      inflateGlobs(exclude);
       excludeArr = exclude.toArray(new String[exclude.size()]);
     }
     if (include.size() > 0) {
+      inflateGlobs(include);
       includeArr = include.toArray(new String[include.size()]);
     }
     if (match.size() > 0) {
+      inflateGlobs(match);
       matchArr = match.toArray(new String[match.size()]);
     }
     return new Script(name, namespace, excludeArr, includeArr, matchArr,
@@ -411,5 +414,35 @@ public class Script extends ScriptMetadata {
     }
 
     return new ScriptResource(resourceName, resourceUrl, resourceData);
+  }
+
+  /**
+   * Issue:      CriterionMatcher.testGlob() doesn't properly handle a wildcard in the domain part of a glob pattern.
+   * Spec:       https://www.tampermonkey.net/documentation.php?locale=en#meta:match
+   * Example:    *://*.example.com/*
+   *               [pass] http://www.example.com/
+   *               [fail] http://example.com/
+   * Workaround: Detect glob patterns having a wildcard subdomain, and inject an additional glob pattern to match without subdomain.
+   * Trade-offs: This workaround is simple, and the amount of extra work it requires when the script criteria are tested at runtime is trivial.
+   *             By comparison, any update to CriterionMatcher.testGlob() to make it match globs per the spec would require much more work at runtime.
+   */
+  private static void inflateGlobs(Set<String> globs) {
+    if ((globs != null) && (globs.size() > 0)) {
+      Set<String> globs2 = new HashSet<String>();
+      for (String glob : globs) {
+        if (glob.contains("://*.")) {
+          glob = glob.replace("://*.", "://");
+          if (!globs.contains(glob) && !globs2.contains(glob)) {
+            globs2.add(glob);
+          }
+        }
+      }
+      if (globs2.size() > 0) {
+        for (String glob : globs2) {
+          globs.add(glob);
+        }
+      }
+      globs2 = null;
+    }
   }
 }
