@@ -59,6 +59,11 @@ android {
     }
   }
 
+  dependenciesInfo {
+    includeInApk    = false  // Disables dependency metadata when building APKs.
+    includeInBundle = false  // Disables dependency metadata when building Android App Bundles.
+  }
+
   lintOptions {
     disable 'Instantiatable'
     disable 'MissingTranslation'
