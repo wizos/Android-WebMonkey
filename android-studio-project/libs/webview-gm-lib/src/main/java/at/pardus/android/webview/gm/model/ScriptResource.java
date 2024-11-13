@@ -68,15 +68,21 @@ public class ScriptResource {
    * @see <tt><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs">Data URIs</a></tt>
    */
   public String getJavascriptUrl() {
-    String extension = MimeTypeMap.getFileExtensionFromUrl(this.url);
     String mimeType;
 
-    // Fallback to "bytes" if we can't determine the actual mimetype.
-    if (extension == null || TextUtils.isEmpty(extension)) {
-      mimeType = "application/octet-stream";
-    } else {
+    try {
+      String extension = MimeTypeMap.getFileExtensionFromUrl(this.url);
+      if (TextUtils.isEmpty(extension))
+        throw new Exception();
+
       MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
       mimeType = mimeTypeMap.getMimeTypeFromExtension(extension);
+      if (TextUtils.isEmpty(mimeType))
+        throw new Exception();
+    }
+    catch(Exception e) {
+      // Fallback to "bytes" if we can't determine the actual mimetype.
+      mimeType = "application/octet-stream";
     }
 
     return "data:" + mimeType + ";base64," + getDataBase64();

@@ -235,7 +235,7 @@ public class WebViewGmApi {
     Script script = scriptStore.get(new ScriptId(scriptName, scriptNamespace));
 
     for (ScriptResource resource : script.getResources()) {
-      Log.i(TAG, "Resource: " + resource.getName() + " want: " + resourceName + " uri: " + resource.getJavascriptUrl());
+      Log.i(TAG, "Want resource: '" + resourceName + "'. Found resource: '" + resource.getName() + "' from URL: '" + resource.getUrl() + "'.");
       if (!resource.getName().equals(resourceName)) {
         continue;
       }
