@@ -75,10 +75,24 @@ public class ScriptResource {
       if (TextUtils.isEmpty(extension))
         throw new Exception();
 
+      extension = extension.toLowerCase();
       MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
       mimeType = mimeTypeMap.getMimeTypeFromExtension(extension);
-      if (TextUtils.isEmpty(mimeType))
-        throw new Exception();
+      if (TextUtils.isEmpty(mimeType)) {
+        switch(extension) {
+          case "js":
+            mimeType = "text/javascript";
+            break;
+          case "json":
+            mimeType = "application/json";
+            break;
+          case "wasm":
+            mimeType = "application/wasm";
+            break;
+          default:
+            throw new Exception();
+        }
+      }
     }
     catch(Exception e) {
       // Fallback to "bytes" if we can't determine the actual mimetype.
