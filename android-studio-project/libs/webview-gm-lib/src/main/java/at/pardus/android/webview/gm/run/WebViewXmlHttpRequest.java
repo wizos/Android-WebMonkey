@@ -252,6 +252,7 @@ public class WebViewXmlHttpRequest {
 
       response.setStatus(httpConn.getResponseCode());
       response.setStatusText(httpConn.getResponseMessage());
+      response.setMimeType(httpConn.getContentType());
 
       // Adjust URL after "Location:" redirects, should be final now.
       response.setFinalUrl(httpConn.getURL().toString());
@@ -269,35 +270,16 @@ public class WebViewXmlHttpRequest {
 
       // Save all the response headers to the response object.
       String allHeaders = "";
-      String mimeType = "";
       Set<Map.Entry<String, List<String>>> responseHeaderSet = httpConn.getHeaderFields().entrySet();
-
       for (Map.Entry<String, List<String>> kvp : responseHeaderSet) {
         String headerKey = kvp.getKey();
         List<String> headerValues = kvp.getValue();
 
         if ((headerKey != null) && (headerValues != null)) {
           allHeaders += headerKey + ": " + headerValues.toString() + "\n";
-
-          if (mimeType.isEmpty() && headerKey.toLowerCase().equals("content-type")) {
-            for (String value : headerValues) {
-              if (!value.isEmpty()) {
-                mimeType = value.trim();
-
-                int index = mimeType.indexOf(";");
-                if (index >= 0) {
-                  mimeType = mimeType.substring(0, index).trim();
-                }
-
-                break;
-              }
-            }
-          }
         }
       }
-
       response.setResponseHeaders(allHeaders);
-      response.setMimeType(mimeType);
 
       // Setup progress parameters if applicable.
       contentLength = httpConn.getContentLength();
