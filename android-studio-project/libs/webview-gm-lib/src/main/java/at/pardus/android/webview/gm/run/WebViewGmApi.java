@@ -304,11 +304,9 @@ public class WebViewGmApi {
     WebViewXmlHttpRequest  request  = new WebViewXmlHttpRequest(this.view, jsonRequestString);
     WebViewXmlHttpResponse response = request.execute();
 
-    if (response != null) {
-      return response.toJSONString();
-    }
-
-    return "";
+    return (response == null)
+      ? "null"
+      : response.toJSONString();
   }
 
   /**

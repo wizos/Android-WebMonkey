@@ -383,7 +383,7 @@ public class WebViewXmlHttpRequest {
     StringBuilder sb = new StringBuilder(1 * 1024);
     sb.append("javascript: (function() {");
     sb.append(  "var details = {responseType: '" + this.responseType + "'};");
-    sb.append(  "var response = JSON.parse(" + response.toJSONString() + ");");
+    sb.append(  "var response = " + response.toJSONString() + ";");
     sb.append(  GLOBAL_JS_OBJECT + "." + callback + "(");
     sb.append(    GLOBAL_JS_OBJECT + "." + "_GM_formatXmlHttpResponse(details, response)");
     sb.append(  ");");

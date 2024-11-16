@@ -56,11 +56,9 @@ public class WebViewXmlHttpResponse {
   public String toJSONString() {
     JSONObject self = toJSONObject();
 
-    if (self == null) {
-      return "";
-    }
-
-    return JSONObject.quote(self.toString());
+    return (self == null)
+      ? "null"
+      : self.toString();
   }
 
   public JSONObject toJSONObject() {
