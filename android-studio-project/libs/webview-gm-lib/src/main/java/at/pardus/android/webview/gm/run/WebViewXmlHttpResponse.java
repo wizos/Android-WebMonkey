@@ -37,6 +37,7 @@ public class WebViewXmlHttpResponse {
   private String responseText;
   private int status; // This should also be an unsigned short.
   private String statusText;
+  private String mimeType;
 
   private JSONObject context;
   private String finalUrl;
@@ -71,6 +72,7 @@ public class WebViewXmlHttpResponse {
       self.put("responseText", this.responseText);
       self.put("status", this.status);
       self.put("statusText", this.statusText);
+      self.put("mimeType", this.mimeType);
       self.put("finalUrl", this.finalUrl);
       self.put("lengthComputable", this.lengthComputable);
       self.put("loaded", this.loaded);
@@ -106,6 +108,10 @@ public class WebViewXmlHttpResponse {
 
   public void setStatusText(String newStatusText) {
     this.statusText = newStatusText;
+  }
+
+  public void setMimeType(String newMimeType) {
+    this.mimeType = newMimeType;
   }
 
   public void setFinalUrl(String newFinalUrl) {

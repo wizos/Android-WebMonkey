@@ -250,3 +250,64 @@ var GM_fetch = function(input, init) {
     GM_xmlhttpRequest(xhr_details);
   });
 };
+
+// -------------------------
+// Format helper functions for:
+//   GM_xmlhttpRequest(details).responseText
+// -------------------------
+
+var _GM_base64ToText = function(base64) {
+  return atob(base64);
+}
+
+var _GM_base64ToJson = function(base64) {
+  return JSON.parse(
+    _GM_base64ToText(base64)
+  );
+}
+
+var _GM_base64ToArrayBuffer = function(base64) {
+  var binaryString = _GM_base64ToText(base64);
+  var bytes = new Uint8Array(binaryString.length);
+  for (var i=0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+var _GM_base64ToBlob = function(base64) {
+  return new Blob([
+    _GM_base64ToArrayBuffer(base64)
+  ]);
+}
+
+var _GM_formatXmlHttpResponse = function(details, response) {
+  if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseText) {
+    switch(details.responseType || '') {
+      case 'text_base64':
+        response.response = response.responseText
+        break;
+      case 'text_datauri':
+        response.response = 'data:' + (response.mimeType || 'application/octet-stream') + ';base64,' + response.responseText;
+        break;
+      case 'blob':
+        response.response = _GM_base64ToBlob(response.responseText);
+        break;
+      case 'arraybuffer':
+        response.response = _GM_base64ToArrayBuffer(response.responseText);
+        break;
+      case 'json':
+        response.response = _GM_base64ToJson(response.responseText);
+        break;
+      case 'text':
+      default:
+        response.responseText = _GM_base64ToText(response.responseText);
+        break;
+    }
+
+    if (response.response) {
+      delete response.responseText;
+    }
+  }
+  return response;
+}

@@ -23,6 +23,7 @@ import android.webkit.WebView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,8 +38,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import at.pardus.android.webview.gm.util.UnicodeReader;
 
 public class WebViewXmlHttpRequest {
 
@@ -57,6 +56,7 @@ public class WebViewXmlHttpRequest {
   private String onTimeout;
   private String overrideMimeType;
   private String password;
+  private String responseType;
   private boolean synchronous;
   private int timeout;
   private JSONObject upload;
@@ -91,6 +91,7 @@ public class WebViewXmlHttpRequest {
     this.onTimeout = jsonObject.optString("ontimeout");
     this.overrideMimeType = jsonObject.optString("overrideMimeType");
     this.password = jsonObject.optString("password");
+    this.responseType = jsonObject.optString("responseType");
     this.synchronous = jsonObject.optBoolean("synchronous");
     this.timeout = jsonObject.optInt("timeout");
     this.upload = jsonObject.optJSONObject("upload");
@@ -132,7 +133,7 @@ public class WebViewXmlHttpRequest {
   }
 
   public String getUploadOnError() {
-    if (this.upload == null) {
+    if ((this.upload == null) || (this.upload.length() == 0)) {
       return "";
     }
 
@@ -140,7 +141,7 @@ public class WebViewXmlHttpRequest {
   }
 
   public String getUploadOnLoad() {
-    if (this.upload == null) {
+    if ((this.upload == null) || (this.upload.length() == 0)) {
       return "";
     }
 
@@ -268,13 +269,35 @@ public class WebViewXmlHttpRequest {
 
       // Save all the response headers to the response object.
       String allHeaders = "";
-      Set<Map.Entry<String, List<String>>> responseHeaderSet = httpConn
-          .getHeaderFields().entrySet();
+      String mimeType = "";
+      Set<Map.Entry<String, List<String>>> responseHeaderSet = httpConn.getHeaderFields().entrySet();
+
       for (Map.Entry<String, List<String>> kvp : responseHeaderSet) {
-        allHeaders += kvp.getKey() + ": " + kvp.getValue() + "\n";
+        String headerKey = kvp.getKey();
+        List<String> headerValues = kvp.getValue();
+
+        if ((headerKey != null) && (headerValues != null)) {
+          allHeaders += headerKey + ": " + headerValues.toString() + "\n";
+
+          if (mimeType.isEmpty() && headerKey.toLowerCase().equals("content-type")) {
+            for (String value : headerValues) {
+              if (!value.isEmpty()) {
+                mimeType = value.trim();
+
+                int index = mimeType.indexOf(";");
+                if (index >= 0) {
+                  mimeType = mimeType.substring(0, index).trim();
+                }
+
+                break;
+              }
+            }
+          }
+        }
       }
 
       response.setResponseHeaders(allHeaders);
+      response.setMimeType(mimeType);
 
       // Setup progress parameters if applicable.
       contentLength = httpConn.getContentLength();
@@ -289,12 +312,12 @@ public class WebViewXmlHttpRequest {
 
       // Begin receiving any response data.
       InputStream inputStream = httpConn.getInputStream();
-      int bytesRead;
-      char[] buffer = new char[4096];
-      Reader in = new UnicodeReader(inputStream,
-          httpConn.getContentEncoding());
 
-      while ((bytesRead = in.read(buffer, 0, 4096)) != -1) {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      byte[] buffer = new byte[1024];
+      int bytesRead = -1;
+
+      while((bytesRead = inputStream.read(buffer)) != -1) {
         if (bytesRead <= 0) {
           break;
         }
@@ -305,15 +328,18 @@ public class WebViewXmlHttpRequest {
           executeOnProgressCallback(response);
         }
 
-        out.append(buffer, 0, bytesRead);
+        baos.write(buffer, 0, bytesRead);
         totalBytesRead += bytesRead;
       }
 
-      // Clean up open resources & report completion.
-      in.close();
-      httpConn.disconnect();
+      response.setResponseText(
+        Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
+      );
 
-      response.setResponseText(out.toString());
+      // Clean up open resources & report completion.
+      baos.reset();
+      baos.close();
+      httpConn.disconnect();
 
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_DONE);
       executeOnReadyStateChangeCallback(response);
@@ -349,74 +375,48 @@ public class WebViewXmlHttpRequest {
     });
   }
 
-  private void executeOnErrorCallback(WebViewXmlHttpResponse response) {
-    if (this.onError.equals("")) {
+  private void executeAbstractCallback(WebViewXmlHttpResponse response, String callback) {
+    if (callback.equals("")) {
       return;
     }
 
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + this.onError + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    StringBuilder sb = new StringBuilder(1 * 1024);
+    sb.append("javascript: (function() {");
+    sb.append(  "var details = {responseType: '" + this.responseType + "'};");
+    sb.append(  "var response = JSON.parse(" + response.toJSONString() + ");");
+    sb.append(  GLOBAL_JS_OBJECT + "." + callback + "(");
+    sb.append(    GLOBAL_JS_OBJECT + "." + "_GM_formatXmlHttpResponse(details, response)");
+    sb.append(  ");");
+    sb.append("})()");
+
+    loadUrlOnUiThread(sb.toString());
+  }
+
+  private void executeOnErrorCallback(WebViewXmlHttpResponse response) {
+    executeAbstractCallback(response, this.onError);
   }
 
   private void executeOnLoadCallback(WebViewXmlHttpResponse response) {
-    if (this.onLoad.equals("")) {
-      return;
-    }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + this.onLoad + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    executeAbstractCallback(response, this.onLoad);
   }
 
   private void executeOnProgressCallback(WebViewXmlHttpResponse response) {
-    if (this.onProgress.equals("")) {
-      return;
-    }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + this.onProgress + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    executeAbstractCallback(response, this.onProgress);
   }
 
-  private void executeOnReadyStateChangeCallback(
-      WebViewXmlHttpResponse response) {
-    if (this.onReadyStateChange.equals("")) {
-      return;
-    }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + this.onReadyStateChange + "(JSON.parse("
-        + response.toJSONString() + ")); })()");
+  private void executeOnReadyStateChangeCallback(WebViewXmlHttpResponse response) {
+    executeAbstractCallback(response, this.onReadyStateChange);
   }
 
   private void executeOnTimeoutCallback(WebViewXmlHttpResponse response) {
-    if (this.onTimeout.equals("")) {
-      return;
-    }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + this.onTimeout + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    executeAbstractCallback(response, this.onTimeout);
   }
 
   private void executeUploadOnErrorCallback(WebViewXmlHttpResponse response) {
-    if (upload == null || upload.length() == 0) {
-      return;
-    }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + getUploadOnError() + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    executeAbstractCallback(response, getUploadOnError());
   }
 
   private void executeUploadOnLoadCallback(WebViewXmlHttpResponse response) {
-        if (upload == null || upload.length() == 0) {
-            return;
-        }
-
-    loadUrlOnUiThread("javascript: (function() { " + GLOBAL_JS_OBJECT + "."
-        + getUploadOnLoad() + "(JSON.parse(" + response.toJSONString()
-        + ")); })()");
+    executeAbstractCallback(response, getUploadOnLoad());
   }
 }

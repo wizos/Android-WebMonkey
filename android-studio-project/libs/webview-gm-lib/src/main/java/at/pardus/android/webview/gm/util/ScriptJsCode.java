@@ -140,6 +140,9 @@ public class ScriptJsCode {
     sb.append(GM_API_LEGACY_MISSING);
     sb.append(GM_API_LEGACY);
 
+    sb.append(GLOBAL_JS_OBJECT + ".");
+    sb.append("_GM_formatXmlHttpResponse = _GM_formatXmlHttpResponse;\n");
+
     // -------------------------
     // Greasemonkey API (legacy)
     // -------------------------
@@ -279,12 +282,15 @@ public class ScriptJsCode {
     sb.append("GM_uploadOnProgressCallback'; }\n");
     // upload
     sb.append("}\n");
-    // return value: WebViewXmlHttpResponse.toJSONString()
-    sb.append("return JSON.parse(");
+    // response value: WebViewXmlHttpResponse.toJSONString()
+    sb.append("var response = JSON.parse(");
     sb.append(jsBridgeName);
     sb.append(".xmlHttpRequest(");
     sb.append(defaultSignature);
-    sb.append(", JSON.stringify(details))); };");
+    sb.append(", JSON.stringify(details)));");
+    // formatted response value
+    sb.append("return _GM_formatXmlHttpResponse(details, response);");
+    sb.append("};");
     sb.append("\n");
 
     sb.append("var GM_cookie = {};");
