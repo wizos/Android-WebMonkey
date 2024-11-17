@@ -2,6 +2,7 @@ package com.github.warren_bank.webmonkey;
 
 import com.github.warren_bank.webmonkey.settings.SettingsActivity;
 import com.github.warren_bank.webmonkey.settings.WebViewSettingsMgr;
+import com.github.warren_bank.webmonkey.util.SaveFileHelper;
 
 import at.pardus.android.webview.gm.demo.WebViewGmImpl;
 import at.pardus.android.webview.gm.run.WebViewClientGm;
@@ -65,6 +66,14 @@ public class BrowserActivity_Base extends WebViewGmImpl implements IBrowser {
     } else {
       return super.onOptionsItemSelected(item);
     }
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    boolean handled;
+
+    handled = SaveFileHelper.onActivityResult(BrowserActivity_Base.this, requestCode, resultCode, data);
+    if (handled) return;
   }
 
   protected void customizeWebView(WebViewGm webViewGm) {

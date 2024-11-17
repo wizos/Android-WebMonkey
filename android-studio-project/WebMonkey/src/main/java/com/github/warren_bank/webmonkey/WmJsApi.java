@@ -2,6 +2,8 @@ package com.github.warren_bank.webmonkey;
 
 import com.github.warren_bank.webmonkey.settings.SettingsUtils;
 import com.github.warren_bank.webmonkey.settings.WebViewSettingsMgr;
+import com.github.warren_bank.webmonkey.util.SaveFileDownloadHelper;
+import com.github.warren_bank.webmonkey.util.SaveFileHelper;
 
 import at.pardus.android.webview.gm.model.Script;
 import at.pardus.android.webview.gm.run.WebViewClientGm;
@@ -157,6 +159,56 @@ public class WmJsApi {
         catch(Exception e) {
           Log.e(WmJsApi.TAG, "Call to \"startIntent\" did not supply valid input and raised the following error", e);
         }
+      }
+
+/*
+ * -----------------------------------------------
+ * version 1: perform download
+ * -----------------------------------------------
+      @JavascriptInterface
+      public void download(String scriptName, String scriptNamespace, String secret, String fileName, String jsonRequestString) {
+        if (!WmJsApi.this.secret.equals(secret)) {
+          Log.e(WmJsApi.TAG, "Call to \"download\" did not supply correct secret");
+          return;
+        }
+
+        // short-circuit: skip download if SAF is unavailable to save the file
+        if (Build.VERSION.SDK_INT < 19)
+          return;
+
+        SaveFileDownloadHelper.Download download = SaveFileDownloadHelper.download(WmJsApi.this.webview, jsonRequestString);
+
+        if (download == null)
+          return;
+
+        SaveFileHelper.showFilePicker(WmJsApi.this.activity, download, fileName);
+      }
+ * -----------------------------------------------
+ */
+
+/*
+ * -----------------------------------------------
+ * version 2: delegate download,
+ *            and only process the response.
+ * -----------------------------------------------
+ */
+      @JavascriptInterface
+      public void download(String scriptName, String scriptNamespace, String secret, String base64, String mimeType, String fileName) {
+        if (!WmJsApi.this.secret.equals(secret)) {
+          Log.e(WmJsApi.TAG, "Call to \"download\" did not supply correct secret");
+          return;
+        }
+
+        // short-circuit: skip download if SAF is unavailable to save the file
+        if (Build.VERSION.SDK_INT < 19)
+          return;
+
+        SaveFileDownloadHelper.Download download = SaveFileDownloadHelper.convertBase64(base64, mimeType);
+
+        if (download == null)
+          return;
+
+        SaveFileHelper.showFilePicker(WmJsApi.this.activity, download, fileName);
       }
 
       @JavascriptInterface
@@ -462,6 +514,25 @@ public class WmJsApi {
       sb.append(", action, data, type, Array.prototype.slice.call(arguments, 3)); };");
       sb.append("\n");
     }
+
+    sb.append("var GM_download = function(url, name) {");
+    sb.append(  "var details, result;");
+    sb.append(  "if (typeof url === 'object') {");
+    sb.append(    "details = url;");
+    sb.append(    "name = name || details.name;");
+    sb.append(  "}");
+    sb.append(  "else if (typeof url === 'string') {");
+    sb.append(    "details = {url};");
+    sb.append(  "}");
+    sb.append(  "if (details && details.url && name) {");
+    sb.append(    "details.method = details.method || 'GET';");
+    sb.append(    "details.synchronous = true;");
+    sb.append(    "details.responseType = 'text_base64';");
+    sb.append(    "result = GM_xmlhttpRequest(details);");
+    sb.append(    jsBridgeName + ".download(" + defaultSignature + ", result.response, result.mimeType, name);");
+    sb.append(  "}");
+    sb.append("};");
+    sb.append("\n");
 
     if (useES6) {
       sb.append("var GM_loadUrl = function(url, ...headers) { ");

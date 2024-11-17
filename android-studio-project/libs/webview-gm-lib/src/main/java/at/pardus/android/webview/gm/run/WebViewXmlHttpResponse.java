@@ -51,41 +51,6 @@ public class WebViewXmlHttpResponse {
     this.context = context;
   }
 
-  public String toJSONString() {
-    JSONObject self = toJSONObject();
-
-    return (self == null)
-      ? "null"
-      : self.toString();
-  }
-
-  public JSONObject toJSONObject() {
-    JSONObject self = new JSONObject();
-
-    try {
-      self.put("readyState", this.readyState);
-      self.put("responseHeaders", this.responseHeaders);
-      self.put("responseText", this.responseText);
-      self.put("status", this.status);
-      self.put("statusText", this.statusText);
-      self.put("mimeType", this.mimeType);
-      self.put("finalUrl", this.finalUrl);
-      self.put("lengthComputable", this.lengthComputable);
-      self.put("loaded", this.loaded);
-      self.put("total", this.total);
-
-      if (this.context != null) {
-        self.put("context", this.context);
-      }
-    } catch (JSONException e) {
-      Log.e(TAG,
-          "Failed to generate JSON response object:" + e.getMessage());
-      return null;
-    }
-
-    return self;
-  }
-
   public void setReadyState(int newReadyState) {
     this.readyState = newReadyState;
   }
@@ -124,5 +89,48 @@ public class WebViewXmlHttpResponse {
 
   public void setTotal(int newTotal) {
     this.total = newTotal;
+  }
+
+  public String getResponseText() {
+    return this.responseText;
+  }
+
+  public String getMimeType() {
+    return this.mimeType;
+  }
+
+  public String toJSONString() {
+    JSONObject self = toJSONObject();
+
+    return (self == null)
+      ? "null"
+      : self.toString();
+  }
+
+  public JSONObject toJSONObject() {
+    JSONObject self = new JSONObject();
+
+    try {
+      self.put("readyState", this.readyState);
+      self.put("responseHeaders", this.responseHeaders);
+      self.put("responseText", this.responseText);
+      self.put("status", this.status);
+      self.put("statusText", this.statusText);
+      self.put("mimeType", this.mimeType);
+      self.put("finalUrl", this.finalUrl);
+      self.put("lengthComputable", this.lengthComputable);
+      self.put("loaded", this.loaded);
+      self.put("total", this.total);
+
+      if (this.context != null) {
+        self.put("context", this.context);
+      }
+    } catch (JSONException e) {
+      Log.e(TAG,
+          "Failed to generate JSON response object:" + e.getMessage());
+      return null;
+    }
+
+    return self;
   }
 }

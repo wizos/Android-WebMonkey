@@ -7,7 +7,6 @@ var GM_notImplemented = function(method_name) {
 };
 
 var GM_addValueChangeListener    = GM_notImplemented.bind(null, 'GM_addValueChangeListener');
-var GM_download                  = GM_notImplemented.bind(null, 'GM_download');
 var GM_getTab                    = GM_notImplemented.bind(null, 'GM_getTab');
 var GM_getTabs                   = GM_notImplemented.bind(null, 'GM_getTabs');
 var GM_notification              = GM_notImplemented.bind(null, 'GM_notification');
@@ -16,3 +15,11 @@ var GM_removeValueChangeListener = GM_notImplemented.bind(null, 'GM_removeValueC
 var GM_saveTab                   = GM_notImplemented.bind(null, 'GM_saveTab');
 var GM_setClipboard              = GM_notImplemented.bind(null, 'GM_setClipboard');
 var GM_webRequest                = GM_notImplemented.bind(null, 'GM_webRequest');
+
+/*
+ * -----------------------------------------------
+ * implemented by "WebViewWM" JavascriptInterface
+ * -----------------------------------------------
+var GM_download                  = GM_notImplemented.bind(null, 'GM_download');
+ * -----------------------------------------------
+ */

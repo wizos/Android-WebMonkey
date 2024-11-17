@@ -98,6 +98,10 @@ public class WebViewXmlHttpRequest {
     this.user = jsonObject.optString("user");
   }
 
+  public String getUrl() {
+    return this.url;
+  }
+
   public byte[] getDataBytes() {
     if (this.data.length() == 0) {
       return null;
