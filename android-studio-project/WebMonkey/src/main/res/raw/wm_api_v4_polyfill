@@ -4,6 +4,7 @@ _GM_addApiToObject(
     // -----------
     // synchronous
     // -----------
+    'download':         GM_download,
     'exit':             GM_exit,
     'loadFrame':        GM_loadFrame,
     'loadUrl':          GM_loadUrl,

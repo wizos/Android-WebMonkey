@@ -32,6 +32,7 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
     * `GM_cookie.delete`
     * `GM_cookie.list`
     * `GM_cookie.set`
+    * `GM_download`
     * `GM_fetch`
       - drop-in replacement for `window.fetch` that uses `GM_xmlhttpRequest` to make network requests
     * `GM_info`
@@ -47,6 +48,7 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
     * `GM.cookies.list`
     * `GM.cookies.set`
     * `GM.deleteValue`
+    * `GM.download`
     * `GM.fetch`
     * `GM.getResourceText`
     * `GM.getResourceUrl`

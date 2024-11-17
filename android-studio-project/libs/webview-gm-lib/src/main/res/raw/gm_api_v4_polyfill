@@ -98,11 +98,18 @@ _GM_addApiToObject(
     'unregisterMenuCommand':     _GM_promisifyApiMethod(GM_unregisterMenuCommand),
     'xmlHttpRequest':            _GM_promisifyApiMethod(GM_xmlhttpRequest),
 
+  /*
+   * -----------------------------------------------
+   * implemented by "WebViewWM" JavascriptInterface
+   * -----------------------------------------------
+    'download':                  _GM_promisifyApiMethod(GM_download),
+   * -----------------------------------------------
+   */
+
     // -----------------
     // missing functions
     // -----------------
     'addValueChangeListener':    _GM_promisifyApiMethod(GM_addValueChangeListener),
-    'download':                  _GM_promisifyApiMethod(GM_download),
     'getTab':                    _GM_promisifyApiMethod(GM_getTab),
     'getTabs':                   _GM_promisifyApiMethod(GM_getTabs),
     'notification':              _GM_promisifyApiMethod(GM_notification),
