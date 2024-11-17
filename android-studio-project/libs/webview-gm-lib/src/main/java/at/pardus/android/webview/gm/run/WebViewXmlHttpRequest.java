@@ -269,17 +269,25 @@ public class WebViewXmlHttpRequest {
       }
 
       // Save all the response headers to the response object.
-      String allHeaders = "";
-      Set<Map.Entry<String, List<String>>> responseHeaderSet = httpConn.getHeaderFields().entrySet();
-      for (Map.Entry<String, List<String>> kvp : responseHeaderSet) {
-        String headerKey = kvp.getKey();
-        List<String> headerValues = kvp.getValue();
+      JSONObject responseHeaders = new JSONObject();
+      Map<String, List<String>> headerFields = httpConn.getHeaderFields();
+      for (String key : headerFields.keySet()) {
+        if ((key == null) || key.isEmpty()) continue;
 
-        if ((headerKey != null) && (headerValues != null)) {
-          allHeaders += headerKey + ": " + headerValues.toString() + "\n";
+        List<String> values = headerFields.get(key);
+        if ((values == null) || values.isEmpty()) continue;
+
+        String value = (values.size() == 1)
+          ? values.get(0)
+          : values.toString();
+
+        try {
+          responseHeaders.put(key, value);
+        } catch (JSONException e) {
+          continue;
         }
       }
-      response.setResponseHeaders(allHeaders);
+      response.setResponseHeaders(responseHeaders);
 
       // Setup progress parameters if applicable.
       contentLength = httpConn.getContentLength();

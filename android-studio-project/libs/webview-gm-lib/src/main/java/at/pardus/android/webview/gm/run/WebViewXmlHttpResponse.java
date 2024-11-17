@@ -31,14 +31,12 @@ public class WebViewXmlHttpResponse {
   public static final int READY_STATE_LOADING = 3;
   public static final int READY_STATE_DONE = 4;
 
-  private int readyState; // Java has no unsigned types, this should be
-              // unsigned short.
-  private String responseHeaders;
+  private int readyState; // Java has no unsigned types, this should be unsigned short.
+  private JSONObject responseHeaders;
   private String responseText;
   private int status; // This should also be an unsigned short.
   private String statusText;
   private String mimeType;
-
   private JSONObject context;
   private String finalUrl;
 
@@ -92,7 +90,7 @@ public class WebViewXmlHttpResponse {
     this.readyState = newReadyState;
   }
 
-  public void setResponseHeaders(String newResponseHeaders) {
+  public void setResponseHeaders(JSONObject newResponseHeaders) {
     this.responseHeaders = newResponseHeaders;
   }
 
