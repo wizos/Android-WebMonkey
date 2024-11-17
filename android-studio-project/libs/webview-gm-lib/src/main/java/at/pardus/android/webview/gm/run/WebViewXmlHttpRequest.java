@@ -165,8 +165,7 @@ public class WebViewXmlHttpRequest {
   }
 
   private WebViewXmlHttpResponse executeHttpRequestAsync() {
-    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(
-        this.context);
+    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(this.context);
     Thread thread = new Thread() {
       @Override
       public void run() {
@@ -179,8 +178,12 @@ public class WebViewXmlHttpRequest {
   }
 
   private WebViewXmlHttpResponse executeHttpRequestSync() {
-    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(
-        this.context);
+    WebViewXmlHttpResponse response = parseDataUri();
+
+    if (response != null)
+      return response;
+
+    response = new WebViewXmlHttpResponse(this.context);
     StringBuilder out = new StringBuilder();
     URL url;
     int totalBytesRead = 0;
@@ -197,8 +200,7 @@ public class WebViewXmlHttpRequest {
     }
 
     try {
-      HttpURLConnection httpConn = (HttpURLConnection) url
-          .openConnection();
+      HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
 
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_OPENED);
       executeOnReadyStateChangeCallback(response);
@@ -212,12 +214,12 @@ public class WebViewXmlHttpRequest {
 
       if ((!this.user.equals("")) && (!this.password.equals(""))) {
         httpConn.setRequestProperty(
-            "Authorization",
-            "Basic "
-                + Base64.encodeToString(
-                    (this.user + ":" + this.password)
-                        .getBytes("UTF-8"),
-                    Base64.DEFAULT));
+          "Authorization",
+          "Basic " + Base64.encodeToString(
+            (this.user + ":" + this.password).getBytes("UTF-8"),
+            Base64.DEFAULT
+          )
+        );
       }
 
       httpConn.setRequestMethod(this.method);
@@ -356,6 +358,59 @@ public class WebViewXmlHttpRequest {
       } else {
         executeOnErrorCallback(response);
       }
+    }
+
+    return response;
+  }
+
+  private WebViewXmlHttpResponse parseDataUri() {
+    if ((this.url == null) || this.url.isEmpty() || !this.url.substring(0, 5).toLowerCase().equals("data:"))
+      return null;
+
+    int index_start;
+    int index_end;
+    boolean isBase64Encoding = false;
+
+    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(this.context);
+
+    // general format = data:(MIME-type);(name1=value1);(name2=value2);(encoding),(data)
+
+    // MIME-type
+    index_start = 5;
+    index_end   = this.url.indexOf(";", index_start);
+    if (index_end != -1) {
+      response.setMimeType(
+        this.url.substring(index_start, index_end).trim()
+      );
+    }
+
+    // encoding
+    index_end = this.url.indexOf(",");
+    if (index_end != -1) {
+      index_start = this.url.lastIndexOf(";", index_end);
+      if (index_start != -1) {
+        String encoding = this.url.substring(index_start + 1, index_end).trim().toLowerCase();
+
+        isBase64Encoding = encoding.equals("base64");
+      }
+    }
+
+    // data
+    if (index_end != -1) {
+      String data = this.url.substring(index_end + 1);
+
+      if (!isBase64Encoding) {
+        try {
+          data = Base64.encodeToString(data.getBytes("UTF-8"), Base64.DEFAULT);
+        }
+        catch(Exception e) {}
+      }
+
+      response.setResponseText(data);
+      response.setStatus(200);
+      response.setStatusText("OK");
+      response.setLengthComputable(true);
+      response.setTotal((data.length() / 4) * 3); // 3 bytes for every 4 characters. note: this counts padding.
     }
 
     return response;

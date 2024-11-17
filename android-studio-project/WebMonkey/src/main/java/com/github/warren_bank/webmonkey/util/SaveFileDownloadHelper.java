@@ -22,51 +22,12 @@ public class SaveFileDownloadHelper {
    * Don't run on the UI thread!
    */
   public static Download download(WebView view, String jsonRequestString) {
-    WebViewXmlHttpRequest request = new WebViewXmlHttpRequest(view, jsonRequestString);
-    String url = request.getUrl();
+    WebViewXmlHttpRequest  request  = new WebViewXmlHttpRequest(view, jsonRequestString);
+    WebViewXmlHttpResponse response = request.execute();
 
-    if ((url == null) || url.isEmpty())
-      return null;
-
-    String base64   = null;
-    String mimeType = null;
-
-    if (url.substring(0, 5).toLowerCase().equals("data:")) {
-      // cleanup
-      request = null;
-
-      int index_start = 5;
-      int index_end   = url.indexOf(";");
-
-      if (index_end > index_start) {
-        mimeType = url.substring(index_start, index_end);
-      }
-
-      index_start = url.indexOf(",");
-
-      if (index_start != -1) {
-        base64 = url.substring(index_start);
-      }
-
-      // cleanup
-      url = null;
-    }
-    else {
-      WebViewXmlHttpResponse response = request.execute();
-
-      if (response == null)
-        return null;
-
-      base64   = response.getResponseText();
-      mimeType = response.getMimeType();
-
-      // cleanup
-      request  = null;
-      response = null;
-      url      = null;
-    }
-
-    return convertBase64(base64, mimeType);
+    return (response == null)
+      ? null
+      : convertBase64(response.getResponseText(), response.getMimeType());
   }
 
   public static Download convertBase64(String base64, String mimeType) {
