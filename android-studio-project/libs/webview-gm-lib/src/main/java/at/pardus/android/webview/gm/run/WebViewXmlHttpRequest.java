@@ -180,8 +180,14 @@ public class WebViewXmlHttpRequest {
   private WebViewXmlHttpResponse executeHttpRequestSync() {
     WebViewXmlHttpResponse response = parseDataUri();
 
-    if (response != null)
+    if (response != null) {
+      response.setReadyState(WebViewXmlHttpResponse.READY_STATE_DONE);
+      executeOnReadyStateChangeCallback(response);
+
+      executeOnLoadCallback(response);
+
       return response;
+    }
 
     response = new WebViewXmlHttpResponse(this.context);
     StringBuilder out = new StringBuilder();
