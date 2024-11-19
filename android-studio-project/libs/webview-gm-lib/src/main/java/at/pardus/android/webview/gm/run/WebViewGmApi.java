@@ -16,15 +16,16 @@
 
 package at.pardus.android.webview.gm.run;
 
-import android.util.Log;
-import android.webkit.JavascriptInterface;
-
 import at.pardus.android.webview.gm.model.Script;
 import at.pardus.android.webview.gm.model.ScriptId;
 import at.pardus.android.webview.gm.model.ScriptResource;
 import at.pardus.android.webview.gm.store.ScriptStore;
+import at.pardus.android.webview.gm.util.CacheFileHelper;
 import at.pardus.android.webview.gm.util.CookieHelper;
 import at.pardus.android.webview.gm.util.ScriptPermissionHelper;
+
+import android.util.Log;
+import android.webkit.JavascriptInterface;
 
 /**
  * Contains methods simulating GM functions that need access to the app/database.
@@ -301,12 +302,42 @@ public class WebViewGmApi {
       return "";
     }
 
-    WebViewXmlHttpRequest  request  = new WebViewXmlHttpRequest(this.view, jsonRequestString);
+    WebViewXmlHttpRequest  request  = new WebViewXmlHttpRequest(view, jsonRequestString);
     WebViewXmlHttpResponse response = request.execute();
 
     return (response == null)
       ? "null"
       : response.toJSONString();
+  }
+
+  @JavascriptInterface
+  public boolean writeToCacheFile(String scriptName, String scriptNamespace, String secret, String UUID, String chunkBase64) {
+    if (!this.secret.equals(secret)) {
+      Log.e(TAG, "Call to \"writeToCacheFile\" did not supply correct secret");
+      return false;
+    }
+
+    return CacheFileHelper.write(view.getContext(), UUID, chunkBase64);
+  }
+
+  @JavascriptInterface
+  public String readFromCacheFile(String scriptName, String scriptNamespace, String secret, String UUID, long byteOffset) {
+    if (!this.secret.equals(secret)) {
+      Log.e(TAG, "Call to \"readFromCacheFile\" did not supply correct secret");
+      return null;
+    }
+
+    return CacheFileHelper.read(view.getContext(), UUID, byteOffset);
+  }
+
+  @JavascriptInterface
+  public boolean deleteCacheFile(String scriptName, String scriptNamespace, String secret, String UUID) {
+    if (!this.secret.equals(secret)) {
+      Log.e(TAG, "Call to \"deleteCacheFile\" did not supply correct secret");
+      return false;
+    }
+
+    return CacheFileHelper.delete(view.getContext(), UUID);
   }
 
   /**

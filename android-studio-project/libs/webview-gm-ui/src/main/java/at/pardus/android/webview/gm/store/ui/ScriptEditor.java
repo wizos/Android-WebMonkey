@@ -16,6 +16,10 @@
 
 package at.pardus.android.webview.gm.store.ui;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.model.ScriptId;
+import at.pardus.android.webview.gm.store.ScriptStore;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
@@ -23,10 +27,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.model.ScriptId;
-import at.pardus.android.webview.gm.store.ScriptStore;
 
 /**
  * Includes the UI to edit and save scripts.

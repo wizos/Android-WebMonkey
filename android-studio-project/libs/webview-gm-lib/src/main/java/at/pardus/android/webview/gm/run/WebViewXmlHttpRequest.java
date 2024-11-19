@@ -16,6 +16,8 @@
 
 package at.pardus.android.webview.gm.run;
 
+import at.pardus.android.webview.gm.util.CacheFileHelper;
+
 import android.util.Base64;
 import android.util.Log;
 import android.webkit.WebView;
@@ -178,24 +180,15 @@ public class WebViewXmlHttpRequest {
   }
 
   private WebViewXmlHttpResponse executeHttpRequestSync() {
-    WebViewXmlHttpResponse response = parseDataUri();
-
-    if (response != null) {
-      response.setReadyState(WebViewXmlHttpResponse.READY_STATE_DONE);
-      executeOnReadyStateChangeCallback(response);
-
-      executeOnLoadCallback(response);
-
-      return response;
-    }
-
-    response = new WebViewXmlHttpResponse(this.context);
-    StringBuilder out = new StringBuilder();
+    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(this.context);
     URL url;
     int totalBytesRead = 0;
     int contentLength;
     boolean duringUpload = false;
     byte[] outputData = this.getDataBytes();
+
+    String cacheUUID = String.valueOf(System.currentTimeMillis());
+    response.setResponseCacheUUID(cacheUUID);
 
     try {
       url = new URL(this.url);
@@ -315,8 +308,7 @@ public class WebViewXmlHttpRequest {
       // Begin receiving any response data.
       InputStream inputStream = httpConn.getInputStream();
 
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      byte[] buffer = new byte[1024];
+      byte[] buffer = new byte[1050]; //multiple of 3
       int bytesRead = -1;
 
       while((bytesRead = inputStream.read(buffer)) != -1) {
@@ -330,18 +322,23 @@ public class WebViewXmlHttpRequest {
           executeOnProgressCallback(response);
         }
 
-        baos.write(buffer, 0, bytesRead);
         totalBytesRead += bytesRead;
+
+        // base64 encode, and write to cache file
+        CacheFileHelper.write(
+          view.getContext(),
+          cacheUUID,
+          Base64.encodeToString(buffer, 0, bytesRead, Base64.DEFAULT)
+        );
       }
 
-      response.setResponseText(
-        Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
-      );
-
       // Clean up open resources & report completion.
-      baos.reset();
-      baos.close();
       httpConn.disconnect();
+
+      if (contentLength <= 0) {
+        response.setLengthComputable(true);
+        response.setTotal(totalBytesRead);
+      }
 
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_DONE);
       executeOnReadyStateChangeCallback(response);
@@ -364,59 +361,6 @@ public class WebViewXmlHttpRequest {
       } else {
         executeOnErrorCallback(response);
       }
-    }
-
-    return response;
-  }
-
-  private WebViewXmlHttpResponse parseDataUri() {
-    if ((this.url == null) || this.url.isEmpty() || !this.url.substring(0, 5).toLowerCase().equals("data:"))
-      return null;
-
-    int index_start;
-    int index_end;
-    boolean isBase64Encoding = false;
-
-    WebViewXmlHttpResponse response = new WebViewXmlHttpResponse(this.context);
-
-    // general format = data:(MIME-type);(name1=value1);(name2=value2);(encoding),(data)
-
-    // MIME-type
-    index_start = 5;
-    index_end   = this.url.indexOf(";", index_start);
-    if (index_end != -1) {
-      response.setMimeType(
-        this.url.substring(index_start, index_end).trim()
-      );
-    }
-
-    // encoding
-    index_end = this.url.indexOf(",");
-    if (index_end != -1) {
-      index_start = this.url.lastIndexOf(";", index_end);
-      if (index_start != -1) {
-        String encoding = this.url.substring(index_start + 1, index_end).trim().toLowerCase();
-
-        isBase64Encoding = encoding.equals("base64");
-      }
-    }
-
-    // data
-    if (index_end != -1) {
-      String data = this.url.substring(index_end + 1);
-
-      if (!isBase64Encoding) {
-        try {
-          data = Base64.encodeToString(data.getBytes("UTF-8"), Base64.DEFAULT);
-        }
-        catch(Exception e) {}
-      }
-
-      response.setResponseText(data);
-      response.setStatus(200);
-      response.setStatusText("OK");
-      response.setLengthComputable(true);
-      response.setTotal((data.length() / 4) * 3); // 3 bytes for every 4 characters. note: this counts padding.
     }
 
     return response;

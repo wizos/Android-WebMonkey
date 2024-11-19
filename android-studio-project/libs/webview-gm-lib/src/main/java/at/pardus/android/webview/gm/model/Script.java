@@ -16,6 +16,8 @@
 
 package at.pardus.android.webview.gm.model;
 
+import at.pardus.android.webview.gm.util.DownloadHelper;
+
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -24,8 +26,6 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import at.pardus.android.webview.gm.util.DownloadHelper;
 
 /**
  * Immutable object describing all sections of a user script. The class includes

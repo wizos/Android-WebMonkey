@@ -16,6 +16,10 @@
 
 package at.pardus.android.webview.gm.run;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.store.ScriptStore;
+import at.pardus.android.webview.gm.util.ScriptJsCode;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -23,10 +27,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.store.ScriptStore;
-import at.pardus.android.webview.gm.util.ScriptJsCode;
 
 /**
  * A user script enabled WebViewClient to be used by WebViewGm.

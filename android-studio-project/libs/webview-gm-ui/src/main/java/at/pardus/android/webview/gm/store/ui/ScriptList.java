@@ -16,16 +16,16 @@
 
 package at.pardus.android.webview.gm.store.ui;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.model.ScriptId;
+import at.pardus.android.webview.gm.store.ScriptStore;
+
 import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.model.ScriptId;
-import at.pardus.android.webview.gm.store.ScriptStore;
 
 /**
  * Includes the UI to list, enable/disable and delete scripts.

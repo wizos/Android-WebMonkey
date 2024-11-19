@@ -2,6 +2,8 @@ package com.github.warren_bank.webmonkey;
 
 import com.github.warren_bank.webmonkey.extras.TLSSocketFactory;
 
+import at.pardus.android.webview.gm.util.CacheFileHelper;
+
 import android.app.Application;
 import android.database.CursorWindow;
 import android.os.Build;
@@ -32,6 +34,8 @@ public class App extends Application {
       field.set(null, 250 * 1024 * 1024); //250MB
     }
     catch(Exception e) {}
+
+    CacheFileHelper.deleteAll(this);
 
   }
 }

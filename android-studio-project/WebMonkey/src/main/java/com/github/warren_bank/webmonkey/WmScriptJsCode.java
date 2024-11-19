@@ -1,18 +1,25 @@
 package com.github.warren_bank.webmonkey;
 
-import android.content.Context;
-import android.text.TextUtils;
-
 import at.pardus.android.webview.gm.model.Script;
 import at.pardus.android.webview.gm.util.ResourceHelper;
 import at.pardus.android.webview.gm.util.ScriptJsCode;
 
+import android.content.Context;
+import android.text.TextUtils;
+
 public class WmScriptJsCode extends ScriptJsCode {
 
+  private static String WM_API_LEGACY      = "";
   private static String WM_API_V4_POLYFILL = "";
   private static String WM_CLOSURE         = "";
 
   public static void initStaticResources(Context context) {
+    if (TextUtils.isEmpty(WM_API_LEGACY)) {
+      try {
+        WM_API_LEGACY = ResourceHelper.getRawStringResource(context, R.raw.wm_api_legacy);
+      }
+      catch(Exception e) {}
+    }
     if (TextUtils.isEmpty(WM_API_V4_POLYFILL)) {
       try {
         if (useES6)
@@ -44,6 +51,7 @@ public class WmScriptJsCode extends ScriptJsCode {
     sb.append(
       super.getJsApi(script, jsBridgeName, secret)
     );
+    sb.append(WM_API_LEGACY);
     sb.append(
       jsApi.getJsApi(script)
     );

@@ -1,5 +1,7 @@
 package com.github.warren_bank.webmonkey.util;
 
+import at.pardus.android.webview.gm.util.CacheFileHelper;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +12,22 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.warren_bank.webmonkey.util.SaveFileDownloadHelper;
-
 public class SaveFileHelper {
 
-  private static final Map<Integer, SaveFileDownloadHelper.Download> downloads = new HashMap<Integer, SaveFileDownloadHelper.Download>();
+  public static final class Download {
+    public String cacheUUID;
+    public String mimeType;
+
+    public Download(String _cacheUUID, String _mimeType) {
+      cacheUUID = _cacheUUID;
+      mimeType  = _mimeType;
+    }
+  }
+
+  private static final Map<Integer, Download> downloads = new HashMap<Integer, Download>();
   private static int lastRequestCode = 0;
 
-  public static void showFilePicker(Activity activity, SaveFileDownloadHelper.Download download, String fileName) {
+  public static void showFilePicker(Activity activity, Download download, String fileName) {
     if (Build.VERSION.SDK_INT < 19)
       return;
 
@@ -35,7 +45,7 @@ public class SaveFileHelper {
   }
 
   public static boolean onActivityResult(Context context, int requestCode, int resultCode, Intent data) {
-    SaveFileDownloadHelper.Download download = downloads.remove(requestCode);
+    Download download = downloads.remove(requestCode);
 
     if (download == null)
       return false;
@@ -48,11 +58,8 @@ public class SaveFileHelper {
 
       try {
         OutputStream out = context.getContentResolver().openOutputStream(uri);
-        out.write(download.buffer);
-        out.flush();
-        out.close();
 
-        return true;
+        return CacheFileHelper.save(context, download.cacheUUID, out);
       }
       catch(Exception e) {
         return false;

@@ -16,6 +16,10 @@
 
 package at.pardus.android.webview.gm.store.ui;
 
+import at.pardus.android.webview.gm.model.ScriptId;
+import at.pardus.android.webview.gm.model.ScriptMetadata;
+import at.pardus.android.webview.gm.store.ScriptStoreSQLite;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -25,10 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
-
-import at.pardus.android.webview.gm.model.ScriptId;
-import at.pardus.android.webview.gm.model.ScriptMetadata;
-import at.pardus.android.webview.gm.store.ScriptStoreSQLite;
 
 /**
  * Extend this class to use this package's UI to manage user scripts.

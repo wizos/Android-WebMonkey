@@ -16,6 +16,12 @@
 
 package at.pardus.android.webview.gm.store;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.model.ScriptCriteria;
+import at.pardus.android.webview.gm.model.ScriptId;
+import at.pardus.android.webview.gm.model.ScriptRequire;
+import at.pardus.android.webview.gm.model.ScriptResource;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -29,12 +35,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.model.ScriptCriteria;
-import at.pardus.android.webview.gm.model.ScriptId;
-import at.pardus.android.webview.gm.model.ScriptRequire;
-import at.pardus.android.webview.gm.model.ScriptResource;
 
 /**
  * Implements a ScriptStore using an SQLite database to persist user scripts and

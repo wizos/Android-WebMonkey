@@ -19,6 +19,13 @@ package at.pardus.android.webview.gm.demo;
 import com.github.warren_bank.webmonkey.R;
 import com.github.warren_bank.webmonkey.settings.SettingsUtils;
 
+import at.pardus.android.webview.gm.model.ScriptId;
+import at.pardus.android.webview.gm.store.ScriptStoreSQLite;
+import at.pardus.android.webview.gm.store.ui.ScriptBrowser;
+import at.pardus.android.webview.gm.store.ui.ScriptEditor;
+import at.pardus.android.webview.gm.store.ui.ScriptList;
+import at.pardus.android.webview.gm.store.ui.ScriptManagerActivity;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,13 +35,6 @@ import android.view.Window;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
-
-import at.pardus.android.webview.gm.model.ScriptId;
-import at.pardus.android.webview.gm.store.ScriptStoreSQLite;
-import at.pardus.android.webview.gm.store.ui.ScriptBrowser;
-import at.pardus.android.webview.gm.store.ui.ScriptEditor;
-import at.pardus.android.webview.gm.store.ui.ScriptList;
-import at.pardus.android.webview.gm.store.ui.ScriptManagerActivity;
 
 /**
  * Implements all parts of the WebView GM library.

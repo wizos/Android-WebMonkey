@@ -16,6 +16,13 @@
 
 package at.pardus.android.webview.gm.store.ui;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.run.WebViewClientGm;
+import at.pardus.android.webview.gm.run.WebViewGm;
+import at.pardus.android.webview.gm.store.ScriptStore;
+import at.pardus.android.webview.gm.util.DownloadHelper;
+import at.pardus.android.webview.gm.util.UrlUtils;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,13 +39,6 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.run.WebViewClientGm;
-import at.pardus.android.webview.gm.run.WebViewGm;
-import at.pardus.android.webview.gm.store.ScriptStore;
-import at.pardus.android.webview.gm.util.DownloadHelper;
-import at.pardus.android.webview.gm.util.UrlUtils;
 
 /**
  * Combines an address field and a WebView intercepting .user.js file downloads

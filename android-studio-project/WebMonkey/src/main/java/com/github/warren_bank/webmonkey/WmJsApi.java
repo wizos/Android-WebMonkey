@@ -2,7 +2,6 @@ package com.github.warren_bank.webmonkey;
 
 import com.github.warren_bank.webmonkey.settings.SettingsUtils;
 import com.github.warren_bank.webmonkey.settings.WebViewSettingsMgr;
-import com.github.warren_bank.webmonkey.util.SaveFileDownloadHelper;
 import com.github.warren_bank.webmonkey.util.SaveFileHelper;
 
 import at.pardus.android.webview.gm.model.Script;
@@ -161,52 +160,14 @@ public class WmJsApi {
         }
       }
 
-/*
- * -----------------------------------------------
- * version 1: perform download
- * -----------------------------------------------
       @JavascriptInterface
-      public void download(String scriptName, String scriptNamespace, String secret, String fileName, String jsonRequestString) {
+      public void download(String scriptName, String scriptNamespace, String secret, String cacheUUID, String mimeType, String fileName) {
         if (!WmJsApi.this.secret.equals(secret)) {
           Log.e(WmJsApi.TAG, "Call to \"download\" did not supply correct secret");
           return;
         }
 
-        // short-circuit: skip download if SAF is unavailable to save the file
-        if (Build.VERSION.SDK_INT < 19)
-          return;
-
-        SaveFileDownloadHelper.Download download = SaveFileDownloadHelper.download(WmJsApi.this.webview, jsonRequestString);
-
-        if (download == null)
-          return;
-
-        SaveFileHelper.showFilePicker(WmJsApi.this.activity, download, fileName);
-      }
- * -----------------------------------------------
- */
-
-/*
- * -----------------------------------------------
- * version 2: delegate download,
- *            and only process the response.
- * -----------------------------------------------
- */
-      @JavascriptInterface
-      public void download(String scriptName, String scriptNamespace, String secret, String base64, String mimeType, String fileName) {
-        if (!WmJsApi.this.secret.equals(secret)) {
-          Log.e(WmJsApi.TAG, "Call to \"download\" did not supply correct secret");
-          return;
-        }
-
-        // short-circuit: skip download if SAF is unavailable to save the file
-        if (Build.VERSION.SDK_INT < 19)
-          return;
-
-        SaveFileDownloadHelper.Download download = SaveFileDownloadHelper.convertBase64(base64, mimeType);
-
-        if (download == null)
-          return;
+        SaveFileHelper.Download download = new SaveFileHelper.Download(cacheUUID, mimeType);
 
         SaveFileHelper.showFilePicker(WmJsApi.this.activity, download, fileName);
       }
@@ -466,52 +427,36 @@ public class WmJsApi {
     // jsApi
     sb = new StringBuilder(4 * 1024);
 
-    sb.append("var GM_toastLong = function(message) { ");
-    sb.append(jsBridgeName);
-    sb.append(".toast(");
-    sb.append(defaultSignature);
-    sb.append(", ");
-    sb.append(Toast.LENGTH_LONG);
-    sb.append(", message); };");
+    sb.append("var GM_toastLong = function(message) {");
+    sb.append(  jsBridgeName + ".toast(" + defaultSignature + ", " + Toast.LENGTH_LONG + ", message);");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_toastShort = function(message) { ");
-    sb.append(jsBridgeName);
-    sb.append(".toast(");
-    sb.append(defaultSignature);
-    sb.append(", ");
-    sb.append(Toast.LENGTH_SHORT);
-    sb.append(", message); };");
+    sb.append("var GM_toastShort = function(message) {");
+    sb.append(  jsBridgeName + ".toast(" + defaultSignature + ", " + Toast.LENGTH_SHORT + ", message);");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_getUrl = function() { return ");
-    sb.append(jsBridgeName);
-    sb.append(".getUrl(");
-    sb.append(defaultSignature);
-    sb.append("); };");
+    sb.append("var GM_getUrl = function() {");
+    sb.append(  "return " + jsBridgeName + ".getUrl(" + defaultSignature + ");");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_resolveUrl = function(urlRelative, urlBase) { return ");
-    sb.append(jsBridgeName);
-    sb.append(".resolveUrl(");
-    sb.append(defaultSignature);
-    sb.append(", urlRelative, urlBase); };");
+    sb.append("var GM_resolveUrl = function(urlRelative, urlBase) {");
+    sb.append(  "return " + jsBridgeName + ".resolveUrl(" + defaultSignature + ", urlRelative, urlBase);");
+    sb.append("};");
     sb.append("\n");
 
     if (useES6) {
-      sb.append("var GM_startIntent = function(action, data, type, ...extras) { ");
-      sb.append(jsBridgeName);
-      sb.append(".startIntent(");
-      sb.append(defaultSignature);
-      sb.append(", action, data, type, extras); };");
+      sb.append("var GM_startIntent = function(action, data, type, ...extras) {");
+      sb.append(  jsBridgeName + ".startIntent(" + defaultSignature + ", action, data, type, extras);");
+      sb.append("};");
       sb.append("\n");
     }
     else {
-      sb.append("var GM_startIntent = function(action, data, type) { ");
-      sb.append(jsBridgeName);
-      sb.append(".startIntent(");
-      sb.append(defaultSignature);
-      sb.append(", action, data, type, Array.prototype.slice.call(arguments, 3)); };");
+      sb.append("var GM_startIntent = function(action, data, type) {");
+      sb.append(  jsBridgeName + ".startIntent(" + defaultSignature + ", action, data, type, Array.prototype.slice.call(arguments, 3));");
+      sb.append("};");
       sb.append("\n");
     }
 
@@ -527,7 +472,7 @@ public class WmJsApi {
     sb.append(  "if (details && details.url && name) {");
     sb.append(    "details.method = details.method || 'GET';");
     sb.append(    "details.synchronous = true;");
-    sb.append(    "details.responseType = 'text_base64';");
+    sb.append(    "details.responseType = 'cache_uuid';");
     sb.append(    "result = GM_xmlhttpRequest(details);");
     sb.append(    jsBridgeName + ".download(" + defaultSignature + ", result.response, result.mimeType, name);");
     sb.append(  "}");
@@ -535,55 +480,41 @@ public class WmJsApi {
     sb.append("\n");
 
     if (useES6) {
-      sb.append("var GM_loadUrl = function(url, ...headers) { ");
-      sb.append(jsBridgeName);
-      sb.append(".loadUrl(");
-      sb.append(defaultSignature);
-      sb.append(", url, headers); };");
+      sb.append("var GM_loadUrl = function(url, ...headers) {");
+      sb.append(  jsBridgeName + ".loadUrl(" + defaultSignature + ", url, headers);");
+      sb.append("};");
       sb.append("\n");
     }
     else {
-      sb.append("var GM_loadUrl = function(url) { ");
-      sb.append(jsBridgeName);
-      sb.append(".loadUrl(");
-      sb.append(defaultSignature);
-      sb.append(", url, Array.prototype.slice.call(arguments, 1)); };");
+      sb.append("var GM_loadUrl = function(url) {");
+      sb.append(  jsBridgeName + ".loadUrl(" + defaultSignature + ", url, Array.prototype.slice.call(arguments, 1));");
+      sb.append("};");
       sb.append("\n");
     }
 
-    sb.append("var GM_loadFrame = function(urlFrame, urlParent, proxyFrame) { ");
-    sb.append(jsBridgeName);
-    sb.append(".loadFrame(");
-    sb.append(defaultSignature);
-    sb.append(", urlFrame, urlParent, !!proxyFrame); };");
+    sb.append("var GM_loadFrame = function(urlFrame, urlParent, proxyFrame) {");
+    sb.append(  jsBridgeName + ".loadFrame(" + defaultSignature + ", urlFrame, urlParent, !!proxyFrame);");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_exit = function() { ");
-    sb.append(jsBridgeName);
-    sb.append(".exit(");
-    sb.append(defaultSignature);
-    sb.append("); };");
+    sb.append("var GM_exit = function() {");
+    sb.append(  jsBridgeName + ".exit(" + defaultSignature + ");");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_getUserAgent = function() { return ");
-    sb.append(jsBridgeName);
-    sb.append(".getUserAgent(");
-    sb.append(defaultSignature);
-    sb.append("); };");
+    sb.append("var GM_getUserAgent = function() {");
+    sb.append(  "return " + jsBridgeName + ".getUserAgent(" + defaultSignature + ");");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_setUserAgent = function(value) { ");
-    sb.append(jsBridgeName);
-    sb.append(".setUserAgent(");
-    sb.append(defaultSignature);
-    sb.append(", (value || '')); };");
+    sb.append("var GM_setUserAgent = function(value) {");
+    sb.append(  jsBridgeName + ".setUserAgent(" + defaultSignature + ", (value || ''));");
+    sb.append("};");
     sb.append("\n");
 
-    sb.append("var GM_removeAllCookies = function() { ");
-    sb.append(jsBridgeName);
-    sb.append(".removeAllCookies(");
-    sb.append(defaultSignature);
-    sb.append("); };");
+    sb.append("var GM_removeAllCookies = function() {");
+    sb.append(  jsBridgeName + ".removeAllCookies(" + defaultSignature + ");");
+    sb.append("};");
     sb.append("\n");
 
     String jsApi = sb.toString();

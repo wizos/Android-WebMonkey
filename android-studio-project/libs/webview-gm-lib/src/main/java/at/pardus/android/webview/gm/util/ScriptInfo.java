@@ -1,5 +1,8 @@
 package at.pardus.android.webview.gm.util;
 
+import at.pardus.android.webview.gm.model.Script;
+import at.pardus.android.webview.gm.model.ScriptResource;
+
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Build;
@@ -9,9 +12,6 @@ import android.webkit.WebSettings;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import at.pardus.android.webview.gm.model.Script;
-import at.pardus.android.webview.gm.model.ScriptResource;
 
 public class ScriptInfo {
 

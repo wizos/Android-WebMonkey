@@ -252,7 +252,56 @@ var GM_fetch = function(input, init) {
 };
 
 // -------------------------
-// Format helper functions for:
+// Helper functions for:
+//   CacheFileHelper
+// -------------------------
+
+var _GM_parseDataUri = function(url) {
+  if (!url || (typeof url !== 'string') || (url.substring(0, 5).toLowerCase() !== 'data:'))
+    return null;
+
+  var index_start, index_end, mimeType, isBase64Encoding, base64;
+
+  // MIME-type
+  index_start = 5;
+  index_end   = url.indexOf(';', index_start);
+  if (index_end !== -1) {
+    mimeType = url.substring(index_start, index_end).trim();
+  }
+
+  // encoding
+  index_end = url.indexOf(',');
+  if (index_end !== -1) {
+    index_start = url.lastIndexOf(';', index_end);
+    if (index_start != -1) {
+      isBase64Encoding = url.substring(index_start + 1, index_end).trim().toLowerCase() === 'base64';
+    }
+  }
+
+  // data
+  if (index_end !== -1) {
+    base64 = url.substring(index_end + 1);
+
+    if (!isBase64Encoding) {
+      base64 = btoa(base64);
+    }
+  }
+
+  return (!!base64) ? {mimeType, base64} : null;
+}
+
+var _GM_base64LengthToBytes = function(base64Length) {
+  // each block of 4 characters represent 3 bytes
+  return Math.ceil(base64Length / 4) * 3;
+}
+
+var _GM_bytesToBase64Length = function(bytes) {
+  // each block of 3 bytes is represented by 4 characters
+  return Math.ceil(bytes / 3) * 4;
+}
+
+// -------------------------
+// Helper functions to format:
 //   GM_xmlhttpRequest(details).responseText
 // -------------------------
 
@@ -282,32 +331,37 @@ var _GM_base64ToBlob = function(base64) {
 }
 
 var _GM_formatXmlHttpResponse = function(details, response) {
-  if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseText) {
-    switch(details.responseType || '') {
-      case 'text_base64':
-        response.response = response.responseText
-        break;
-      case 'text_datauri':
-        response.response = 'data:' + (response.mimeType || 'application/octet-stream') + ';base64,' + response.responseText;
-        break;
-      case 'blob':
-        response.response = _GM_base64ToBlob(response.responseText);
-        break;
-      case 'arraybuffer':
-        response.response = _GM_base64ToArrayBuffer(response.responseText);
-        break;
-      case 'json':
-        response.response = _GM_base64ToJson(response.responseText);
-        break;
-      case 'text':
-      default:
-        response.responseText = _GM_base64ToText(response.responseText);
-        break;
+  var base64;
+  if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseCacheUUID) {
+    if (details.responseType === 'cache_uuid') {
+      response.response = response.responseCacheUUID;
     }
+    else {
+      base64 = _GM_readFromCacheFile(response.responseCacheUUID);
 
-    if (response.response) {
-      delete response.responseText;
+      switch(details.responseType || '') {
+        case 'text_base64':
+          response.response = base64;
+          break;
+        case 'text_datauri':
+          response.response = 'data:' + (response.mimeType || 'application/octet-stream') + ';base64,' + base64;
+          break;
+        case 'blob':
+          response.response = _GM_base64ToBlob(base64);
+          break;
+        case 'arraybuffer':
+          response.response = _GM_base64ToArrayBuffer(base64);
+          break;
+        case 'json':
+          response.response = _GM_base64ToJson(base64);
+          break;
+        case 'text':
+        default:
+          response.responseText = _GM_base64ToText(base64);
+          break;
+      }
     }
+    delete response.responseCacheUUID;
   }
   return response;
 }

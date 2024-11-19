@@ -16,6 +16,8 @@
 
 package at.pardus.android.webview.gm.run;
 
+import at.pardus.android.webview.gm.store.ScriptStore;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -23,8 +25,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import java.util.UUID;
-
-import at.pardus.android.webview.gm.store.ScriptStore;
 
 /**
  * A user script enabled WebView.

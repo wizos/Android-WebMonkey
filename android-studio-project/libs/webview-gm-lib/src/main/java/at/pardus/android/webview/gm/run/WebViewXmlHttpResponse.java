@@ -33,7 +33,7 @@ public class WebViewXmlHttpResponse {
 
   private int readyState; // Java has no unsigned types, this should be unsigned short.
   private JSONObject responseHeaders;
-  private String responseText;
+  private String responseCacheUUID;
   private int status; // This should also be an unsigned short.
   private String statusText;
   private String mimeType;
@@ -59,8 +59,8 @@ public class WebViewXmlHttpResponse {
     this.responseHeaders = newResponseHeaders;
   }
 
-  public void setResponseText(String newResponseText) {
-    this.responseText = newResponseText;
+  public void setResponseCacheUUID(String newResponseCacheUUID) {
+    this.responseCacheUUID = newResponseCacheUUID;
   }
 
   public void setStatus(int newStatus) {
@@ -91,8 +91,8 @@ public class WebViewXmlHttpResponse {
     this.total = newTotal;
   }
 
-  public String getResponseText() {
-    return this.responseText;
+  public String getResponseCacheUUID() {
+    return this.responseCacheUUID;
   }
 
   public String getMimeType() {
@@ -113,7 +113,7 @@ public class WebViewXmlHttpResponse {
     try {
       self.put("readyState", this.readyState);
       self.put("responseHeaders", this.responseHeaders);
-      self.put("responseText", this.responseText);
+      self.put("responseCacheUUID", this.responseCacheUUID);
       self.put("status", this.status);
       self.put("statusText", this.statusText);
       self.put("mimeType", this.mimeType);
