@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         test: GM_download (base64-encoded data: URI)
+// @name         test: GM_download (5 MB, base64-encoded data: URI)
 // @namespace    WebViewWM
 // @match        *://*
 // @run-at       document-end

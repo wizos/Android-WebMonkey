@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         test: GM_download (network URL)
+// @name         test: GM_download (50 MB, network URL)
 // @namespace    WebViewWM
 // @match        *://*
 // @run-at       document-end
