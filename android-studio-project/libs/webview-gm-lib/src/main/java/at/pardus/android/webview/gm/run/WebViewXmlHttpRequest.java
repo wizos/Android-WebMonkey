@@ -216,7 +216,7 @@ public class WebViewXmlHttpRequest {
           "Authorization",
           "Basic " + Base64.encodeToString(
             (this.user + ":" + this.password).getBytes("UTF-8"),
-            Base64.DEFAULT
+            (Base64.DEFAULT | Base64.NO_WRAP)
           )
         );
       }
@@ -308,7 +308,7 @@ public class WebViewXmlHttpRequest {
       // Begin receiving any response data.
       InputStream inputStream = httpConn.getInputStream();
 
-      byte[] buffer = new byte[1050]; //multiple of 3
+      byte[] buffer = new byte[1024];
       int bytesRead = -1;
 
       while((bytesRead = inputStream.read(buffer)) != -1) {
@@ -324,12 +324,7 @@ public class WebViewXmlHttpRequest {
 
         totalBytesRead += bytesRead;
 
-        // base64 encode, and write to cache file
-        CacheFileHelper.write(
-          view.getContext(),
-          cacheUUID,
-          Base64.encodeToString(buffer, 0, bytesRead, Base64.DEFAULT)
-        );
+        CacheFileHelper.write(view.getContext(), cacheUUID, buffer, 0, bytesRead);
       }
 
       // Clean up open resources & report completion.

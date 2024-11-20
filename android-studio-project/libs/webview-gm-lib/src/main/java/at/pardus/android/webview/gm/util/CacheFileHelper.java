@@ -11,9 +11,11 @@ import java.io.OutputStream;
 
 public class CacheFileHelper {
 
+  // multiple of 3, so base64 encoded string doesn't require padding
+  public static final int READ_BYTES_PER_CHUNK = 1050;
+
   private static final String FILENAME_PREFIX   = "download_";
   private static final String FILENAME_SUFFIX   = ".tmp";
-  private static final int READ_CHARS_PER_CHUNK = 1400;
 
   private static String getFileName(String UUID) {
     return FILENAME_PREFIX + UUID + FILENAME_SUFFIX;
@@ -26,12 +28,20 @@ public class CacheFileHelper {
   }
 
   public static boolean write(Context context, String UUID, String chunkBase64) {
+    return write(context, UUID, Base64.decode(chunkBase64, Base64.DEFAULT));
+  }
+
+  public static boolean write(Context context, String UUID, byte[] buffer) {
+    return write(context, UUID, buffer, 0, buffer.length);
+  }
+
+  public static boolean write(Context context, String UUID, byte[] buffer, int offset, int length) {
     File file = getFile(context, UUID);
     boolean OK = false;
 
     try {
       FileOutputStream fos = new FileOutputStream(file, true);
-      fos.write(chunkBase64.getBytes());
+      fos.write(buffer, offset, length);
       fos.close();
       OK = true;
     }
@@ -51,10 +61,10 @@ public class CacheFileHelper {
       long skipped = fis.skip(byteOffset);
       if (skipped > byteOffset) throw new Exception();
       int remaining = (int) (byteOffset - skipped);
-      byte[] buffer = new byte[READ_CHARS_PER_CHUNK + remaining];
+      byte[] buffer = new byte[READ_BYTES_PER_CHUNK + remaining];
       int bytesRead = fis.read(buffer);
       if (bytesRead != -1) {
-        chunkBase64 = new String(buffer, remaining, (bytesRead - remaining));
+        chunkBase64 = Base64.encodeToString(buffer, remaining, (bytesRead - remaining), (Base64.DEFAULT | Base64.NO_WRAP));
       }
     }
     catch(Exception e) {
@@ -67,17 +77,14 @@ public class CacheFileHelper {
   public static boolean save(Context context, String UUID, OutputStream out) {
     File file = getFile(context, UUID);
     boolean OK = false;
-    String chunkBase64;
     int bytesRead;
 
     try {
       FileInputStream fis = new FileInputStream(file);
-      byte[] buffer = new byte[READ_CHARS_PER_CHUNK];
+      byte[] buffer = new byte[1024];
 
       while((bytesRead = fis.read(buffer)) != -1) {
-        chunkBase64 = new String(buffer, 0, bytesRead);
-
-        out.write(Base64.decode(chunkBase64, Base64.DEFAULT));
+        out.write(buffer, 0, bytesRead);
         out.flush();
       }
 

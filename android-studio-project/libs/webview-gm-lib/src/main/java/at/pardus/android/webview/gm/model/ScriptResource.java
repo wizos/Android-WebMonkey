@@ -56,7 +56,7 @@ public class ScriptResource {
    * @return A base64 encoded String representing this class' 'data' variable
    */
   public String getDataBase64() {
-    return Base64.encodeToString(this.data, Base64.DEFAULT);
+    return Base64.encodeToString(this.data, (Base64.DEFAULT | Base64.NO_WRAP));
   }
 
   /**

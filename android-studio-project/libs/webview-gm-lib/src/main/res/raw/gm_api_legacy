@@ -300,11 +300,6 @@ var _GM_bytesToBase64Length = function(bytes) {
   return Math.ceil(bytes / 3) * 4;
 }
 
-// -------------------------
-// Helper functions to format:
-//   GM_xmlhttpRequest(details).responseText
-// -------------------------
-
 var _GM_base64ToText = function(base64) {
   return atob(base64);
 }
@@ -330,38 +325,80 @@ var _GM_base64ToBlob = function(base64) {
   ]);
 }
 
-var _GM_formatXmlHttpResponse = function(details, response) {
-  var base64;
-  if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseCacheUUID) {
-    if (details.responseType === 'cache_uuid') {
-      response.response = response.responseCacheUUID;
-    }
-    else {
-      base64 = _GM_readFromCacheFile(response.responseCacheUUID);
+// -------------------------
+// Helper functions to format:
+//   GM_xmlhttpRequest(details).responseText
+// -------------------------
 
-      switch(details.responseType || '') {
-        case 'text_base64':
-          response.response = base64;
-          break;
-        case 'text_datauri':
-          response.response = 'data:' + (response.mimeType || 'application/octet-stream') + ';base64,' + base64;
-          break;
-        case 'blob':
-          response.response = _GM_base64ToBlob(base64);
-          break;
-        case 'arraybuffer':
-          response.response = _GM_base64ToArrayBuffer(base64);
-          break;
-        case 'json':
-          response.response = _GM_base64ToJson(base64);
-          break;
-        case 'text':
-        default:
-          response.responseText = _GM_base64ToText(base64);
-          break;
-      }
-    }
-    delete response.responseCacheUUID;
+var _GM_arrayBufferToText = function(arrayBuffer) {
+  var uint8 = new Uint8Array(arrayBuffer);
+  var textdecoder = new TextDecoder('utf-8');
+
+  return textdecoder.decode(uint8);
+}
+
+var _GM_arrayBufferToJson = function(arrayBuffer) {
+  return JSON.parse(
+    _GM_arrayBufferToText(arrayBuffer)
+  );
+}
+
+var _GM_arrayBufferToBase64 = function(arrayBuffer) {
+  var uint8  = new Uint8Array(arrayBuffer);
+  var length = uint8.byteLength;
+  var binary = [];
+
+  for (var i=0; i < length; i++) {
+    binary[i] = String.fromCharCode(uint8[i]);
   }
+
+  return btoa(
+    binary.join('')
+  );
+}
+
+var _GM_arrayBufferToBlob = function(arrayBuffer) {
+  return new Blob([
+    arrayBuffer
+  ]);
+}
+
+var _GM_formatXmlHttpResponse = function(details, response) {
+  var arrayBuffer;
+  try {
+    if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseCacheUUID) {
+      if (details.responseType === 'cache_uuid') {
+        response.response = response.responseCacheUUID;
+      }
+      else {
+        arrayBuffer = _GM_readFromCacheFile(response.responseCacheUUID, response.total);
+
+        switch(details.responseType || '') {
+          case 'arraybuffer':
+            response.response = arrayBuffer;
+            break;
+          case 'blob':
+            response.response = _GM_arrayBufferToBlob(arrayBuffer);
+            break;
+          case 'text_base64':
+            response.response = _GM_arrayBufferToBase64(arrayBuffer);
+            break;
+          case 'text_datauri':
+            response.response = 'data:' + (response.mimeType || 'application/octet-stream') + ';base64,' + _GM_arrayBufferToBase64(arrayBuffer);
+            break;
+          case 'json':
+            response.response = _GM_arrayBufferToJson(arrayBuffer);
+            break;
+          case 'text':
+          default:
+            response.responseText = _GM_arrayBufferToText(arrayBuffer);
+            break;
+        }
+      }
+      delete response.responseCacheUUID;
+    }
+  }
+  catch(e) {}
+
   return response;
 }

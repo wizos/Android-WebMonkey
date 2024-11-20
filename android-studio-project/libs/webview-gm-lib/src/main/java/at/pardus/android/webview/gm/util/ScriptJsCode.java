@@ -304,15 +304,26 @@ public class ScriptJsCode {
     sb.append("}");
     sb.append("\n");
 
-    sb.append("var _GM_readFromCacheFile = function(UUID) {");
-    sb.append(  "var chunks = [];");
+    sb.append("var _GM_readFromCacheFile = function(UUID, totalBytes) {");
+    sb.append(  "var arrayBuffer = uint8Buffer = null;");
+    sb.append(  "var base64Chunk = uint8Chunk = null;");
     sb.append(  "var byteOffset = 0;");
-    sb.append(  "var chunk;");
-    sb.append(  "while(chunk = " + jsBridgeName + ".readFromCacheFile(" + defaultSignature + ", UUID, byteOffset)) {");
-    sb.append(    "byteOffset += chunk.length;");
-    sb.append(    "chunks.push(chunk);");
+    sb.append(  "try {");
+    sb.append(    "arrayBuffer = new ArrayBuffer(totalBytes);");
+    sb.append(    "uint8Buffer = new Uint8Array(arrayBuffer);");
+    sb.append(    "while(base64Chunk = " + jsBridgeName + ".readFromCacheFile(" + defaultSignature + ", UUID, byteOffset)) {");
+    sb.append(      "uint8Chunk = new Uint8Array(");
+    sb.append(        "_GM_base64ToArrayBuffer(base64Chunk)");
+    sb.append(      ");");
+    sb.append(      "uint8Buffer.set(uint8Chunk, byteOffset);");
+    sb.append(      "byteOffset += uint8Chunk.byteLength;");
+    sb.append(    "}");
+    sb.append(    "if (!uint8Buffer.byteLength) throw 0;");
     sb.append(  "}");
-    sb.append(  "return (!!chunks.length) ? chunks.join('') : null;");
+    sb.append(  "catch(e) {");
+    sb.append(    "arrayBuffer = uint8Buffer = null;");
+    sb.append(  "}");
+    sb.append(  "return arrayBuffer;");
     sb.append("}");
     sb.append("\n");
 
