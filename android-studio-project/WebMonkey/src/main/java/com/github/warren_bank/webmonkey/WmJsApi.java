@@ -461,7 +461,7 @@ public class WmJsApi {
     }
 
     sb.append("var GM_download = function(url, name) {");
-    sb.append(  "var details, result;");
+    sb.append(  "var details, onload_event_handler, result, details_onload;");
     sb.append(  "if (typeof url === 'object') {");
     sb.append(    "details = url;");
     sb.append(    "name = name || details.name;");
@@ -471,11 +471,26 @@ public class WmJsApi {
     sb.append(  "}");
     sb.append(  "if (details && details.url && name) {");
     sb.append(    "details.method = details.method || 'GET';");
-    sb.append(    "details.synchronous = true;");
     sb.append(    "details.responseType = 'cache_uuid';");
-    sb.append(    "result = GM_xmlhttpRequest(details);");
-    sb.append(    "if (result && !result.error && result.response) {");
-    sb.append(      jsBridgeName + ".download(" + defaultSignature + ", result.response, (result.mimeType || '*/*'), name);");
+    sb.append(    "onload_event_handler = function(result) {");
+    sb.append(      "if (result && !result.error && result.response) {");
+    sb.append(        jsBridgeName + ".download(" + defaultSignature + ", result.response, (result.mimeType || '*/*'), name);");
+    sb.append(      "}");
+    sb.append(      "if (details_onload) {");
+    sb.append(        "details_onload(result);");
+    sb.append(      "}");
+    sb.append(    "};");
+    sb.append(    "if (details.synchronous) {");
+    sb.append(      "result = GM_xmlhttpRequest(details);");
+    sb.append(      "onload_event_handler(result);");
+    sb.append(      "return result;");
+    sb.append(    "}");
+    sb.append(    "else {");
+    sb.append(      "if (typeof details.onload === 'function') {");
+    sb.append(        "details_onload = details.onload;");
+    sb.append(      "}");
+    sb.append(      "details.onload = onload_event_handler;");
+    sb.append(      "GM_xmlhttpRequest(details);");
     sb.append(    "}");
     sb.append(  "}");
     sb.append("};");
