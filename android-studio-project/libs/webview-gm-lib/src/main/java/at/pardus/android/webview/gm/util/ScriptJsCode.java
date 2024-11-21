@@ -195,13 +195,13 @@ public class ScriptJsCode {
 
     sb.append("var GM_xmlhttpRequest = function(details) {");
     // short-circuit data: URI
-    sb.append(  "var dataUri, UUID, response;");
+    sb.append(  "var dataUri, UUID, response, result;");
     sb.append(  "dataUri = _GM_parseDataUri(details.url);");
     // process data: URI
     sb.append(  "if (dataUri) {");
-    sb.append(    "UUID = _GM_writeToCacheFile(dataUri.base64);");
+    sb.append(    "UUID = _GM_writeToCacheFile(dataUri.data);");
     sb.append(    "if (UUID) {");
-    sb.append(      "response = {responseCacheUUID: UUID, mimeType: dataUri.mimeType, readyState: 4, status: 200, statusText: 'OK', lengthComputable: true, loaded: _GM_base64LengthToBytes(dataUri.base64.length), total: _GM_base64LengthToBytes(dataUri.base64.length)};");
+    sb.append(      "response = {responseCacheUUID: UUID, mimeType: dataUri.mimeType, readyState: 4, status: 200, statusText: 'OK', lengthComputable: true, loaded: dataUri.byteLength, total: dataUri.byteLength};");
     sb.append(    "}");
     sb.append(  "}");
     // process http: URL
@@ -266,7 +266,14 @@ public class ScriptJsCode {
     sb.append(    ");");
     sb.append(  "}");
     // format response value
-    sb.append(  "return _GM_formatXmlHttpResponse(details, response);");
+    sb.append(  "result = _GM_formatXmlHttpResponse(details, response);");
+    // fire async events for data: URI
+    sb.append(  "if (dataUri) {");
+    sb.append(    "if (details.onprogress) {details.onprogress(result);}");
+    sb.append(    "if (details.onload)     {details.onload(result);}");
+    sb.append(  "}");
+    // return sync formatted response value
+    sb.append(  "return result;");
     sb.append("};");
     sb.append("\n");
 

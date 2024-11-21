@@ -462,12 +462,12 @@ public class WmJsApi {
 
     sb.append("var GM_download = function(url, name) {");
     sb.append(  "var details, onload_event_handler, result, details_onload;");
-    sb.append(  "if (typeof url === 'object') {");
+    sb.append(  "if ((typeof url === 'string') || (url instanceof ArrayBuffer) || (url instanceof Uint8Array)) {");
+    sb.append(    "details = {url};");
+    sb.append(  "}");
+    sb.append(  "else if (typeof url === 'object') {");
     sb.append(    "details = url;");
     sb.append(    "name = name || details.name;");
-    sb.append(  "}");
-    sb.append(  "else if (typeof url === 'string') {");
-    sb.append(    "details = {url};");
     sb.append(  "}");
     sb.append(  "if (details && details.url && name) {");
     sb.append(    "details.method = details.method || 'GET';");

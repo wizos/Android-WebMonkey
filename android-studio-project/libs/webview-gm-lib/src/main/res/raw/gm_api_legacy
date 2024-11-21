@@ -257,7 +257,17 @@ var GM_fetch = function(input, init) {
 // -------------------------
 
 var _GM_parseDataUri = function(url) {
-  if (!url || (typeof url !== 'string') || (url.substring(0, 5).toLowerCase() !== 'data:'))
+  if (!url)
+    return null;
+
+  if ((url instanceof ArrayBuffer) || (url instanceof Uint8Array))
+    return {
+      data: url,
+      byteLength: url.byteLength,
+      mimeType: null
+    };
+
+  if ((typeof url !== 'string') || (url.substring(0, 5).toLowerCase() !== 'data:'))
     return null;
 
   var index_start, index_end, mimeType, isBase64Encoding, base64;
@@ -287,7 +297,14 @@ var _GM_parseDataUri = function(url) {
     }
   }
 
-  return (!!base64) ? {mimeType, base64} : null;
+  if (!base64)
+    return null;
+
+  return {
+    data: base64,
+    byteLength: _GM_base64LengthToBytes(base64.length),
+    mimeType
+  };
 }
 
 var _GM_base64LengthToBytes = function(base64Length) {
