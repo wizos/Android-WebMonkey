@@ -33,6 +33,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.HashMap;
@@ -95,7 +96,7 @@ public class WebViewXmlHttpRequest {
     this.password = jsonObject.optString("password");
     this.responseType = jsonObject.optString("responseType");
     this.synchronous = jsonObject.optBoolean("synchronous");
-    this.timeout = jsonObject.optInt("timeout");
+    this.timeout = jsonObject.optInt("timeout", 5000);
     this.upload = jsonObject.optJSONObject("upload");
     this.user = jsonObject.optString("user");
   }
@@ -199,7 +200,7 @@ public class WebViewXmlHttpRequest {
     }
 
     try {
-      HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+      HttpURLConnection httpConn = (HttpURLConnection) url.openConnection(Proxy.NO_PROXY);
 
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_OPENED);
       executeOnReadyStateChangeCallback(response);
@@ -207,8 +208,7 @@ public class WebViewXmlHttpRequest {
       // Set connection properties for the GM_xmlhttpRequest
       if (outputData != null) {
         httpConn.setDoOutput(true);
-        httpConn.setRequestProperty("Content-Length",
-            Integer.toString(outputData.length));
+        httpConn.setRequestProperty("Content-Length", Integer.toString(outputData.length));
       }
 
       if ((!this.user.equals("")) && (!this.password.equals(""))) {
@@ -222,6 +222,7 @@ public class WebViewXmlHttpRequest {
       }
 
       httpConn.setRequestMethod(this.method);
+      httpConn.setRequestProperty("Connection", "close");
 
       Map<String, String> headers = this.getHeaders();
       if (this.headers != null) {
@@ -231,16 +232,17 @@ public class WebViewXmlHttpRequest {
       }
 
       if (!this.overrideMimeType.equals("")) {
-        httpConn.setRequestProperty("Content-Type",
-            this.overrideMimeType);
+        httpConn.setRequestProperty("Content-Type", this.overrideMimeType);
       }
 
-      // #TODO #FIXME this makes the timeouts cumulative, but it seems
-      // most sensible doesn't seem like we can set a timeout for the
-      // write either, so POST, PUT wont ever timeout... seems like there
-      // should be a better way!
-      httpConn.setConnectTimeout(this.timeout);
-      httpConn.setReadTimeout(this.timeout);
+      if (this.timeout >= 0) {
+        // #TODO #FIXME this makes the timeouts cumulative, but it seems
+        // most sensible doesn't seem like we can set a timeout for the
+        // write either, so POST, PUT wont ever timeout... seems like there
+        // should be a better way!
+        httpConn.setConnectTimeout(this.timeout);
+        httpConn.setReadTimeout(this.timeout);
+      }
 
       // Explicitly initiate connection.
       httpConn.connect();
