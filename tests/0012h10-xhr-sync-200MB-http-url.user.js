@@ -9,6 +9,11 @@
 // https://testfile.org/all-sizes/
 
 var arraybuffer_onload_handler = function(units, response) {
+  if (response.error) {
+    error_event_handler(response)
+    return
+  }
+
   var decimals = 2
   var div = document.createElement('div');
   var pre = document.createElement('pre');
@@ -17,6 +22,15 @@ var arraybuffer_onload_handler = function(units, response) {
     'Actual size: ' + format_bytes(units, decimals, response.total              ) + ' ' + units,
     'Buffer size: ' + format_bytes(units, decimals, response.response.byteLength) + ' ' + units
   ].join("\n");
+  div.appendChild(pre);
+  document.body.appendChild(div);
+};
+
+var error_event_handler = function(response) {
+  var div = document.createElement('div');
+  var pre = document.createElement('pre');
+
+  pre.innerText = 'Error: ' + JSON.stringify(response, null, 2);
   div.appendChild(pre);
   document.body.appendChild(div);
 };

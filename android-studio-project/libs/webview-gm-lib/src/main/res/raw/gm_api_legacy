@@ -366,13 +366,29 @@ var _GM_arrayBufferToBlob = function(arrayBuffer) {
 var _GM_formatXmlHttpResponse = function(details, response) {
   var arrayBuffer;
   try {
-    if (details && response && (typeof details === 'object') && (typeof response === 'object') && response.responseCacheUUID) {
-      if (details.responseType === 'cache_uuid') {
-        response.response = response.responseCacheUUID;
-      }
-      else {
-        arrayBuffer = _GM_readFromCacheFile(response.responseCacheUUID, response.total);
+    if (!response || (typeof response !== 'object')) {
+      response = {};
 
+      throw new Error('Missing response object');
+    }
+    if (!response.responseCacheUUID) {
+      throw new Error('Bad response object');
+    }
+    if (!details || (typeof details !== 'object')) {
+      throw new Error('Bad input parameter: details');
+    }
+
+    if (details.responseType === 'cache_uuid') {
+      response.response = response.responseCacheUUID;
+    }
+    else {
+      arrayBuffer = _GM_readFromCacheFile(response.responseCacheUUID, response.total);
+
+      if ((arrayBuffer == null) || !(arrayBuffer instanceof ArrayBuffer)) {
+        throw new Error('OutOfMemoryError: could not allocate ArrayBuffer to hold the entire file');
+      }
+
+      try {
         switch(details.responseType || '') {
           case 'arraybuffer':
             response.response = arrayBuffer;
@@ -395,10 +411,21 @@ var _GM_formatXmlHttpResponse = function(details, response) {
             break;
         }
       }
-      delete response.responseCacheUUID;
+      catch(e) {
+        throw new Error('OutOfMemoryError: could not convert from ArrayBuffer to the specified responseType [' + details.responseType + ']');
+      }
     }
   }
-  catch(e) {}
+  catch(e) {
+    response.error = e;
+    response.error.responseCacheUUID = response.responseCacheUUID || null;
+  }
+  finally {
+    delete response.responseCacheUUID;
+
+    response.response     = response.response     || null;
+    response.responseText = response.responseText || '';
+  }
 
   return response;
 }

@@ -6,12 +6,26 @@
 // ==/UserScript==
 
 var blob_onload_handler = function(response) {
+  if (response.error) {
+    error_event_handler(response)
+    return
+  }
+
   var img = document.createElement('img');
 
   img.setAttribute('src',   URL.createObjectURL(response.response));
   img.setAttribute('style', 'max-width: 100%; height: auto;');
 
   document.body.appendChild(img);
+};
+
+var error_event_handler = function(response) {
+  var div = document.createElement('div');
+  var pre = document.createElement('pre');
+
+  pre.innerText = 'Error: ' + JSON.stringify(response, null, 2);
+  div.appendChild(pre);
+  document.body.appendChild(div);
 };
 
 while(document.body.childNodes.length) {
@@ -23,5 +37,5 @@ GM_xmlhttpRequest({
   'url':          'https://github.com/warren-bank/Android-WebMonkey/raw/v04.02.03/android-studio-project/WebMonkey/src/main/res/drawable/launcher.png',
   'responseType': 'blob',
   'onload':       blob_onload_handler,
-  'onerror':      console.error
+  'onerror':      error_event_handler
 });

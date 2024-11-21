@@ -15,6 +15,11 @@ var run_download_test = function() {
     'synchronous':  true
   })
 
+  if (response.error) {
+    unsafeWindow.alert('Error: ' + response.error.message)
+    return
+  }
+
   var url  = response.response
   var name = 'BigBuckBunny.mp4'
 

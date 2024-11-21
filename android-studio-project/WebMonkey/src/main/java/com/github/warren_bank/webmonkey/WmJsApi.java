@@ -474,7 +474,9 @@ public class WmJsApi {
     sb.append(    "details.synchronous = true;");
     sb.append(    "details.responseType = 'cache_uuid';");
     sb.append(    "result = GM_xmlhttpRequest(details);");
-    sb.append(    jsBridgeName + ".download(" + defaultSignature + ", result.response, result.mimeType, name);");
+    sb.append(    "if (result && !result.error && result.response) {");
+    sb.append(      jsBridgeName + ".download(" + defaultSignature + ", result.response, (result.mimeType || '*/*'), name);");
+    sb.append(    "}");
     sb.append(  "}");
     sb.append("};");
     sb.append("\n");
