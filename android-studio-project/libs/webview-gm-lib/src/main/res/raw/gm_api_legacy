@@ -371,6 +371,9 @@ var _GM_formatXmlHttpResponse = function(details, response) {
 
       throw new Error('Missing response object');
     }
+    if ((typeof response.readyState === 'number') && (response.readyState < 4)) {
+      throw false;
+    }
     if (!response.responseCacheUUID) {
       throw new Error('Bad response object');
     }
@@ -416,9 +419,11 @@ var _GM_formatXmlHttpResponse = function(details, response) {
       }
     }
   }
-  catch(e) {
-    response.error = e;
-    response.error.responseCacheUUID = response.responseCacheUUID || null;
+  catch(error) {
+    if (error && (typeof error === 'object')) {
+      response.error = error;
+      response.error.responseCacheUUID = response.responseCacheUUID || null;
+    }
   }
   finally {
     delete response.responseCacheUUID;

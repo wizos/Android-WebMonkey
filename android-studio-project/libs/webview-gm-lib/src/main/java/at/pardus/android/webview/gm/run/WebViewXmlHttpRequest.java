@@ -305,6 +305,11 @@ public class WebViewXmlHttpRequest {
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_LOADING);
       executeOnReadyStateChangeCallback(response);
 
+      if (contentLength > 0) {
+        response.setLoaded(0);
+        executeOnProgressCallback(response);
+      }
+
       // Begin receiving any response data.
       InputStream inputStream = httpConn.getInputStream();
 
@@ -316,13 +321,12 @@ public class WebViewXmlHttpRequest {
           break;
         }
 
-        // Progress events are always 1-step behind we currently are.
-        if ((totalBytesRead) > 0 && (contentLength > 0)) {
+        totalBytesRead += bytesRead;
+
+        if (contentLength > 0) {
           response.setLoaded(totalBytesRead);
           executeOnProgressCallback(response);
         }
-
-        totalBytesRead += bytesRead;
 
         CacheFileHelper.write(view.getContext(), cacheUUID, buffer, 0, bytesRead);
       }
@@ -333,6 +337,8 @@ public class WebViewXmlHttpRequest {
       if (contentLength <= 0) {
         response.setLengthComputable(true);
         response.setTotal(totalBytesRead);
+        response.setLoaded(totalBytesRead);
+        executeOnProgressCallback(response);
       }
 
       response.setReadyState(WebViewXmlHttpResponse.READY_STATE_DONE);
