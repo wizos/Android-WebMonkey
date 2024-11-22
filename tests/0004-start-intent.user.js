@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_startIntent
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_startIntent
 // @run-at       document-start
 // ==/UserScript==
 

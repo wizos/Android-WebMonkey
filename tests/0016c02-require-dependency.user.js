@@ -2,9 +2,9 @@
 // @name         test: @require
 // @description  test: React.js with sandbox
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/react@0.14.10/dist/react-with-addons.min.js
+// @run-at       document-end
 // ==/UserScript==
 
 // https://legacy.reactjs.org/docs/components-and-props.html

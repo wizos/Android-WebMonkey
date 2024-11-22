@@ -2,10 +2,10 @@
 // @name         test: @resource
 // @description  test: import PNG binary image resource, and read its content (as a base64-encoded data: URI) with GM_getResourceURL
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @resource     imgData https://github.com/warren-bank/Android-WebMonkey/raw/v04.02.02/android-studio-project/WebMonkey/src/main/res/drawable/launcher.png
 // @grant        GM_getResourceURL
+// @run-at       document-end
 // ==/UserScript==
 
 // related docs:

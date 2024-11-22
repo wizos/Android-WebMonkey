@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_fetch
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_fetch
 // @run-at       document-end
 // ==/UserScript==
 

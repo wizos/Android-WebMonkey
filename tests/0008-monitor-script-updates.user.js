@@ -3,7 +3,8 @@
 // @namespace    WebViewWM
 // @version      1.0.0
 // @updateURL    http://192.168.0.100/0008-monitor-script-updates.user.js
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_toastLong
 // @run-at       document-start
 // ==/UserScript==
 

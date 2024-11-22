@@ -2,10 +2,10 @@
 // @name         test: @resource
 // @description  test: import a ~32MB binary file resource, read its content (as a base64-encoded data: URI) with GM_getResourceURL, and print its hash
 // @namespace    WebViewWM
-// @match        https://*
-// @run-at       document-end
+// @match        https://*/*
 // @resource     wasmData https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm
 // @grant        GM_getResourceURL
+// @run-at       document-end
 // ==/UserScript==
 
 // related docs:

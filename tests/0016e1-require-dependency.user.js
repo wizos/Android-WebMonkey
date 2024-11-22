@@ -3,12 +3,14 @@
 // @description  test: Less.js with sandbox
 // @namespace    WebViewWM
 // @match        *://*duckduckgo.com/*
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/less@4.1.3/dist/less.min.js
 // @resource     duckCommonStyle  https://ibaidu.tujidu.com/newcss/duckCommonStyle.less?t=26.05
 // @resource     duckOnePageStyle https://ibaidu.tujidu.com/newcss/duckOnePageStyle.less?t=26.05
 // @resource     duckTwoPageStyle https://ibaidu.tujidu.com/newcss/duckTwoPageStyle.less?t=26.05
+// @grant        GM_getResourceText
+// @grant        GM_addStyle
+// @run-at       document-end
 // ==/UserScript==
 
 // https://lesscss.org/usage/#programmatic-usage

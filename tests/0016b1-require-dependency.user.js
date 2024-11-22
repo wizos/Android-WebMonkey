@@ -2,7 +2,7 @@
 // @name         test: @require
 // @description  test: Promise.defer() without an external dependency.
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
 // @run-at       document-start
 // ==/UserScript==
 

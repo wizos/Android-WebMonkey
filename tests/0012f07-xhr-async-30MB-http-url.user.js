@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_xmlhttpRequest (30 MB)
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_xmlhttpRequest
 // @run-at       document-end
 // ==/UserScript==
 

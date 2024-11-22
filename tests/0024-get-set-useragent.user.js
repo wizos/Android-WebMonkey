@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         test: GM_getUserAgent and GM_setUserAgent
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
 // @grant        GM_setUserAgent
+// @grant        GM_getUserAgent
+// @grant        GM_toastLong
+// @run-at       document-start
 // ==/UserScript==
 
 var agents = ['WebView', 'Chrome', 'WebMonkey']

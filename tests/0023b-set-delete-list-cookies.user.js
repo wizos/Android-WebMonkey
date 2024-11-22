@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         test: GM.cookie.set, GM.cookie.delete, GM.cookie.list
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
 // @grant        GM.cookie
+// @run-at       document-start
 // ==/UserScript==
 
 var init = async function() {

@@ -2,10 +2,10 @@
 // @name         test: @require
 // @description  test: Vue.js without sandbox
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/vue@3.3.4/dist/vue.global.prod.js
 // @flag         noJsSandbox
+// @run-at       document-end
 // ==/UserScript==
 
 // https://vuejs.org/guide/quick-start.html#using-vue-from-cdn

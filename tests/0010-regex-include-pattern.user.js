@@ -2,6 +2,7 @@
 // @name         test: regex @include pattern
 // @namespace    WebViewWM
 // @include      /^https?:.*$/
+// @grant        GM_toastLong
 // @run-at       document-start
 // ==/UserScript==
 

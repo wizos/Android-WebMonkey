@@ -2,11 +2,11 @@
 // @name         test: @require
 // @description  test: React.js without sandbox
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/react@16.14.0/umd/react.production.min.js
 // @require      https://unpkg.com/react-dom@16.14.0/umd/react-dom.production.min.js
 // @flag         noJsSandbox
+// @run-at       document-end
 // ==/UserScript==
 
 // https://legacy.reactjs.org/docs/components-and-props.html

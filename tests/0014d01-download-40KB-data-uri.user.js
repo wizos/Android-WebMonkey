@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         test: GM_download (40 KB, data: URI)
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
 // @require      https://cdn.jsdelivr.net/npm/@warren-bank/browser-fetch-progress@latest/src/fetch-progress.js
+// @grant        GM_download
 // @run-at       document-end
 // ==/UserScript==
 
@@ -31,6 +32,22 @@ var add_notification = function(text) {
   document.body.appendChild(h4);
 }
 
+var arrayBufferToBase64 = (typeof _GM_arrayBufferToBase64 === 'function')
+  ? _GM_arrayBufferToBase64
+  : function(arrayBuffer) {
+      var uint8  = new Uint8Array(arrayBuffer);
+      var length = uint8.byteLength;
+      var binary = [];
+
+      for (var i=0; i < length; i++) {
+        binary[i] = String.fromCharCode(uint8[i]);
+      }
+
+      return btoa(
+        binary.join('')
+      );
+    };
+
 var run_download_test = async function() {
   var url  = 'https://raw.githubusercontent.com/warren-bank/Android-WebMonkey/v04.02.03/android-studio-project/WebMonkey/src/main/res/drawable/launcher.png'
   var name = 'WebMonkey.png'
@@ -40,7 +57,7 @@ var run_download_test = async function() {
   var data_uri = 'data:*/*;base64,' + await fetch(url)
     .then(window.fetchProgress(progress_event_handler))
     .then(res => res.arrayBuffer())
-    .then(_GM_arrayBufferToBase64)
+    .then(arrayBufferToBase64)
 
   add_notification('saving: ' + data_uri.substring(0, 100))
 

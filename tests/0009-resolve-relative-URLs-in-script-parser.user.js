@@ -3,10 +3,11 @@
 // @namespace    WebViewWM
 // @version      1.0.0
 // @updateURL    http://192.168.0.100/0009-resolve-relative-URLs-in-script-parser.user.js
-// @match        *://*
+// @match        *://*/*
 // @require      0009-resolve-relative-URLs-in-script-parser/js/jquery-2.2.4.min.js
 // @icon         0009-resolve-relative-URLs-in-script-parser/img/icon.png
 // @resource     image_001 0009-resolve-relative-URLs-in-script-parser/img/OK.png
+// @grant        GM_getResourceURL
 // @run-at       document-end
 // ==/UserScript==
 

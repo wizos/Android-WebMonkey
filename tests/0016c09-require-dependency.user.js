@@ -2,9 +2,9 @@
 // @name         test: @require
 // @description  test: Preact with sandbox, and explicit injection of Preact object to sandbox namespace. JSX with HTM (Hyperscript Tagged Markup) standalone compiler.
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/htm@3.1.1/preact/standalone.umd.js
+// @run-at       document-end
 // ==/UserScript==
 
 // https://github.com/preactjs/preact#getting-started

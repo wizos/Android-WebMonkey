@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: window.History
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_toastShort
 // @run-at       document-end
 // ==/UserScript==
 

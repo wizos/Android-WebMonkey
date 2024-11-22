@@ -2,10 +2,10 @@
 // @name         test: @require
 // @description  test: Preact without sandbox. JSX with HTM (Hyperscript Tagged Markup) standalone compiler.
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/htm@3.1.1/preact/standalone.umd.js
 // @flag         noJsSandbox
+// @run-at       document-end
 // ==/UserScript==
 
 // https://github.com/preactjs/preact#getting-started

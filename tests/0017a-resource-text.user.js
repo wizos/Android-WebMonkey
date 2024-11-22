@@ -2,10 +2,10 @@
 // @name         test: @resource
 // @description  test: import JSON text file resource, and read its content with GM_getResourceText
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @resource     pkgJson https://github.com/warren-bank/Android-WebMonkey/raw/v04.02.02/package.json
 // @grant        GM_getResourceText
+// @run-at       document-end
 // ==/UserScript==
 
 // related docs:

@@ -2,9 +2,9 @@
 // @name         test: @require
 // @description  test: Promise.defer() with an external dependency.
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
 // @require      https://github.com/warren-bank/ES2015-wishlist/raw/master/Promise.defer/Promise.defer.js
+// @run-at       document-start
 // ==/UserScript==
 
 var run_test = async function(val) {

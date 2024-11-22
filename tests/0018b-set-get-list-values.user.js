@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         test: GM.setValue, GM.getValue, GM.listValues
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
+// @grant        GM.deleteValue
 // @grant        GM.setValue
+// @grant        GM.getValue
+// @grant        GM.listValues
+// @run-at       document-start
 // ==/UserScript==
 
 GM.deleteValue('foo').then(console.log)

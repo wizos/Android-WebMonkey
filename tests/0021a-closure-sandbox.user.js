@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         test: without closure, without sandbox
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @unwrap
+// @run-at       document-end
 // ==/UserScript==
 
 var clean_dom = function() {

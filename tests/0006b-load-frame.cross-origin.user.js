@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_loadFrame
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_loadFrame
 // @run-at       document-start
 // ==/UserScript==
 

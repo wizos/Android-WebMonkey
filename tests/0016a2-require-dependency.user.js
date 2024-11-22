@@ -2,10 +2,10 @@
 // @name         test: @require
 // @description  test: prove that value of 'this' is the global Window object when sandbox is disabled
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      http://192.168.0.2/0015a-require-dependency/this.js
 // @flag         noJsSandbox
+// @run-at       document-end
 // ==/UserScript==
 
 var run_test = function() {

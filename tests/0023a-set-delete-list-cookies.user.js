@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         test: GM_cookie.set, GM_cookie.delete, GM_cookie.list
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
 // @grant        GM_cookie
+// @run-at       document-start
 // ==/UserScript==
 
 var callback = console.log.bind(console)

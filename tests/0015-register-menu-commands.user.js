@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_registerMenuCommand
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_registerMenuCommand
 // @run-at       document-end
 // ==/UserScript==
 

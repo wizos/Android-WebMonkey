@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         test: GM_download (300 MB, ArrayBuffer)
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
 // @require      https://cdn.jsdelivr.net/npm/@warren-bank/browser-fetch-progress@latest/src/fetch-progress.js
+// @grant        GM_download
 // @run-at       document-end
 // ==/UserScript==
 

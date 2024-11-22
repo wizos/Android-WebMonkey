@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_toastShort
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_toastShort
 // @run-at       document-start
 // ==/UserScript==
 

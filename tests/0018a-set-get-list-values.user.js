@@ -1,9 +1,12 @@
 // ==UserScript==
 // @name         test: GM_setValue, GM_getValue, GM_listValues
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-start
+// @match        *://*/*
+// @grant        GM_deleteValue
 // @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_listValues
+// @run-at       document-start
 // ==/UserScript==
 
 console.log(GM_deleteValue('foo'))

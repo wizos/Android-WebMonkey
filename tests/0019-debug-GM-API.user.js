@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         debug GM API: add to global window, and log all usage
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
 // @run-at       document-start
 // ==/UserScript==
 

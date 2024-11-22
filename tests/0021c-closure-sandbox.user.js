@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         test: with closure, with sandbox
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
 // @run-at       document-end
 // ==/UserScript==
 

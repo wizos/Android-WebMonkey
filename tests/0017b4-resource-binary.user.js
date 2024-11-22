@@ -2,10 +2,10 @@
 // @name         test: @resource
 // @description  test: import a ~30 KB binary file resource, read its content (as a base64-encoded data: URI) with GM_getResourceURL, and check its integrity (hash)
 // @namespace    WebViewWM
-// @match        https://*
-// @run-at       document-end
+// @match        https://*/*
 // @resource     npmData https://registry.npmjs.org/@warren-bank/hls-proxy/-/hls-proxy-3.5.4.tgz
 // @grant        GM_getResourceURL
+// @run-at       document-end
 // ==/UserScript==
 
 // related docs:

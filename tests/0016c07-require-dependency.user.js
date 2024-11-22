@@ -2,10 +2,10 @@
 // @name         test: @require
 // @description  test: React.js with sandbox, and explicit injection of React object to sandbox namespace. JSX with HTM (Hyperscript Tagged Markup) standalone compiler, and explicit injection of HTM object to sandbox namespace.
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/react@0.14.10/dist/react-with-addons.min.js
 // @require      https://unpkg.com/htm@3.1.1/dist/htm.js
+// @run-at       document-end
 // ==/UserScript==
 
 // https://legacy.reactjs.org/docs/components-and-props.html

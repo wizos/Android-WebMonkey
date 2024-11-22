@@ -2,10 +2,10 @@
 // @name         test: @require
 // @description  test: React.js with sandbox, and explicit injection of React object to sandbox namespace. JSX with Babel standalone compiler.
 // @namespace    WebViewWM
-// @match        *://*
-// @run-at       document-end
+// @match        *://*/*
 // @require      https://unpkg.com/react@0.14.10/dist/react-with-addons.min.js
 // @require      https://unpkg.com/babel-standalone@6.26.0/babel.min.js
+// @run-at       document-end
 // ==/UserScript==
 
 // https://legacy.reactjs.org/docs/components-and-props.html

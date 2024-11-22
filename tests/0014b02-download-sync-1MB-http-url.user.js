@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         test: GM_download (1 MB, network URL)
 // @namespace    WebViewWM
-// @match        *://*
+// @match        *://*/*
+// @grant        GM_download
 // @run-at       document-end
 // ==/UserScript==
 
