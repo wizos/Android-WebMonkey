@@ -6,6 +6,8 @@
   <string name="menu_update_scripts">Update Scripts</string>
   <string name="menu_remove_cookies">Remove Cookies</string>
   <string name="menu_settings">Settings</string>
+  <string name="menu_database_backup">Backup Database</string>
+  <string name="menu_database_restore">Restore Database</string>
   <string name="menu_test_pattern">Test Pattern</string>
   <string name="menu_exit">Exit</string>
 

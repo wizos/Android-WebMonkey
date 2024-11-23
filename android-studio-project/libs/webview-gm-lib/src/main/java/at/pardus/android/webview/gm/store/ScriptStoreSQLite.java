@@ -220,6 +220,14 @@ public class ScriptStoreSQLite implements ScriptStore {
     dbHelper = null;
   }
 
+  public String getDbPath() {
+    if (dbHelper == null) {
+      Log.e(TAG, "Cannot get database filepath (database not available)");
+      return null;
+    }
+    return dbHelper.getPath();
+  }
+
   /**
    * Creates an empty ScriptCache object and initializes its cache of all
    * available and enabled user script matching criteria.
@@ -977,6 +985,10 @@ public class ScriptStoreSQLite implements ScriptStore {
       } finally {
         db.endTransaction();
       }
+    }
+
+    public String getPath() {
+      return db.getPath();
     }
 
   }

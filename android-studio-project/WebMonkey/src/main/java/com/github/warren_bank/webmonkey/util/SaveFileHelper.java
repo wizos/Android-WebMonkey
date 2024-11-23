@@ -25,7 +25,7 @@ public class SaveFileHelper {
   }
 
   private static final Map<Integer, Download> downloads = new HashMap<Integer, Download>();
-  private static int lastRequestCode = 0;
+  private static int lastRequestCode = 100; // reserve <= 100 for other purposes
 
   public static void showFilePicker(Activity activity, Download download, String fileName) {
     if (Build.VERSION.SDK_INT < 19)
@@ -46,26 +46,33 @@ public class SaveFileHelper {
 
   public static boolean onActivityResult(Context context, int requestCode, int resultCode, Intent data) {
     Download download = downloads.remove(requestCode);
+    boolean handled   = (download != null);
 
-    if (download == null)
-      return false;
-
-    if (resultCode == Activity.RESULT_OK) {
+    if (handled && (resultCode == Activity.RESULT_OK) && (data != null)) {
       Uri uri = data.getData();
 
-      if (uri == null)
-        return false;
+      if (uri != null) {
+        boolean OK = false;
 
-      try {
-        OutputStream out = context.getContentResolver().openOutputStream(uri);
+        if (context != null) {
+          try {
+            OutputStream out = context.getContentResolver().openOutputStream(uri);
 
-        return CacheFileHelper.save(context, download.cacheUUID, out);
-      }
-      catch(Exception e) {
-        return false;
+            OK = CacheFileHelper.save(context, download.cacheUUID, out);
+          }
+          catch(Exception e) {
+            OK = false;
+          }
+        }
+
+        if (!OK && (context != null)) {
+          // remove new file for failed download
+          context.getContentResolver().delete(uri, null, null);
+        }
       }
     }
-    return false;
+
+    return handled;
   }
 
 }
