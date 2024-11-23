@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Cập nhật tập lệnh</string>
   <string name="menu_remove_cookies">Gơ ̃ bỏ cookie</string>
   <string name="menu_settings">Thiết lập</string>
+  <string name="menu_database_backup">Cơ sở dữ</string>
+  <string name="menu_database_restore">Name</string>
   <string name="menu_test_pattern">Mẫu thử nghiệm</string>
   <string name="menu_exit">Thoát</string>
   <string name="pref_settings_title">WebMonkey Thiết lập</string>

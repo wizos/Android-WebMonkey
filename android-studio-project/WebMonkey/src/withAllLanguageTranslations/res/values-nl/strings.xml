@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Scripts bijwerken</string>
   <string name="menu_remove_cookies">Cookies verwijderen</string>
   <string name="menu_settings">Instellingen</string>
+  <string name="menu_database_backup">Backupdatabase</string>
+  <string name="menu_database_restore">Database herstellen</string>
   <string name="menu_test_pattern">Testpatroon</string>
   <string name="menu_exit">Afsluiten</string>
   <string name="pref_settings_title">WebMonkey Instellingen</string>

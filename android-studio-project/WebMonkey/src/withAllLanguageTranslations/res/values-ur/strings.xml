@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">اپ ڈیٹ سکرپٹ</string>
   <string name="menu_remove_cookies">Cookies کو ہٹا دیں</string>
   <string name="menu_settings">سیٹنگز</string>
+  <string name="menu_database_backup">بیک اپ ڈیٹا بیس</string>
+  <string name="menu_database_restore">بے چین ڈاٹا بیس</string>
   <string name="menu_test_pattern">ٹیسٹ پیٹرن</string>
   <string name="menu_exit">باہر نکلیں</string>
   <string name="pref_settings_title">WebMonkey سیٹنگز</string>

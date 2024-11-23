@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Komut Dosyaları Güncelle</string>
   <string name="menu_remove_cookies">Tanımlama Bilgilerini Kaldır</string>
   <string name="menu_settings">Ayarlar</string>
+  <string name="menu_database_backup">Yedek Veritabanı</string>
+  <string name="menu_database_restore">Veritabanını Geri Yükle</string>
   <string name="menu_test_pattern">Test Kalıbı</string>
   <string name="menu_exit">Çıkış</string>
   <string name="pref_settings_title">WebMonkey Ayarlar</string>

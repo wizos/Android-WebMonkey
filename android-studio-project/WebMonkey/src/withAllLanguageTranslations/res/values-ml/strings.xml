@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">സ്ക്രിപ്റ്റുകള് പുതുക്കുക</string>
   <string name="menu_remove_cookies">കുക്കികള് നീക്കം ചെയ്യുക</string>
   <string name="menu_settings">സജ്ജീകരണങ്ങള്</string>
+  <string name="menu_database_backup">ബാക്കപ്പ് ഡാറ്റാബേസ്</string>
+  <string name="menu_database_restore">ഡാറ്റാബേസ് വീണ്ടെടുക്കുക</string>
   <string name="menu_test_pattern">ടെസ്റ്റ് പാറ്റേണ്</string>
   <string name="menu_exit">പ്രദര്ശിപ്പിക്കുക</string>
   <string name="pref_settings_title">WebMonkey സജ്ജീകരണങ്ങള്</string>

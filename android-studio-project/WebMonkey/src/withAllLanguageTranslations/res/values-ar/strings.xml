@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">تعديل البرامج النصية</string>
   <string name="menu_remove_cookies">ازالة Cookies</string>
   <string name="menu_settings">المحددات</string>
+  <string name="menu_database_backup">قاعدة بيانات النسخة الاحتياطية</string>
+  <string name="menu_database_restore">استعادة قاعدة البيانات</string>
   <string name="menu_test_pattern">نموذج الاختبار</string>
   <string name="menu_exit">خروج</string>
   <string name="pref_settings_title">WebMonkey المحددات</string>

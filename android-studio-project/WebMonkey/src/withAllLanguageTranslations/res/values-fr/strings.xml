@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Mettre à jour scripts</string>
   <string name="menu_remove_cookies">Supprimer les cookies</string>
   <string name="menu_settings">Paramètres</string>
+  <string name="menu_database_backup">Sauvegarde base de données</string>
+  <string name="menu_database_restore">Restaurer la base</string>
   <string name="menu_test_pattern">Modèle de test</string>
   <string name="menu_exit">Quitter</string>
   <string name="pref_settings_title">WebMonkey Paramètres</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">स्क्रिप्ट अद्यावधिक गर्नुहोस्</string>
   <string name="menu_remove_cookies">कुकीहरू हटाउनुहोस्</string>
   <string name="menu_settings">सेटिङ</string>
+  <string name="menu_database_backup">जगेडा डाटाबेस</string>
+  <string name="menu_database_restore">डाटाबेस पूर्वावस्थामा ल्याउनुहोस्</string>
   <string name="menu_test_pattern">परीक्षण बाँन्की</string>
   <string name="menu_exit">निस्कदा</string>
   <string name="pref_settings_title">WebMonkey सेटिङ</string>

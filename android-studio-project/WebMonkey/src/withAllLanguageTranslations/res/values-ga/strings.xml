@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Nuashonraigh scripteanna</string>
   <string name="menu_remove_cookies">Bain Cookies</string>
   <string name="menu_settings">Socruithe</string>
+  <string name="menu_database_backup">Bunachar Sonraí Cúltaca</string>
+  <string name="menu_database_restore">Athchóirigh Bunachar Sonraí</string>
   <string name="menu_test_pattern">Patrún Tástála</string>
   <string name="menu_exit">Scoir</string>
   <string name="pref_settings_title">WebMonkey Socruithe</string>

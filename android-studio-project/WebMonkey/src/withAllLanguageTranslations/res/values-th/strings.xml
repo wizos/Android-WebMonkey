@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">อัพเดตสคริปต์</string>
   <string name="menu_remove_cookies">ลบคุกกี้</string>
   <string name="menu_settings">การตั้งค่า</string>
+  <string name="menu_database_backup">สำรองฐานข้อมูล</string>
+  <string name="menu_database_restore">เรียกคืนฐานข้อมูล</string>
   <string name="menu_test_pattern">รูปแบบการทดสอบ</string>
   <string name="menu_exit">ออก</string>
   <string name="pref_settings_title">WebMonkey การตั้งค่า</string>

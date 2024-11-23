@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">स्क्रिप्ट अद्यतन करें</string>
   <string name="menu_remove_cookies">कुकी मिटाएँ (R)</string>
   <string name="menu_settings">विन्यास</string>
+  <string name="menu_database_backup">बैकअप डाटाबेस</string>
+  <string name="menu_database_restore">डाटाबेस बहाल करें</string>
   <string name="menu_test_pattern">परीक्षण पैटर्न</string>
   <string name="menu_exit">बाहर निकलें</string>
   <string name="pref_settings_title">WebMonkey विन्यास</string>

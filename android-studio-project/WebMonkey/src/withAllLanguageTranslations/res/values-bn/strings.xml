@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">স্ক্রিপ্ট আপডেট করো</string>
   <string name="menu_remove_cookies">কুকি অপসারণ করো</string>
   <string name="menu_settings">সেটিংস</string>
+  <string name="menu_database_backup">ব্যাকআপ ডাটাবেস</string>
+  <string name="menu_database_restore">ডাটাবেস পুনরুদ্ধার করুন</string>
   <string name="menu_test_pattern">টেস্ট প্যাটার্ন</string>
   <string name="menu_exit">এক্সিট</string>
   <string name="pref_settings_title">WebMonkey সেটিংস</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Parancsfájlok frissítése</string>
   <string name="menu_remove_cookies">Cookie-k eltávolítása</string>
   <string name="menu_settings">Beállítások</string>
+  <string name="menu_database_backup">Biztonsági mentés adatbázis</string>
+  <string name="menu_database_restore">Adatbázis visszaállítása</string>
   <string name="menu_test_pattern">Teszt minta</string>
   <string name="menu_exit">Kilép</string>
   <string name="pref_settings_title">WebMonkey Beállítások</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Оновити скрипти</string>
   <string name="menu_remove_cookies">Вилучити куки</string>
   <string name="menu_settings">ПараметриName</string>
+  <string name="menu_database_backup">Резервна база</string>
+  <string name="menu_database_restore">Відновити базу даних</string>
   <string name="menu_test_pattern">Шаблон перевірки</string>
   <string name="menu_exit">Вийти</string>
   <string name="pref_settings_title">WebMonkey ПараметриName</string>

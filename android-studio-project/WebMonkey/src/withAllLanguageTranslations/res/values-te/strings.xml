@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">స్క్రిప్ట్లను నవీకరణ చేయి</string>
   <string name="menu_remove_cookies">కుకీలను తొలగించుము</string>
   <string name="menu_settings">అమరిక</string>
+  <string name="menu_database_backup">బ్యాక్అప్ డాటాబేస్Query</string>
+  <string name="menu_database_restore">డాటాబేస్ను పునఃప్రారంభించు</string>
   <string name="menu_test_pattern">టెస్ట్ పాంటర్న్</string>
   <string name="menu_exit">ఎక్విట్</string>
   <string name="pref_settings_title">WebMonkey అమరిక</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Ενημέρωση σεναρίων</string>
   <string name="menu_remove_cookies">Αφαίρεση Cookies</string>
   <string name="menu_settings">Ρυθμίσεις:</string>
+  <string name="menu_database_backup">Βάση δεδομένων εφεδρικής αποθήκευσης</string>
+  <string name="menu_database_restore">Επαναφορά βάσης δεδομένων</string>
   <string name="menu_test_pattern">Πρότυπο δοκιμής:</string>
   <string name="menu_exit">Έξοδος:</string>
   <string name="pref_settings_title">WebMonkey Ρυθμίσεις:</string>

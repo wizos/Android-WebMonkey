@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Atjaunināt skriptus</string>
   <string name="menu_remove_cookies">Izņemt sīkfailus</string>
   <string name="menu_settings">Iestatījumi</string>
+  <string name="menu_database_backup">Rezerves datu bāze</string>
+  <string name="menu_database_restore">Atjaunot datubāzi</string>
   <string name="menu_test_pattern">Testa paraugs</string>
   <string name="menu_exit">Iziešana</string>
   <string name="pref_settings_title">WebMonkey Iestatījumi</string>

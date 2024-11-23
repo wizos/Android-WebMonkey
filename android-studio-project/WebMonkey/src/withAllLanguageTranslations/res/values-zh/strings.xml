@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">更新脚本</string>
   <string name="menu_remove_cookies">除去 cookie</string>
   <string name="menu_settings">设置</string>
+  <string name="menu_database_backup">备份数据库</string>
+  <string name="menu_database_restore">复原数据库</string>
   <string name="menu_test_pattern">测试 Pattern</string>
   <string name="menu_exit">退出</string>
   <string name="pref_settings_title">WebMonkey 设置</string>

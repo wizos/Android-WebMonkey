@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Ažuriraj skripte</string>
   <string name="menu_remove_cookies">Ukloni kolačiće</string>
   <string name="menu_settings">Postavke</string>
+  <string name="menu_database_backup">Backup baza podataka</string>
+  <string name="menu_database_restore">Vrati bazu podataka</string>
   <string name="menu_test_pattern">Test uzorak</string>
   <string name="menu_exit">Izlaz</string>
   <string name="pref_settings_title">WebMonkey Postavke</string>

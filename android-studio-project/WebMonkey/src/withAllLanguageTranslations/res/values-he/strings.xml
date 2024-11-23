@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">עדכון קובצי Script</string>
   <string name="menu_remove_cookies">סילוק קובצי Cookie</string>
   <string name="menu_settings">הגדרות</string>
+  <string name="menu_database_backup">מסד נתונים לגיבוי</string>
+  <string name="menu_database_restore">שחזור בסיס הנתונים</string>
   <string name="menu_test_pattern">תבנית בדיקה</string>
   <string name="menu_exit">יציאה</string>
   <string name="pref_settings_title">WebMonkey הגדרות</string>

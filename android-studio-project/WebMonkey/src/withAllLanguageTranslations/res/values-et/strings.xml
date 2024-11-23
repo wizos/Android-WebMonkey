@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Uuenda skripte</string>
   <string name="menu_remove_cookies">Eemalda küpsised</string>
   <string name="menu_settings">Seadistused</string>
+  <string name="menu_database_backup">Varukoopia andmebaas</string>
+  <string name="menu_database_restore">Taasta andmebaas</string>
   <string name="menu_test_pattern">Katsemuster</string>
   <string name="menu_exit">Välju</string>
   <string name="pref_settings_title">WebMonkey Seadistused</string>

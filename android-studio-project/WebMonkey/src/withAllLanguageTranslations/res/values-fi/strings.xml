@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Päivitä komentosarjat</string>
   <string name="menu_remove_cookies">Poista evästeet</string>
   <string name="menu_settings">Asetukset</string>
+  <string name="menu_database_backup">Taustatietokanta</string>
+  <string name="menu_database_restore">Palautustietokanta</string>
   <string name="menu_test_pattern">Testimalli</string>
   <string name="menu_exit">Poistuminen</string>
   <string name="pref_settings_title">WebMonkey Asetukset</string>

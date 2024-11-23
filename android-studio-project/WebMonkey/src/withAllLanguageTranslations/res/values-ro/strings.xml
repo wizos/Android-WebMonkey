@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Actualizare scripturi</string>
   <string name="menu_remove_cookies">Elimină modulele</string>
   <string name="menu_settings">Setări</string>
+  <string name="menu_database_backup">Baza de date de rezervă</string>
+  <string name="menu_database_restore">Restabilește baza de date</string>
   <string name="menu_test_pattern">Model de încercare</string>
   <string name="menu_exit">Ieşire</string>
   <string name="pref_settings_title">WebMonkey Setări</string>

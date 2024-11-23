@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Hidlau Diweddaru</string>
   <string name="menu_remove_cookies">Tynnu Cwcis</string>
   <string name="menu_settings">Gosodiadau</string>
+  <string name="menu_database_backup">Cronfa Ddata</string>
+  <string name="menu_database_restore">Adfer Cronfa Ddata</string>
   <string name="menu_test_pattern">Patrwm Prawf</string>
   <string name="menu_exit">Gadael</string>
   <string name="pref_settings_title">WebMonkey Gosodiadau</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Ažuriranje skripti</string>
   <string name="menu_remove_cookies">Ukloni kolačiće</string>
   <string name="menu_settings">Jedna postavka.</string>
+  <string name="menu_database_backup">Baza podataka.</string>
+  <string name="menu_database_restore">Vraćanje baze podataka</string>
   <string name="menu_test_pattern">Test uzorak</string>
   <string name="menu_exit">Jedan izlaz.</string>
   <string name="pref_settings_title">WebMonkey Jedna postavka.</string>

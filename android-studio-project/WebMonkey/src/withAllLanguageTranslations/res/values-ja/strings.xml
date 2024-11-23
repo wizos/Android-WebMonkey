@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">スクリプトの更新</string>
   <string name="menu_remove_cookies">Cookie の削除</string>
   <string name="menu_settings">設定</string>
+  <string name="menu_database_backup">データベースのバックアップ</string>
+  <string name="menu_database_restore">データベースのリストア</string>
   <string name="menu_test_pattern">テスト・パターン</string>
   <string name="menu_exit">出口</string>
   <string name="pref_settings_title">WebMonkey 設定</string>

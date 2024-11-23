@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Oppdater skript</string>
   <string name="menu_remove_cookies">Fjern informasjonskapsler</string>
   <string name="menu_settings">Innstillinger</string>
+  <string name="menu_database_backup">Database for reservekopiering</string>
+  <string name="menu_database_restore">Gjenopprett database</string>
   <string name="menu_test_pattern">Testmønster</string>
   <string name="menu_exit">Avslutt</string>
   <string name="pref_settings_title">WebMonkey Innstillinger</string>

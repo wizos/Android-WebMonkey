@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Aktualizovať skripty</string>
   <string name="menu_remove_cookies">Odstrániť cookies</string>
   <string name="menu_settings">Nastavenia</string>
+  <string name="menu_database_backup">Zálohovať databázu</string>
+  <string name="menu_database_restore">Obnoviť databázu</string>
   <string name="menu_test_pattern">Skúšobný vzor</string>
   <string name="menu_exit">Ukončiť</string>
   <string name="pref_settings_title">WebMonkey Nastavenia</string>

@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Kemaskini Skrip</string>
   <string name="menu_remove_cookies">Buang Cookies</string>
   <string name="menu_settings">Tetapan</string>
+  <string name="menu_database_backup">Pangkalan Data Bantuan</string>
+  <string name="menu_database_restore">Pulih Pengkalan Data</string>
   <string name="menu_test_pattern">Corak Ujian</string>
   <string name="menu_exit">Keluar</string>
   <string name="pref_settings_title">WebMonkey Tetapan</string>

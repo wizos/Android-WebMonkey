@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Aġġornament Skripts</string>
   <string name="menu_remove_cookies">Neħħi l-Cookies</string>
   <string name="menu_settings">Settings</string>
+  <string name="menu_database_backup">Backup Database</string>
+  <string name="menu_database_restore">Restawrata Database</string>
   <string name="menu_test_pattern">Mudell tat-Test</string>
   <string name="menu_exit">Ħruġ</string>
   <string name="pref_settings_title">WebMonkey Settings</string>

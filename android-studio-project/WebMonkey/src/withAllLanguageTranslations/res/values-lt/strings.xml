@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">Atnaujinti scenarijus</string>
   <string name="menu_remove_cookies">Pašalinti slapukus</string>
   <string name="menu_settings">Nustatymai</string>
+  <string name="menu_database_backup">Atsarginės duomenų bazės</string>
+  <string name="menu_database_restore">Atstatyti duomenų bazę</string>
   <string name="menu_test_pattern">Bandymo Modelis</string>
   <string name="menu_exit">Išvykimas</string>
   <string name="pref_settings_title">WebMonkey Nustatymai</string>

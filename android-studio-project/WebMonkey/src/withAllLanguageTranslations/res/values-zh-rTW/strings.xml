@@ -4,6 +4,8 @@
   <string name="menu_update_scripts">更新 Script</string>
   <string name="menu_remove_cookies">移除 Cookie</string>
   <string name="menu_settings">設定</string>
+  <string name="menu_database_backup">備份資料庫</string>
+  <string name="menu_database_restore">還原資料庫</string>
   <string name="menu_test_pattern">测试 Pattern</string>
   <string name="menu_exit">出口</string>
   <string name="pref_settings_title">WebMonkey 設定</string>
