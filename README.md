@@ -33,6 +33,14 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
     * `GM_cookie.list`
     * `GM_cookie.set`
     * `GM_download`
+      - where the `url` (or `details.url`) parameter accepts any of the following data types:
+        * _String_
+          - containing a valid URI having any of the following protocols:
+            * _http:_
+            * _https:_
+            * _data:_
+        * _ArrayBuffer_
+        * _Uint8Array_
     * `GM_fetch`
       - drop-in replacement for `window.fetch` that uses `GM_xmlhttpRequest` to make network requests
     * `GM_info`
