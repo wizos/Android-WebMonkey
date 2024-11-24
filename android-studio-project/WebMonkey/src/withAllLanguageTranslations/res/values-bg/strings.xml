@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Обновяване на скриптове</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">изберете поведение за зареждане на страница..</string>
   <string name="pref_updateinterval_title">Интервал на обновяване на скрипт</string>
   <string name="pref_updateinterval_summary">дни между проверките..</string>
-  <string name="pref_enableadblock_title">Разрешаване на рекламен блок</string>
-  <string name="pref_enableadblock_summary_on" >Блокиране на хостове, които служат: реклами, тракери, зловреден софтуер, спам</string>
-  <string name="pref_enableadblock_summary_off">Разрешаване на заявки за всички хостове</string>
   <string name="pref_sharedsecret_title">Споделена тайна.</string>
   <string name="pref_sharedsecret_summary">първият параметър на API метод:: \"window.WebViewWM.getUserscriptJS(Тайна!, url)\". Главно предназначени за употреба от JS Код, инжектиран от \"mitmproxy\" скрипт .. за да позволите на скриптове да се изпълняват в iframe Прозорци:.</string>
   <string name="pref_enableremotedebugger_title">Активиране на отдалечен дебъгер</string>

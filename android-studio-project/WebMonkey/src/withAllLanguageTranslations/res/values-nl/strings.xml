@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Scripts bijwerken</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">gedrag van paginaladen kiezen..</string>
   <string name="pref_updateinterval_title">Interval voor bijwerken van script</string>
   <string name="pref_updateinterval_summary">dagen tussen controles..</string>
-  <string name="pref_enableadblock_title">Ad-blok inschakelen</string>
-  <string name="pref_enableadblock_summary_on" >Blokkeren van hosts die dienen: advertenties, trackers, malware, spam</string>
-  <string name="pref_enableadblock_summary_off">Aanvragen voor alle hosts toestaan</string>
   <string name="pref_sharedsecret_title">Gedeeld geheim</string>
   <string name="pref_sharedsecret_summary">de eerste parameter voor API methode: \"window.WebViewWM.getUserscriptJS(Geheim, url)\". Hoofdzakelijk bedoeld voor gebruik door JS code geïnjecteerd door een \"mitmproxy\" script .. om toe te staan dat userscripts worden uitgevoerd iframe vensters.</string>
   <string name="pref_enableremotedebugger_title">Debugger op afstand inschakelen</string>

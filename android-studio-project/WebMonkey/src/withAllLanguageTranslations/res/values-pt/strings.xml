@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Atualizar Scripts</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">escolher comportamento de carregamento de página..</string>
   <string name="pref_updateinterval_title">Intervalo De Atualização Do Script</string>
   <string name="pref_updateinterval_summary">dias entre cheques..</string>
-  <string name="pref_enableadblock_title">Ativar bloco de anúncios</string>
-  <string name="pref_enableadblock_summary_on" >Bloquear hosts que servem: anúncios, rastreadores, malwares, spam</string>
-  <string name="pref_enableadblock_summary_off">Permitindo solicitações a todos os hosts</string>
   <string name="pref_sharedsecret_title">Segredo compartilhado</string>
   <string name="pref_sharedsecret_summary">o primeiro parâmetro para API método: \"window.WebViewWM.getUserscriptJS(segredo, url)\". Primariamente destinado ao uso por JS código injetado por um \"mitmproxy\" script .. para permitir que scripts do usuário sejam executados em iframe windows.</string>
   <string name="pref_enableremotedebugger_title">Ativar o Depurador Remoto</string>

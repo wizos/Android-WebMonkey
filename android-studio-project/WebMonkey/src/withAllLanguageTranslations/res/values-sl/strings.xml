@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Posodobi Skripte</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">izbira vedenja obremenitve strani..</string>
   <string name="pref_updateinterval_title">Interval Posodabljanja Skripta</string>
   <string name="pref_updateinterval_summary">dni med pregledi..</string>
-  <string name="pref_enableadblock_title">Omogoči blokiralnik</string>
-  <string name="pref_enableadblock_summary_on" >Blokiranje gostiteljev, ki služijo: oglasi, sledilci, zlonamerne programske opreme, spam</string>
-  <string name="pref_enableadblock_summary_off">Omogočanje zahtev vsem gostiteljem</string>
   <string name="pref_sharedsecret_title">Skupna skrivnost</string>
   <string name="pref_sharedsecret_summary">prvi parameter za API metoda: \"window.WebViewWM.getUserscriptJS(skrivnost, url)\". V prvi vrsti namenjen za uporabo v JS šifra, vbrizga \"mitmproxy\" skript .., da se omogoči izvajanje uporabniških skriptov v iframe okna.</string>
   <string name="pref_enableremotedebugger_title">Omogoči oddaljeni razhroščevalnik</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Cập nhật tập lệnh</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">chọn hành vi tải trang..</string>
   <string name="pref_updateinterval_title">Khoảng cập nhật tập lệnh</string>
   <string name="pref_updateinterval_summary">ngày giữa kiểm tra..</string>
-  <string name="pref_enableadblock_title">Kích hoạt khối quảng cáo</string>
-  <string name="pref_enableadblock_summary_on" >Chặn chủ nhà phục vụ: quảng cáo, trackers, malware, spam</string>
-  <string name="pref_enableadblock_summary_off">Cho phép yêu cầu tất cả máy chủ</string>
   <string name="pref_sharedsecret_title">Secret</string>
   <string name="pref_sharedsecret_summary">tham sô ́ đầu tiên API phương thức: \"window.WebViewWM.getUserscriptJS(Bí mật, url)\". Chủ yếu dành cho mục đích sử dụng JS được tiêm bởi một \"mitmproxy\" Để cho phép người dùng chạy trong iframe cửa sổ.</string>
   <string name="pref_enableremotedebugger_title">Dùng bộ gỡ lỗi từ xa</string>

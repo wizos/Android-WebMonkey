@@ -2,7 +2,7 @@ package com.github.warren_bank.webmonkey;
 
 import com.github.warren_bank.webmonkey.R;
 import com.github.warren_bank.webmonkey.WmScriptBrowserWebViewClient_Base;
-import com.github.warren_bank.webmonkey.settings.SettingsUtils;
+import com.github.warren_bank.webmonkey.settings.AdBlockSettingsUtils;
 
 import at.pardus.android.webview.gm.run.WebViewGm;
 import at.pardus.android.webview.gm.store.ScriptStore;
@@ -45,7 +45,7 @@ public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebView
   public WmScriptBrowserWebViewClient_AdBlock(Context context, ScriptStore scriptStore, String jsBridgeName, String secret, ScriptBrowser scriptBrowser) {
     super(context, scriptStore, jsBridgeName, secret, scriptBrowser);
 
-    if (SettingsUtils.getEnableAdBlockPreference(context)) {
+    if (AdBlockSettingsUtils.getEnableAdBlockPreference(context)) {
       isPopulatingHosts = true;
       populateBlockedHosts(context);
     }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Oppdater skript</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">velg virkemåte for sidebelastning..</string>
   <string name="pref_updateinterval_title">Intervall for skriptoppdatering</string>
   <string name="pref_updateinterval_summary">dager mellom kontroller..</string>
-  <string name="pref_enableadblock_title">Aktiver reklameblokk</string>
-  <string name="pref_enableadblock_summary_on" >Blokking av verter som tjener: annonser, sporere, malware, søppelpost</string>
-  <string name="pref_enableadblock_summary_off">Alløsende forespørsler til alle verter</string>
   <string name="pref_sharedsecret_title">Delt hemmelighet</string>
   <string name="pref_sharedsecret_summary">den første parameteren til API metode: \"window.WebViewWM.getUserscriptJS(hemmelighet, url)\". Primært ment for bruk av JS kode injisert av en \"mitmproxy\" script .. for å tillate userskript å kjøre i iframe vinduer.</string>
   <string name="pref_enableremotedebugger_title">Aktiver Remote Debugger</string>

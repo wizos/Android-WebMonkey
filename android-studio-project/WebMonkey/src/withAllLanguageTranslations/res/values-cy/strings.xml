@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Hidlau Diweddaru</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">dewis ymddygiad llwyth tudalen..</string>
   <string name="pref_updateinterval_title">Cyfnod Diweddaru sgript</string>
   <string name="pref_updateinterval_summary">diwrnodau rhwng gwiriadau..</string>
-  <string name="pref_enableadblock_title">Galluogi bloc</string>
-  <string name="pref_enableadblock_summary_on" >Rhwystro gwesteiwyr sy\'n gwasanaethu: tadau, tracwyr, malwyr, sbam</string>
-  <string name="pref_enableadblock_summary_off">Caniatáu ceisiadau i bob gwesteiwr</string>
   <string name="pref_sharedsecret_title">Cyfrinachol wedi\'i rannu</string>
   <string name="pref_sharedsecret_summary">y paramedr cyntaf i API dull: \"window.WebViewWM.getUserscriptJS(cyfrinach, url)\". Y bwriad yn bennaf i\'w ddefnyddio gan JS cod a chwistrellwyd \"mitmproxy\" sgript ... i ganiatáu i sgriptiau defnyddiwr redeg yn iframe ffenestri.</string>
   <string name="pref_enableremotedebugger_title">Galluogi Dadfygiwr pell</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Ажурирај скрипте</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">изаберите понашање учитавања странице..</string>
   <string name="pref_updateinterval_title">Интервал ажурирања скрипте</string>
   <string name="pref_updateinterval_summary">дана између чекова..</string>
-  <string name="pref_enableadblock_title">Омогући блок ад</string>
-  <string name="pref_enableadblock_summary_on" >Блокирање домаћина који служе: рекламе, уређаји за праћење, малвер, spam</string>
-  <string name="pref_enableadblock_summary_off">Омогућавање захтева свим домаћинима</string>
   <string name="pref_sharedsecret_title">Дељена тајна</string>
   <string name="pref_sharedsecret_summary">први параметар за API метода: \"window.WebViewWM.getUserscriptJS(тајни, url)\". Првенствено намењен за коришћење од стране JS шифра убризгана од стране \"mitmproxy\" скрипта ... да дозволи userскрипти да се кандид iframe прозори.</string>
   <string name="pref_enableremotedebugger_title">Омогући даљинско управљање</string>

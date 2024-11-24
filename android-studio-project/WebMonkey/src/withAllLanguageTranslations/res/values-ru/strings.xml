@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Обновить сценарии</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">выбор режима загрузки страницы..</string>
   <string name="pref_updateinterval_title">Интервал обновления сценария</string>
   <string name="pref_updateinterval_summary">дней между проверками..</string>
-  <string name="pref_enableadblock_title">Включить блок рекламы</string>
-  <string name="pref_enableadblock_summary_on" >Блокирующие хосты, которые обслуживают: объявления, трекеры, вредоносные программы, спам</string>
-  <string name="pref_enableadblock_summary_off">Разрешение запросов всем хостам</string>
   <string name="pref_sharedsecret_title">Общий секретный</string>
   <string name="pref_sharedsecret_summary">первый параметр для API метод: \"window.WebViewWM.getUserscriptJS(секретный, url)\". В первую очередь предназначен для использования JS код, введенный \"mitmproxy\" сценарий .. чтобы разрешить запуск сценариев userscripts iframe окна.</string>
   <string name="pref_enableremotedebugger_title">Включить удаленный отладчик</string>

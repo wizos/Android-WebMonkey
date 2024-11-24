@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Päivitä komentosarjat</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">Valitse sivun lataustoiminto..</string>
   <string name="pref_updateinterval_title">Script Update -liittymä</string>
   <string name="pref_updateinterval_summary">Tarkastuspäivät..</string>
-  <string name="pref_enableadblock_title">Ota mainoskatkos</string>
-  <string name="pref_enableadblock_summary_on" >Isäntälaitteet, jotka palvelevat: mainoksia, jäljittimiä, haittaohjelmia, roskapostia</string>
-  <string name="pref_enableadblock_summary_off">Kaikkien koneiden pyyntöjen salliminen</string>
   <string name="pref_sharedsecret_title">Jaettu salaisuus</string>
   <string name="pref_sharedsecret_summary">Ensimmäinen parametri API Menetelmä: \"window.WebViewWM.getUserscriptJS(Salaisuus, url)\". Ensisijaisesti tarkoitettu käytettäväksi JS Injektoitava koodi \"mitmproxy\" Komentosarja ... antaa käyttäjäkomentosarjojen ajaa iframe Ikkunat.</string>
   <string name="pref_enableremotedebugger_title">Ota yhteys Remote Debuggeriin</string>

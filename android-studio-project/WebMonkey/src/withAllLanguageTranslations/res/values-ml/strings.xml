@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">സ്ക്രിപ്റ്റുകള് പുതുക്കുക</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">താള് ലോഡ് സ്വഭാവം തെരഞ്ഞെടുക്കുക..</string>
   <string name="pref_updateinterval_title">സ്ക്രിപ്റ്റ് പുതുക്കല് ഇന്റര്വല്</string>
   <string name="pref_updateinterval_summary">പരിശോധനയ്ക്കിടയിലുള്ള ദിവസങ്ങള്..</string>
-  <string name="pref_enableadblock_title">ആഡ് ബ്ലോക്ക് സജ്ജമാക്കുക</string>
-  <string name="pref_enableadblock_summary_on" >സേവനം ചെയ്യുന്ന ഹോസ്റ്റുകള്: അഡ്ഡുകള്, ട്രാക്കര്, മാള്വെയര്, സ്പാം</string>
-  <string name="pref_enableadblock_summary_off">എല്ലാ ഹോസ്റ്റുകള്ക്കു് ആവശ്യങ്ങള് അനുവദിക്കുന്നു</string>
   <string name="pref_sharedsecret_title">രഹസ്യ രഹസ്യ</string>
   <string name="pref_sharedsecret_summary">ആദ്യത്തെ പരാമീറ്റര് API രീതി: \"window.WebViewWM.getUserscriptJS(രഹസ്യ, url)\". ഉപയോഗിക്കുവാനായി പ്രയത്നമായി ഉദ്ദേശിച്ചിരിക്കുന്നു JS കോഡ് ഇൻജൻഡ് ചെയ്യപ്പെട്ടിരിക്കുന്നു. \"mitmproxy\" സ്ക്രിപ്റ്റ് .. iframe ജാലകങ്ങള്.</string>
   <string name="pref_enableremotedebugger_title">വിദൂര ഡീബഗ്ഗര് സജ്ജമാക്കുക</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">تعديل البرامج النصية</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">حدد تصرف تحميل الصفحة..</string>
   <string name="pref_updateinterval_title">فترة تحديث البرنامج النصي</string>
   <string name="pref_updateinterval_summary">أيام بين عمليات التحقق..</string>
-  <string name="pref_enableadblock_title">اتاحة مجموعة ad</string>
-  <string name="pref_enableadblock_summary_on" >اقفال الأنظمة الرئيسية التي تخدم : اعلانات ، ووحدات تتبع ، وبرامج خبيثة ، وغيرها</string>
-  <string name="pref_enableadblock_summary_off">السماح بالطلبات لكل الأنظمة الرئيسية</string>
   <string name="pref_sharedsecret_title">سر مشترك</string>
   <string name="pref_sharedsecret_summary">المعامل الأول الى API الطريقة: \"window.WebViewWM.getUserscriptJS(سرية, url)\". مخصص بالدرجة الأولى للاستخدام بواسطة JS رمز تم حقنه بواسطة \"mitmproxy\" النص .. للسماح للمستخدم scripts بالعمل في iframe نوافذ.</string>
   <string name="pref_enableremotedebugger_title">اتاحة وحدة تصحيح الأخطاء عن بعد</string>

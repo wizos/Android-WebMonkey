@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Aktualizační skripty</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">zvolte chování načítání stránky..</string>
   <string name="pref_updateinterval_title">Interval aktualizace skriptu</string>
   <string name="pref_updateinterval_summary">dnů mezi kontrolami..</string>
-  <string name="pref_enableadblock_title">Povolit reklamní blok</string>
-  <string name="pref_enableadblock_summary_on" >Blocking hosts that serve: ads, trackers, malware, spam</string>
-  <string name="pref_enableadblock_summary_off">Povolení požadavků na všechny hostitele</string>
   <string name="pref_sharedsecret_title">Sdílený tajný klíč</string>
   <string name="pref_sharedsecret_summary">první parametr pro API metoda: \"window.WebViewWM.getUserscriptJS(tajný, url)\". Primárně určeno pro použití JS kód injected by \"mitmproxy\" skript .. pro povolení spouštění uživatelských skriptů v iframe okna.</string>
   <string name="pref_enableremotedebugger_title">Povolit vzdálený ladicí program</string>

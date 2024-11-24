@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Оновити скрипти</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">обрати поведінку завантаження сторінки..</string>
   <string name="pref_updateinterval_title">Інтервал оновлення скрипту</string>
   <string name="pref_updateinterval_summary">днів між перевірками..</string>
-  <string name="pref_enableadblock_title">Увімкнути блокування реклами</string>
-  <string name="pref_enableadblock_summary_on" >Блокування вузлів, які служать: ads, trackers, malware, спам</string>
-  <string name="pref_enableadblock_summary_off">Дозволяти запити на всі вузли</string>
   <string name="pref_sharedsecret_title">Спільна таємна</string>
   <string name="pref_sharedsecret_summary">перший параметр до API метод: \"window.WebViewWM.getUserscriptJS(таємна, url)\". Здебільшого призначений для використання JS ін\'єкції коду \"mitmproxy\" скрипт ... для того, щоб скрипт користувача виконуватися iframe windows.</string>
   <string name="pref_enableremotedebugger_title">Увімкнути віддалений зневаджу</string>

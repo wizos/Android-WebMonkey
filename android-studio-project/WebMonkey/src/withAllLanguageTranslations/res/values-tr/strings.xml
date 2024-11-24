@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Komut Dosyaları Güncelle</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">sayfa yükleme davranışını seçme..</string>
   <string name="pref_updateinterval_title">Komut Dosyası Güncelleme Aralığı</string>
   <string name="pref_updateinterval_summary">denetimler arasındaki gün sayısı..</string>
-  <string name="pref_enableadblock_title">Reklam bloğunu etkinleştir</string>
-  <string name="pref_enableadblock_summary_on" >Hizmet veren anasistemleri engelle: reklamlar, trackler, kötü niyetli yazılımlar, istenmeyen e-posta</string>
-  <string name="pref_enableadblock_summary_off">Tüm anasistemlere yönelik isteklere izin verilmesi</string>
   <string name="pref_sharedsecret_title">Paylaşılan Gizlilik</string>
   <string name="pref_sharedsecret_summary">için ilk değiştirge API yöntem: \"window.WebViewWM.getUserscriptJS(gizli, url)\". Öncelikli olarak kullanım amacı JS kod tarafından verilen kod \"mitmproxy\" komut dosyası .. kullanıcı komut dosyalarının çalıştırılmasına izin vermek için iframe pencereler.</string>
   <string name="pref_enableremotedebugger_title">Uzak Hata Ayıklayıcıyı Etkinleştir</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Uuenda skripte</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">Vali lehekülje koormuse käitumine..</string>
   <string name="pref_updateinterval_title">Skripti uuendamise intervall</string>
   <string name="pref_updateinterval_summary">kontrollimiste vahelised päevad..</string>
-  <string name="pref_enableadblock_title">Reklaamiploki lubamine</string>
-  <string name="pref_enableadblock_summary_on" >Blokeerivad hosts, mis teenivad: reklaamid, jälitajad, pahavara, rämpspost</string>
-  <string name="pref_enableadblock_summary_off">Kõigi masinate taotluste lubamine</string>
   <string name="pref_sharedsecret_title">Jagatud saladus</string>
   <string name="pref_sharedsecret_summary">esimene parameeter API Meetod: \"window.WebViewWM.getUserscriptJS(secret, url)\". Peamiselt mõeldud kasutamiseks JS süstitav kood: \"mitmproxy\" skript .. võimaldab kasutajaskriptide kasutamist iframe windows.</string>
   <string name="pref_enableremotedebugger_title">Võrgusiluri lubamine</string>

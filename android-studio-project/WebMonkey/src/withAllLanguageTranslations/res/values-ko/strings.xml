@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">스크립트 업데이트</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">페이지 로드 동작 선택..</string>
   <string name="pref_updateinterval_title">스크립트 업데이트 간격</string>
   <string name="pref_updateinterval_summary">검사 간격..</string>
-  <string name="pref_enableadblock_title">광고 블록 사용</string>
-  <string name="pref_enableadblock_summary_on" >서비스를 제공하는 차단 호스트: 광고, 추적 프로그램, 멀웨어, 스팸</string>
-  <string name="pref_enableadblock_summary_off">모든 호스트에 대한 요청 허용</string>
   <string name="pref_sharedsecret_title">공유 시크릿</string>
   <string name="pref_sharedsecret_summary">첫 번째 매개변수를 사용하여 API 메소드: \"window.WebViewWM.getUserscriptJS(비밀의, url)\". 기본적으로 사용하기 위해 의도된 JS 에 의해 주입되는 코드 \"mitmproxy\" 스크립트를 사용하여 사용자 스크립트를 실행할 수 있습니다. iframe 창.</string>
   <string name="pref_enableremotedebugger_title">원격 디버거 사용</string>

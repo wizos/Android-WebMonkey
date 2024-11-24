@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">อัพเดตสคริปต์</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">เลือกลักษณะการทำงานของโหลดของเพจ..</string>
   <string name="pref_updateinterval_title">ช่วงเวลาการอัพเดตสคริปต์</string>
   <string name="pref_updateinterval_summary">วันระหว่างการตรวจสอบ..</string>
-  <string name="pref_enableadblock_title">เปิดใช้งานบล็อก ad</string>
-  <string name="pref_enableadblock_summary_on" >ปิดกั้นโฮสต์ที่ให้บริการ: โฆษณา, trackers, มัลแวร์, สแปม</string>
-  <string name="pref_enableadblock_summary_off">การอนุญาตให้คำร้องขอไปยังโฮสต์ทั้งหมด</string>
   <string name="pref_sharedsecret_title">ความลับที่แบ่งใช้</string>
   <string name="pref_sharedsecret_summary">พารามิเตอร์แรกใน API เมธอด: \"window.WebViewWM.getUserscriptJS(Secret, url)\". แรกเริ่มที่ตั้งใจใช้โดย JS โค้ดที่แทรกโดย \"mitmproxy\" สคริปต์.. เพื่ออนุญาตให้สคริปต์ผู้ใช้รันใน iframe หน้าต่าง.</string>
   <string name="pref_enableremotedebugger_title">เปิดใช้งาน Debugger แบบรีโมต</string>

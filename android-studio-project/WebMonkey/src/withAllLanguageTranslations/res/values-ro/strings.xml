@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Actualizare scripturi</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">alege comportamentul de încărcare a paginii..</string>
   <string name="pref_updateinterval_title">Interval actualizare script</string>
   <string name="pref_updateinterval_summary">zile între verificări..</string>
-  <string name="pref_enableadblock_title">Activează blocul de anunțuri</string>
-  <string name="pref_enableadblock_summary_on" >Blocarea gazdelor care servesc: reclame, trackere, malware, spam</string>
-  <string name="pref_enableadblock_summary_off">Permiterea solicitărilor tuturor gazdelor</string>
   <string name="pref_sharedsecret_title">Secret comun</string>
   <string name="pref_sharedsecret_summary">primul parametru la API Metodă: \"window.WebViewWM.getUserscriptJS(secret, url)\". Destinate în principal utilizării de către JS cod injectat de o \"mitmproxy\" script .. pentru a permite utilizatorilor să ruleze în iframe ferestre.</string>
   <string name="pref_enableremotedebugger_title">Activează depanatorul de la distanță</string>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">更新 Script</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">选择页面加载行为..</string>
   <string name="pref_updateinterval_title">Script 更新間隔</string>
   <string name="pref_updateinterval_summary">之間的檢查天數..</string>
-  <string name="pref_enableadblock_title">啟用廣告區塊</string>
-  <string name="pref_enableadblock_summary_on" >封鎖的主機服務：廣告、追踪者、惡意軟體、垃圾郵件</string>
-  <string name="pref_enableadblock_summary_off">容許要求給所有主機</string>
   <string name="pref_sharedsecret_title">共享的 Secret</string>
   <string name="pref_sharedsecret_summary">API 方法的第一个参数: \"window.WebViewWM.getUserscriptJS(secret, url)\" 。主要供 \"mitmproxy\" 脚本插入的 JS 代码使用.... 以允许userscripts 在 iframe 窗口中运行。</string>
   <string name="pref_enableremotedebugger_title">啟用遠端除錯器</string>

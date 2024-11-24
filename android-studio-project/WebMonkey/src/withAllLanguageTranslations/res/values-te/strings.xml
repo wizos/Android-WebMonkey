@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">స్క్రిప్ట్లను నవీకరణ చేయి</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">పేజీ లోడ్ ప్రవర్తన యెంచుకొనుము..</string>
   <string name="pref_updateinterval_title">స్క్రిప్ట్ నవీకరణ Interval</string>
   <string name="pref_updateinterval_summary">పరిశీలనల మధ్య రోజులు..</string>
-  <string name="pref_enableadblock_title">అడ్ బ్లాక్ ను చేతనము చేయుము</string>
-  <string name="pref_enableadblock_summary_on" >సేవించు బల్కింగ్ సైన్యం: అడ్డులు, ట్రాకర్లు, మల్వేర్, స్పామ్</string>
-  <string name="pref_enableadblock_summary_off">అన్ని సైన్సులకు అభ్యర్ధనలను అనుమతిస్తుంది</string>
   <string name="pref_sharedsecret_title">షేర్డ్ సీక్రెట్</string>
   <string name="pref_sharedsecret_summary">మొదటి పారామీటర్లు API పద్ధతి: \"window.WebViewWM.getUserscriptJS(రహస్యం, url)\". ఉపయోగం కోసం ప్రీమార్లీ ఉద్దేశించింది. JS కోడ్ ఇన్జెక్ట్ \"mitmproxy\" లిపి .. స్క్రిప్ట్స్క్రిప్ట్లను అమలు చేయడానికి అనుమతిస్తుంది iframe విండోలు.</string>
   <string name="pref_enableremotedebugger_title">రిమోట్ డీబగ్గర్ చేతనము చేయుము</string>

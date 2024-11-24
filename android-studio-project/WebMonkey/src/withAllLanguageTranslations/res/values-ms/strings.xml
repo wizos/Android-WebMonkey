@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">WebMonkey</string>
   <string name="menu_update_scripts">Kemaskini Skrip</string>
@@ -26,9 +26,6 @@
   <string name="pref_badssl_pageloadbehavior_summary">pilih kelakuan muat halaman..</string>
   <string name="pref_updateinterval_title">Sela Kemaskini Skrip</string>
   <string name="pref_updateinterval_summary">hari diantara semakan..</string>
-  <string name="pref_enableadblock_title">Benarkan blok iklan</string>
-  <string name="pref_enableadblock_summary_on" >Menghalang hos yang berkhidmat: iklan, trackers, malware, spam</string>
-  <string name="pref_enableadblock_summary_off">Membenarkan permintaan kepada semua hos</string>
   <string name="pref_sharedsecret_title">Rahsia Dikongsi</string>
   <string name="pref_sharedsecret_summary">Parameter pertama untuk API kaedah: \"window.WebViewWM.getUserscriptJS(rahsia, url)\". Bertujuan untuk digunakan oleh JS kod disuntik oleh a \"mitmproxy\" skrip .. untuk membenarkan skrip pengguna2 masuk iframe tetingkap.</string>
   <string name="pref_enableremotedebugger_title">Benarkan Penyahpepijat Jauh</string>
