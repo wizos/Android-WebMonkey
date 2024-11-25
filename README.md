@@ -41,6 +41,8 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
             * _data:_
         * _ArrayBuffer_
         * _Uint8Array_
+      - only works on devices running API 19 (Android 4.4 KitKat) and higher
+        * requires [SAF](https://developer.android.com/guide/topics/providers/document-provider)
     * `GM_fetch`
       - drop-in replacement for `window.fetch` that uses `GM_xmlhttpRequest` to make network requests
     * `GM_info`
@@ -217,6 +219,17 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
       chrome://inspect/#devices
     ```
   - the interface uses _Chrome DevTools_
+
+#### AdBlock Settings
+
+* enable AdBlock
+  - default: _true_
+* custom Blocklist URL
+  - default: [pgl.yoyo.org](https://pgl.yoyo.org/adservers/serverlist.php?hostformat=nohtml&showintro=0&mimetype=plaintext)
+  - note: if this URL is empty or cannot be downloaded, a static copy of the default blocklist that is included in the app will be used
+* custom Blocklist update interval
+  - number of days to wait before downloading a fresh copy of the blocklist
+  - default: _7_
 
 #### Security
 
