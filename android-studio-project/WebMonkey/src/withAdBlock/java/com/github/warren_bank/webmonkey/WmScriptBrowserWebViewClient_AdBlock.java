@@ -3,12 +3,14 @@ package com.github.warren_bank.webmonkey;
 import com.github.warren_bank.webmonkey.R;
 import com.github.warren_bank.webmonkey.WmScriptBrowserWebViewClient_Base;
 import com.github.warren_bank.webmonkey.settings.AdBlockSettingsUtils;
+import com.github.warren_bank.webmonkey.settings.SettingsUtils;
 
 import at.pardus.android.webview.gm.run.WebViewGm;
 import at.pardus.android.webview.gm.store.ScriptStore;
 import at.pardus.android.webview.gm.store.ui.ScriptBrowser;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.webkit.WebView;
 import android.webkit.WebResourceRequest;
@@ -22,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.TreeMap;
 
 public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebViewClient_Base {
+  private boolean isEnabled;
   private boolean isPopulatingHosts;
   private TreeMap<String, Object> blockedHosts;
 
@@ -45,11 +48,9 @@ public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebView
   public WmScriptBrowserWebViewClient_AdBlock(Context context, ScriptStore scriptStore, String jsBridgeName, String secret, ScriptBrowser scriptBrowser) {
     super(context, scriptStore, jsBridgeName, secret, scriptBrowser);
 
-    if (AdBlockSettingsUtils.getEnableAdBlockPreference(context)) {
-      isPopulatingHosts = true;
-      populateBlockedHosts(context);
-    }
-    isPopulatingHosts = false;
+    updateIsEnabled(context);
+    updateBlockedHosts(context);
+    addPreferenceChangeListener(context);
   }
 
   @Override
@@ -61,6 +62,20 @@ public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebView
   public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
     String url = request.getUrl().toString();
     return shouldBlockRequest(url);
+  }
+
+  private void updateIsEnabled(Context context) {
+    isEnabled = AdBlockSettingsUtils.getEnableAdBlockPreference(context);
+  }
+
+  private void updateBlockedHosts(Context context) {
+    blockedHosts = null;
+
+    if (isEnabled) {
+      isPopulatingHosts = true;
+      populateBlockedHosts(context);
+    }
+    isPopulatingHosts = false;
   }
 
   private void populateBlockedHosts(Context context) {
@@ -85,8 +100,21 @@ public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebView
     }
   }
 
+  private void addPreferenceChangeListener(Context context) {
+    SharedPreferences prefs = SettingsUtils.getPrefs(context);
+
+    prefs.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+      public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
+        if (key.equals(AdBlockSettingsUtils.getEnableAdBlockPreferenceKey(context))) {
+          updateIsEnabled(context);
+          updateBlockedHosts(context);
+        }
+      }
+    });
+  }
+
   private boolean isHostBlocked(String url) {
-    if ((blockedHosts == null) || isPopulatingHosts) return false;
+    if (!isEnabled || isPopulatingHosts || (blockedHosts == null)) return false;
 
     try {
       Uri uri = Uri.parse(url);

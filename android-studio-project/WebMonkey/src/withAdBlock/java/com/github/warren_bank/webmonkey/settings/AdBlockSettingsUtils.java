@@ -13,11 +13,15 @@ public class AdBlockSettingsUtils {
   }
 
   private static boolean getEnableAdBlockPreference(Context context, SharedPreferences prefs) {
-    String pref_key     = context.getString(R.string.pref_enableadblock_key);
+    String pref_key     = getEnableAdBlockPreferenceKey(context);
     String pref_default = context.getString(R.string.pref_enableadblock_default);
     boolean val_default = "true".equals(pref_default);
 
     return prefs.getBoolean(pref_key, val_default);
+  }
+
+  public static String getEnableAdBlockPreferenceKey(Context context) {
+    return context.getString(R.string.pref_enableadblock_key);
   }
 
 }
