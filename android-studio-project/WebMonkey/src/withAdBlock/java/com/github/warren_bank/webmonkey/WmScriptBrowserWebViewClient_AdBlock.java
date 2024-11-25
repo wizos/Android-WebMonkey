@@ -1,9 +1,9 @@
 package com.github.warren_bank.webmonkey;
 
-import com.github.warren_bank.webmonkey.R;
 import com.github.warren_bank.webmonkey.WmScriptBrowserWebViewClient_Base;
 import com.github.warren_bank.webmonkey.settings.AdBlockSettingsUtils;
 import com.github.warren_bank.webmonkey.settings.SettingsUtils;
+import com.github.warren_bank.webmonkey.util.AdBlockListHelper;
 
 import at.pardus.android.webview.gm.run.WebViewGm;
 import at.pardus.android.webview.gm.store.ScriptStore;
@@ -29,7 +29,9 @@ import java.util.TreeMap;
 public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebViewClient_Base {
   private boolean isEnabled;
   private boolean isPopulatingHosts;
+  private boolean shouldRepopulateHosts;
   private TreeMap<String, Object> blockedHosts;
+  private SharedPreferences.OnSharedPreferenceChangeListener prefsChangeListener;
 
   public WmScriptBrowserWebViewClient_AdBlock(Context context, WebViewGm webView) throws Exception {
     this(
@@ -72,48 +74,84 @@ public class WmScriptBrowserWebViewClient_AdBlock extends WmScriptBrowserWebView
   }
 
   private void updateBlockedHosts(Context context) {
-    blockedHosts = null;
+    if (isPopulatingHosts) {
+      shouldRepopulateHosts = true;
+      return;
+    }
 
     if (isEnabled) {
-      isPopulatingHosts = true;
-      populateBlockedHosts(context);
+      // don't perform networking on main thread
+      new Thread(new Runnable(){
+        @Override
+        public void run(){
+          isPopulatingHosts = true;
+          populateBlockedHosts(context);
+          isPopulatingHosts = false;
+        }
+      }).start();
     }
-    isPopulatingHosts = false;
+    else {
+      blockedHosts = null;
+    }
   }
 
   private void populateBlockedHosts(Context context) {
-    InputStream is = context.getResources().openRawResource(R.raw.adblock_serverlist);
-    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-    String line;
+    try {
+      InputStream is = AdBlockListHelper.open(context);
+      if (is == null) throw new Exception();
 
-    if (is != null) {
-      try {
-        blockedHosts = new TreeMap<String, Object>();
+      BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+      String line;
 
-        while ((line = br.readLine()) != null) {
-          line = line.toLowerCase().trim();
+      blockedHosts = new TreeMap<String, Object>();
 
-          if (!line.isEmpty() && !line.startsWith("#")) {
-            blockedHosts.put(line, null);
-          }
+      while (isEnabled && !shouldRepopulateHosts && ((line = br.readLine()) != null)) {
+        line = line.toLowerCase().trim();
+
+        if (!line.isEmpty() && !line.startsWith("#")) {
+          blockedHosts.put(line, null);
         }
-      } catch (IOException e) {
-        blockedHosts = null;
       }
+    }
+    catch (Exception e) {
+      blockedHosts = null;
+    }
+
+    if (!isEnabled) {
+      blockedHosts = null;
+      return;
+    }
+
+    if (shouldRepopulateHosts) {
+      shouldRepopulateHosts = false;
+      populateBlockedHosts(context);
+      return;
     }
   }
 
   private void addPreferenceChangeListener(Context context) {
-    SharedPreferences prefs = SettingsUtils.getPrefs(context);
-
-    prefs.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+    // https://stackoverflow.com/a/3104265
+    prefsChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
       public void onSharedPreferenceChanged (SharedPreferences sharedPreferences, String key) {
         if (key.equals(AdBlockSettingsUtils.getEnableAdBlockPreferenceKey(context))) {
           updateIsEnabled(context);
           updateBlockedHosts(context);
+          return;
+        }
+        if (key.equals(AdBlockSettingsUtils.getCustomAdBlockListUrlKey(context))) {
+          AdBlockListHelper.delete(context);
+          updateBlockedHosts(context);
+          return;
+        }
+        if (key.equals(AdBlockSettingsUtils.getCustomAdBlockListUpdateIntervalDaysKey(context))) {
+          updateBlockedHosts(context);
+          return;
         }
       }
-    });
+    };
+
+    SharedPreferences prefs = SettingsUtils.getPrefs(context);
+    prefs.registerOnSharedPreferenceChangeListener(prefsChangeListener);
   }
 
   private boolean isHostBlocked(String url) {

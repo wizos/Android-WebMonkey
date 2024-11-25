@@ -9,7 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment_Base extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
   private PreferenceCategory prefsCategory;
 
@@ -22,7 +22,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    addPreferencesFromResource(R.xml.preferences);
+    addPreferences();
 
     prefsCategory       = (PreferenceCategory) findPreference(getString(R.string.pref_settings_key));
 
@@ -42,6 +42,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     super.onDestroyView();
 
     getPrefs().unregisterOnSharedPreferenceChangeListener(this);
+  }
+
+  protected void addPreferences() {
+    addPreferencesFromResource(R.xml.preferences);
   }
 
   private void initCustomPrefs() {

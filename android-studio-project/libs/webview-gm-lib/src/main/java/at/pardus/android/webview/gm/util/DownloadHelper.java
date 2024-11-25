@@ -120,7 +120,9 @@ public class DownloadHelper {
       }
 
       Log.e(TAG, "Exception downloading url: " + _url);
-      Log.e(TAG, message);
+      if (message != null) {
+        Log.e(TAG, message);
+      }
       Log.e(TAG, Log.getStackTraceString(e));
     }
     finally {
