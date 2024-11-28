@@ -2,6 +2,7 @@
 // @name         test: with closure, with sandbox
 // @namespace    WebViewWM
 // @match        *://*/*
+// @grant        unsafeWindow
 // @run-at       document-end
 // ==/UserScript==
 

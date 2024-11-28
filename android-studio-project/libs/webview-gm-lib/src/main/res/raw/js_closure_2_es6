@@ -144,7 +144,7 @@
       _GM_getWindowProxyTarget(/* useWindowPrototype= */ true),
       _GM_getWindowProxyHander(/* windowOwnProps= */ {}, /* propBlacklist= */ [/* 'localStorage', 'sessionStorage' */])
     );
-    window.window = window.self = window;
+    window.window = window.self = window.globalThis = window;
     if (unsafeWindow.top === unsafeWindow) {
       window.top = window;
     }
@@ -155,3 +155,4 @@
   }
 
   var userscript_wrapper = function(){
+    with (window) {

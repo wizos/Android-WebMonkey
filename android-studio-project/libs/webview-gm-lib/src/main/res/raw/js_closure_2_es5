@@ -2,3 +2,4 @@
   window = self = globalThis = unsafeWindow;
 
   var userscript_wrapper = function(){
+    with (window) {

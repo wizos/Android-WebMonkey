@@ -1,3 +1,4 @@
+    }
   }
 
   userscript_wrapper.call(window)
