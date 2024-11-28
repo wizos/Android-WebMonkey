@@ -1,0 +1,257 @@
+var GM_listValues = function() {
+  return {{jsBridgeName}}.listValues(
+    {{defaultSignature}}
+  ).split(',');
+};
+
+var GM_getValue = function(name, defaultValue) {
+  if (defaultValue === undefined) {
+    defaultValue = null;
+  }
+  defaultValue = JSON.stringify(defaultValue);
+  return JSON.parse(
+    {{jsBridgeName}}.getValue(
+      {{defaultSignature}}, name, defaultValue
+    )
+  );
+};
+
+var GM_setValue = function(name, value) {
+  if (value === undefined) {
+    value = null;
+  }
+  value = JSON.stringify(value);
+  {{jsBridgeName}}.setValue(
+    {{defaultSignature}}, name, value
+  );
+};
+
+var GM_deleteValue = function(name) {
+  {{jsBridgeName}}.deleteValue(
+    {{defaultSignature}}, name
+  );
+};
+
+var GM_log = function(message) {
+  {{jsBridgeName}}.log(
+    {{defaultSignature}}, message
+  );
+};
+
+var GM_getResourceURL = function(resourceName) {
+  return {{jsBridgeName}}.getResourceURL(
+    {{defaultSignature}}, resourceName
+  );
+};
+
+var GM_getResourceText = function(resourceName) {
+  return {{jsBridgeName}}.getResourceText(
+    {{defaultSignature}}, resourceName
+  );
+};
+
+var GM_xmlhttpRequest = function(details) {
+  var dataUri, UUID, response, result;
+  dataUri = _GM_parseDataUri(details.url);
+  if (dataUri) {
+    UUID = _GM_writeToCacheFile(dataUri.data);
+    if (UUID) {
+      response = {
+        responseCacheUUID: UUID,
+        mimeType: dataUri.mimeType,
+        readyState: 4,
+        status: 200,
+        statusText: 'OK',
+        lengthComputable: true,
+        loaded: dataUri.byteLength,
+        total: dataUri.byteLength
+      };
+    }
+  }
+  if (!response) {
+    if (details.onabort) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onAbortCallback = details.onabort;
+      details.onabort = '{{callbackPrefix}}GM_onAbortCallback';
+    }
+    if (details.onerror) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onErrorCallback = details.onerror;
+      details.onerror = '{{callbackPrefix}}GM_onErrorCallback';
+    }
+    if (details.onload) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onLoadCallback = details.onload;
+      details.onload = '{{callbackPrefix}}GM_onLoadCallback';
+    }
+    if (details.onprogress) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onProgressCallback = details.onprogress;
+      details.onprogress = '{{callbackPrefix}}GM_onProgressCallback';
+    }
+    if (details.onreadystatechange) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onReadyStateChange = details.onreadystatechange;
+      details.onreadystatechange = '{{callbackPrefix}}GM_onReadyStateChange';
+    }
+    if (details.ontimeout) {
+      {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_onTimeoutCallback = details.ontimeout;
+      details.ontimeout = '{{callbackPrefix}}GM_onTimeoutCallback';
+    }
+    if (details.upload) {
+      if (details.upload.onabort) {
+        {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_uploadOnAbortCallback = details.upload.onabort;
+        details.upload.onabort = '{{callbackPrefix}}GM_uploadOnAbortCallback';
+      }
+      if (details.upload.onerror) {
+        {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_uploadOnErrorCallback = details.upload.onerror;
+        details.upload.onerror = '{{callbackPrefix}}GM_uploadOnErrorCallback';
+      }
+      if (details.upload.onload) {
+        {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_uploadOnLoadCallback = details.upload.onload;
+        details.upload.onload = '{{callbackPrefix}}GM_uploadOnLoadCallback';
+      }
+      if (details.upload.onprogress) {
+        {{GLOBAL_JS_OBJECT}}.{{callbackPrefix}}GM_uploadOnProgressCallback = details.upload.onprogress;
+        details.upload.onprogress = '{{callbackPrefix}}GM_uploadOnProgressCallback';
+      }
+    }
+    response = JSON.parse(
+      {{jsBridgeName}}.xmlHttpRequest(
+        {{defaultSignature}}, JSON.stringify(details)
+      )
+    );
+  }
+  result = _GM_formatXmlHttpResponse(details, response);
+  if (dataUri) {
+    if (details.onprogress) {
+      details.onprogress(result);
+    }
+    if (details.onload) {
+      details.onload(result);
+    }
+  }
+  return result;
+};
+
+var _GM_writeToCacheFile = function(data) {
+  var bytes_per_chunk = 1050; /* multiple of 3 */
+  var index_start, index_end, UUID, OK, chunk_size, chunk_base64;
+  index_start = 0;
+  index_end = 0;
+  UUID = String(Date.now());
+  OK = true;
+  if (typeof data === 'string') {
+    /* base64 */
+    chunk_size = _GM_bytesToBase64Length(bytes_per_chunk);
+    while (OK && (index_start < data.length)) {
+      index_end = (index_start + chunk_size);
+      if (index_end > data.length) index_end = data.length;
+      chunk_base64 = data.substring(index_start, index_end);
+      OK = {{jsBridgeName}}.writeToCacheFile(
+        {{defaultSignature}}, UUID, chunk_base64
+      );
+      index_start = index_end;
+    }
+  } else if ((data instanceof ArrayBuffer) || (data instanceof Uint8Array)) {
+    if (data instanceof ArrayBuffer) {
+      data = new Uint8Array(data);
+    }
+    chunk_size = bytes_per_chunk;
+    while (OK && (index_start < data.byteLength)) {
+      index_end = (index_start + chunk_size);
+      if (index_end > data.byteLength) index_end = data.byteLength;
+      chunk_base64 = btoa(String.fromCharCode.apply(null, data.slice(index_start, index_end)));
+      OK = {{jsBridgeName}}.writeToCacheFile(
+        {{defaultSignature}}, UUID, chunk_base64
+      );
+      index_start = index_end;
+    }
+  }
+  return (index_end && OK) ? UUID : null;
+}
+
+var _GM_readFromCacheFile = function(UUID, totalBytes) {
+  var arrayBuffer = uint8Buffer = null;
+  var base64Chunk = uint8Chunk = null;
+  var byteOffset = 0;
+  try {
+    arrayBuffer = new ArrayBuffer(totalBytes);
+    uint8Buffer = new Uint8Array(arrayBuffer);
+    while (base64Chunk = {{jsBridgeName}}.readFromCacheFile(
+      {{defaultSignature}}, UUID, byteOffset
+    )) {
+      uint8Chunk = new Uint8Array(_GM_base64ToArrayBuffer(base64Chunk));
+      uint8Buffer.set(uint8Chunk, byteOffset);
+      byteOffset += uint8Chunk.byteLength;
+    }
+    if (!uint8Buffer.byteLength) throw 0;
+  } catch (e) {
+    arrayBuffer = uint8Buffer = null;
+  }
+  return arrayBuffer;
+}
+
+var _GM_deleteCacheFile = function(UUID) {
+  return {{jsBridgeName}}.deleteCacheFile(
+    {{defaultSignature}}, UUID
+  );
+}
+
+var GM_cookie = {};
+
+GM_cookie.list = function(details, callback) {
+  if (typeof details === 'function') {
+    callback = details;
+    details = {};
+  }
+  if (!details || (typeof details !== 'object')) details = {};
+  if (typeof callback !== 'function') return;
+  var url, cookies;
+  url = details.url ? details.url : details.domain ? ('https://' + details.domain) : unsafeWindow.location.href;
+  cookies = JSON.parse(
+    {{jsBridgeName}}.listCookies(
+      {{defaultSignature}}, url
+    )
+  );
+  if (details.name) {
+    cookies = cookies.filter(function(cookie) {
+      return (cookie.name === details.name);
+    });
+  }
+  if (details.decode) {
+    for (var i = 0; i < cookies.length; i++) {
+      cookies[i].value = unsafeWindow.decodeURIComponent(cookies[i].value);
+    }
+  }
+  callback(cookies, null);
+};
+
+GM_cookie.set = function(details, callback) {
+  var url, value, maxAge;
+  if (details && (typeof details === 'object') && details.name && details.value) {
+    url = details.url ? details.url : details.domain ? ('https://' + details.domain) : unsafeWindow.location.href;
+    value = details.encode ? unsafeWindow.encodeURIComponent(details.value) : details.value;
+    if (details.expirationDate && (typeof details.expirationDate === 'number')) {
+      maxAge = (new Date(details.expirationDate * 1000)) - (new Date());
+      maxAge = Math.floor(maxAge / 1000);
+      if (maxAge < 0) maxAge = 0;
+    } else {
+      maxAge = -1;
+    }
+    {{jsBridgeName}}.setCookie(
+      {{defaultSignature}}, url, details.name, value, !!details.secure, !!details.httpOnly, maxAge
+    );
+  }
+  if (typeof callback === 'function') {
+    callback();
+  }
+};
+
+GM_cookie.delete = function(details, callback) {
+  var url;
+  if (details && (typeof details === 'object') && details.name) {
+    url = details.url ? details.url : details.domain ? ('https://' + details.domain) : unsafeWindow.location.href;
+    {{jsBridgeName}}.deleteCookie(
+      {{defaultSignature}}, url, details.name
+    );
+  }
+  if (typeof callback === 'function') {
+    callback();
+  }
+};
