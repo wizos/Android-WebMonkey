@@ -46,7 +46,7 @@
           value = unsafeWindow[prop];
           thisArg = unsafeWindow;
         }
-        return (typeof value === 'function')
+        return ((typeof value === 'function') && !_GM_isClass(value))
           ? value.bind(thisArg)
           : value;
       },

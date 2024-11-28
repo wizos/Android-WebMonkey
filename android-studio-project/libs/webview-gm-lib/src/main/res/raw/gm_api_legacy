@@ -451,3 +451,12 @@ var _GM_formatXmlHttpResponse = function(details, response) {
 
   return response;
 }
+
+// -------------------------
+// Helper functions for:
+//   ES6 Proxy sandbox
+// -------------------------
+
+var _GM_isClass = function(func) {
+  return (typeof func === 'function') && func.prototype && (func.prototype.constructor === func);
+};
