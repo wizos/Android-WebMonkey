@@ -16,10 +16,10 @@ public class ScriptJsCode {
 
   private static final String GLOBAL_JS_OBJECT = "unsafeWindow.wrappedJSObject";
 
-  private static String GM_API_LEGACY_MISSING         = "";
-  private static String GM_API_LEGACY                 = "";
-  private static String GM_API_LEGACY_SIGNED_TEMPLATE = "";
-  private static String GM_API_V4_POLYFILL            = "";
+  private static String GM_API_LEGACY_MISSING  = "";
+  private static String GM_API_LEGACY          = "";
+  private static String GM_API_LEGACY_TEMPLATE = "";
+  private static String GM_API_V4_POLYFILL     = "";
 
   private static String JS_CLOSURE_1 = "";  // from: start of closure.     => to: start of GM API.
   private static String JS_CLOSURE_2 = "";  // from: end of GM API.        => to: start of userscript.
@@ -39,10 +39,10 @@ public class ScriptJsCode {
       }
       catch(Exception e) {}
     }
-    if (TextUtils.isEmpty(GM_API_LEGACY_SIGNED_TEMPLATE)) {
+    if (TextUtils.isEmpty(GM_API_LEGACY_TEMPLATE)) {
       try {
-        GM_API_LEGACY_SIGNED_TEMPLATE = ScriptJsTemplateHelper.initialize(
-          ResourceHelper.getRawStringResource(context, R.raw.gm_api_legacy_signed_template),
+        GM_API_LEGACY_TEMPLATE = ScriptJsTemplateHelper.initialize(
+          ResourceHelper.getRawStringResource(context, R.raw.gm_api_legacy_template),
           GLOBAL_JS_OBJECT
         );
       }
@@ -141,7 +141,7 @@ public class ScriptJsCode {
 
     sb.append(
       ScriptJsTemplateHelper.interpolate(
-        GM_API_LEGACY_SIGNED_TEMPLATE, script, jsBridgeName, secret
+        GM_API_LEGACY_TEMPLATE, script, jsBridgeName, secret
       )
     );
 
