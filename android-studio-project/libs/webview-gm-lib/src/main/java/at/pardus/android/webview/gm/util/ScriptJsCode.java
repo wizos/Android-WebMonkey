@@ -5,14 +5,11 @@ import at.pardus.android.webview.gm.model.Script;
 import at.pardus.android.webview.gm.model.ScriptRequire;
 import at.pardus.android.webview.gm.util.ResourceHelper;
 import at.pardus.android.webview.gm.util.ScriptInfo;
-
-import org.apache.commons.lang3.StringUtils;
+import at.pardus.android.webview.gm.util.ScriptJsTemplateHelper;
 
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
-
-import java.util.UUID;
 
 public class ScriptJsCode {
   protected static final boolean useES6 = (Build.VERSION.SDK_INT >= 21);  // use ES5 in Android <= 4.4 because WebView is outdated and cannot be updated
@@ -44,7 +41,10 @@ public class ScriptJsCode {
     }
     if (TextUtils.isEmpty(GM_API_LEGACY_SIGNED_TEMPLATE)) {
       try {
-        GM_API_LEGACY_SIGNED_TEMPLATE = ResourceHelper.getRawStringResource(context, R.raw.gm_api_legacy_signed_template);
+        GM_API_LEGACY_SIGNED_TEMPLATE = ScriptJsTemplateHelper.initialize(
+          ResourceHelper.getRawStringResource(context, R.raw.gm_api_legacy_signed_template),
+          GLOBAL_JS_OBJECT
+        );
       }
       catch(Exception e) {}
     }
@@ -140,60 +140,14 @@ public class ScriptJsCode {
     sb.append("\n");
 
     sb.append(
-      interpolateSignedTemplate(script, jsBridgeName, secret)
+      ScriptJsTemplateHelper.interpolate(
+        GM_API_LEGACY_SIGNED_TEMPLATE, script, jsBridgeName, secret
+      )
     );
 
     sb.append(GM_API_V4_POLYFILL);
 
     return sb.toString();
-  }
-
-  private String interpolateSignedTemplate(Script script, String jsBridgeName, String secret) {
-    StringBuilder sb;
-
-    // defaultSignature
-    sb = new StringBuilder(1 * 1024);
-    sb.append("\"");
-    sb.append(script.getName().replace("\"", "\\\""));
-    sb.append("\", \"");
-    sb.append(script.getNamespace().replace("\"", "\\\""));
-    sb.append("\", \"");
-    sb.append(secret);
-    sb.append("\"");
-    String defaultSignature = sb.toString();
-    sb = null;
-
-    // callbackPrefix
-    sb = new StringBuilder(1 * 1024);
-    sb.append("GM_");
-    sb.append(script.getName());
-    sb.append(script.getNamespace());
-    sb.append(UUID.randomUUID().toString());
-    String callbackPrefix = sb.toString().replaceAll("[^0-9a-zA-Z_]", "");
-    sb = null;
-
-    String value;
-    value = StringUtils.replace(
-      GM_API_LEGACY_SIGNED_TEMPLATE,
-      "{{GLOBAL_JS_OBJECT}}",
-      GLOBAL_JS_OBJECT
-    );
-    value = StringUtils.replace(
-      value,
-      "{{jsBridgeName}}",
-      jsBridgeName
-    );
-    value = StringUtils.replace(
-      value,
-      "{{defaultSignature}}",
-      defaultSignature
-    );
-    value = StringUtils.replace(
-      value,
-      "{{callbackPrefix}}",
-      callbackPrefix
-    );
-    return value;
   }
 
   protected String getJsUserscript(Script script, String jsBeforeScript, String jsAfterScript) {
