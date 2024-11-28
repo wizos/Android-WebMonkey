@@ -1,0 +1,90 @@
+var GM_toastLong = function(message) {
+  {{jsBridgeName}}.toast(
+    {{defaultSignature}}, {{Toast.LENGTH_LONG}}, message
+  );
+};
+
+var GM_toastShort = function(message) {
+  {{jsBridgeName}}.toast(
+    {{defaultSignature}}, {{Toast.LENGTH_SHORT}}, message
+  );
+};
+
+var GM_getUrl = function() {
+  return {{jsBridgeName}}.getUrl(
+    {{defaultSignature}}
+  );
+};
+
+var GM_resolveUrl = function(urlRelative, urlBase) {
+  return {{jsBridgeName}}.resolveUrl(
+    {{defaultSignature}}, urlRelative, urlBase
+  );
+};
+
+var GM_download = function(url, name) {
+  var details, onload_event_handler, result, details_onload;
+  if ((typeof url === 'string') || (url instanceof ArrayBuffer) || (url instanceof Uint8Array)) {
+    details = {
+      url
+    };
+  } else if (typeof url === 'object') {
+    details = url;
+    name = name || details.name;
+  }
+  if (details && details.url && name) {
+    details.method = details.method || 'GET';
+    details.responseType = 'cache_uuid';
+    onload_event_handler = function(result) {
+      if (result && !result.error && result.response) {
+        {{jsBridgeName}}.download(
+          {{defaultSignature}}, result.response, (result.mimeType || '*/*'), name
+        );
+      }
+      if (details_onload) {
+        details_onload(result);
+      }
+    };
+    if (details.synchronous) {
+      result = GM_xmlhttpRequest(details);
+      onload_event_handler(result);
+      return result;
+    } else {
+      if (typeof details.onload === 'function') {
+        details_onload = details.onload;
+      }
+      details.onload = onload_event_handler;
+      GM_xmlhttpRequest(details);
+    }
+  }
+};
+
+var GM_loadFrame = function(urlFrame, urlParent, proxyFrame) {
+  {{jsBridgeName}}.loadFrame(
+    {{defaultSignature}}, urlFrame, urlParent, !!proxyFrame
+  );
+};
+
+var GM_exit = function() {
+  {{jsBridgeName}}.exit(
+    {{defaultSignature}}
+  );
+};
+
+var GM_getUserAgent = function() {
+  return {{jsBridgeName}}.getUserAgent(
+    {{defaultSignature}}
+  );
+};
+
+var GM_setUserAgent = function(value) {
+  {{jsBridgeName}}.setUserAgent(
+    {{defaultSignature}}, (value || '')
+  );
+};
+
+var GM_removeAllCookies = function() {
+  {{jsBridgeName}}.removeAllCookies(
+    {{defaultSignature}}
+  );
+};

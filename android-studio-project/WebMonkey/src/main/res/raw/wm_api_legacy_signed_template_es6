@@ -1,0 +1,11 @@
+var GM_startIntent = function(action, data, type, ...extras) {
+  {{jsBridgeName}}.startIntent(
+    {{defaultSignature}}, action, data, type, extras
+  );
+};
+
+var GM_loadUrl = function(url, ...headers) {
+  {{jsBridgeName}}.loadUrl(
+    {{defaultSignature}}, url, headers
+  );
+};

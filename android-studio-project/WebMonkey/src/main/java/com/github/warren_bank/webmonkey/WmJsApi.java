@@ -9,12 +9,12 @@ import at.pardus.android.webview.gm.run.WebViewClientGm;
 import at.pardus.android.webview.gm.run.WebViewGm;
 import at.pardus.android.webview.gm.store.ScriptStore;
 import at.pardus.android.webview.gm.util.DownloadHelper;
+import at.pardus.android.webview.gm.util.ScriptJsTemplateHelper;
 import at.pardus.android.webview.gm.util.ScriptPermissionHelper;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -33,17 +33,23 @@ public class WmJsApi {
   public Activity  activity;
   public WebViewGm webview;
   public IBrowser  browser;
-  public boolean   useES6;
 
   public WmJsApi(String secret, Activity activity, WebViewGm webview, IBrowser browser) {
     this.secret   = secret;
     this.activity = activity;
     this.webview  = webview;
     this.browser  = browser;
-    this.useES6   = (Build.VERSION.SDK_INT >= 21);  // use ES5 in Android <= 4.4 because WebView is outdated and cannot be updated
   }
 
   public static final String GlobalJsApiNamespace = "WebViewWM";
+
+  public static String initializeTemplate(String template) {
+    HashMap<String, String> replacements = new HashMap();
+    replacements.put("{{Toast.LENGTH_SHORT}}", Integer.toString(Toast.LENGTH_SHORT));
+    replacements.put("{{Toast.LENGTH_LONG}}",  Integer.toString(Toast.LENGTH_LONG));
+
+    return ScriptJsTemplateHelper.replace(template, replacements);
+  }
 
   public Object getJsInterface() {
     return new Object() {
@@ -408,136 +414,14 @@ public class WmJsApi {
     return webview.getScriptStore();
   }
 
-  public String getJsApi(Script script) {
-    String jsBridgeName = WmJsApi.GlobalJsApiNamespace;
-    StringBuilder sb;
+  public String getJsApi(String template, Script script) {
+    String jsBridgeName       = WmJsApi.GlobalJsApiNamespace;
+    String secret             = WmJsApi.this.secret;
+    boolean addCallbackPrefix = false;
 
-    // defaultSignature
-    sb = new StringBuilder(1 * 1024);
-    sb.append("\"");
-    sb.append(script.getName().replace("\"", "\\\""));
-    sb.append("\", \"");
-    sb.append(script.getNamespace().replace("\"", "\\\""));
-    sb.append("\", \"");
-    sb.append(WmJsApi.this.secret);
-    sb.append("\"");
-    String defaultSignature = sb.toString();
-    sb = null;
-
-    // jsApi
-    sb = new StringBuilder(4 * 1024);
-
-    sb.append("var GM_toastLong = function(message) {");
-    sb.append(  jsBridgeName + ".toast(" + defaultSignature + ", " + Toast.LENGTH_LONG + ", message);");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_toastShort = function(message) {");
-    sb.append(  jsBridgeName + ".toast(" + defaultSignature + ", " + Toast.LENGTH_SHORT + ", message);");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_getUrl = function() {");
-    sb.append(  "return " + jsBridgeName + ".getUrl(" + defaultSignature + ");");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_resolveUrl = function(urlRelative, urlBase) {");
-    sb.append(  "return " + jsBridgeName + ".resolveUrl(" + defaultSignature + ", urlRelative, urlBase);");
-    sb.append("};");
-    sb.append("\n");
-
-    if (useES6) {
-      sb.append("var GM_startIntent = function(action, data, type, ...extras) {");
-      sb.append(  jsBridgeName + ".startIntent(" + defaultSignature + ", action, data, type, extras);");
-      sb.append("};");
-      sb.append("\n");
-    }
-    else {
-      sb.append("var GM_startIntent = function(action, data, type) {");
-      sb.append(  jsBridgeName + ".startIntent(" + defaultSignature + ", action, data, type, Array.prototype.slice.call(arguments, 3));");
-      sb.append("};");
-      sb.append("\n");
-    }
-
-    sb.append("var GM_download = function(url, name) {");
-    sb.append(  "var details, onload_event_handler, result, details_onload;");
-    sb.append(  "if ((typeof url === 'string') || (url instanceof ArrayBuffer) || (url instanceof Uint8Array)) {");
-    sb.append(    "details = {url};");
-    sb.append(  "}");
-    sb.append(  "else if (typeof url === 'object') {");
-    sb.append(    "details = url;");
-    sb.append(    "name = name || details.name;");
-    sb.append(  "}");
-    sb.append(  "if (details && details.url && name) {");
-    sb.append(    "details.method = details.method || 'GET';");
-    sb.append(    "details.responseType = 'cache_uuid';");
-    sb.append(    "onload_event_handler = function(result) {");
-    sb.append(      "if (result && !result.error && result.response) {");
-    sb.append(        jsBridgeName + ".download(" + defaultSignature + ", result.response, (result.mimeType || '*/*'), name);");
-    sb.append(      "}");
-    sb.append(      "if (details_onload) {");
-    sb.append(        "details_onload(result);");
-    sb.append(      "}");
-    sb.append(    "};");
-    sb.append(    "if (details.synchronous) {");
-    sb.append(      "result = GM_xmlhttpRequest(details);");
-    sb.append(      "onload_event_handler(result);");
-    sb.append(      "return result;");
-    sb.append(    "}");
-    sb.append(    "else {");
-    sb.append(      "if (typeof details.onload === 'function') {");
-    sb.append(        "details_onload = details.onload;");
-    sb.append(      "}");
-    sb.append(      "details.onload = onload_event_handler;");
-    sb.append(      "GM_xmlhttpRequest(details);");
-    sb.append(    "}");
-    sb.append(  "}");
-    sb.append("};");
-    sb.append("\n");
-
-    if (useES6) {
-      sb.append("var GM_loadUrl = function(url, ...headers) {");
-      sb.append(  jsBridgeName + ".loadUrl(" + defaultSignature + ", url, headers);");
-      sb.append("};");
-      sb.append("\n");
-    }
-    else {
-      sb.append("var GM_loadUrl = function(url) {");
-      sb.append(  jsBridgeName + ".loadUrl(" + defaultSignature + ", url, Array.prototype.slice.call(arguments, 1));");
-      sb.append("};");
-      sb.append("\n");
-    }
-
-    sb.append("var GM_loadFrame = function(urlFrame, urlParent, proxyFrame) {");
-    sb.append(  jsBridgeName + ".loadFrame(" + defaultSignature + ", urlFrame, urlParent, !!proxyFrame);");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_exit = function() {");
-    sb.append(  jsBridgeName + ".exit(" + defaultSignature + ");");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_getUserAgent = function() {");
-    sb.append(  "return " + jsBridgeName + ".getUserAgent(" + defaultSignature + ");");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_setUserAgent = function(value) {");
-    sb.append(  jsBridgeName + ".setUserAgent(" + defaultSignature + ", (value || ''));");
-    sb.append("};");
-    sb.append("\n");
-
-    sb.append("var GM_removeAllCookies = function() {");
-    sb.append(  jsBridgeName + ".removeAllCookies(" + defaultSignature + ");");
-    sb.append("};");
-    sb.append("\n");
-
-    String jsApi = sb.toString();
-    sb = null;
-
-    return jsApi;
+    return ScriptJsTemplateHelper.interpolate(
+      template, script, jsBridgeName, secret, addCallbackPrefix
+    );
   }
 
 }

@@ -9,14 +9,27 @@ import android.text.TextUtils;
 
 public class WmScriptJsCode extends ScriptJsCode {
 
-  private static String WM_API_LEGACY      = "";
-  private static String WM_API_V4_POLYFILL = "";
-  private static String WM_CLOSURE         = "";
+  private static String WM_API_LEGACY                 = "";
+  private static String WM_API_LEGACY_SIGNED_TEMPLATE = "";
+  private static String WM_API_V4_POLYFILL            = "";
+  private static String WM_CLOSURE                    = "";
 
   public static void initStaticResources(Context context) {
     if (TextUtils.isEmpty(WM_API_LEGACY)) {
       try {
         WM_API_LEGACY = ResourceHelper.getRawStringResource(context, R.raw.wm_api_legacy);
+      }
+      catch(Exception e) {}
+    }
+    if (TextUtils.isEmpty(WM_API_LEGACY_SIGNED_TEMPLATE)) {
+      try {
+        WM_API_LEGACY_SIGNED_TEMPLATE = ResourceHelper.getRawStringResource(context, R.raw.wm_api_legacy_signed_template_all);
+
+        WM_API_LEGACY_SIGNED_TEMPLATE += (useES6)
+          ? ResourceHelper.getRawStringResource(context, R.raw.wm_api_legacy_signed_template_es6)
+          : ResourceHelper.getRawStringResource(context, R.raw.wm_api_legacy_signed_template_es5);
+
+        WM_API_LEGACY_SIGNED_TEMPLATE = WmJsApi.initializeTemplate(WM_API_LEGACY_SIGNED_TEMPLATE);
       }
       catch(Exception e) {}
     }
@@ -53,7 +66,7 @@ public class WmScriptJsCode extends ScriptJsCode {
     );
     sb.append(WM_API_LEGACY);
     sb.append(
-      jsApi.getJsApi(script)
+      jsApi.getJsApi(WM_API_LEGACY_SIGNED_TEMPLATE, script)
     );
     sb.append(WM_API_V4_POLYFILL);
     return sb.toString();
