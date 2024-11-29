@@ -46,9 +46,16 @@
           value = unsafeWindow[prop];
           thisArg = unsafeWindow;
         }
-        return ((typeof value === 'function') && !_GM_isClass(value))
-          ? value.bind(thisArg)
-          : value;
+        if (typeof value === 'function') {
+          const newValue = value.bind(thisArg);
+          const newPropBlacklist = ['caller', 'callee', 'arguments'];
+          const newProps = Object.getOwnPropertyNames(value).filter(prop => !newPropBlacklist.includes(prop));
+          for (let prop of newProps) {
+            newValue[prop] = value[prop];
+          }
+          value = newValue;
+        }
+        return value;
       },
 
       getOwnPropertyDescriptor(target, prop) {

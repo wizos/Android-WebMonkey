@@ -37,9 +37,10 @@ var append_table_to_dom = function() {
 
 var append_table_row = function(table, cols, is_heading) {
   var tr = document.createElement('tr');
-  var td;
+  var col, td;
 
-  for (col of cols) {
+  for (var i=0; i < cols.length; i++) {
+    col = cols[i];
     td = document.createElement(is_heading? 'th' : 'td');
     td.textContent = col;
     tr.appendChild(td);
