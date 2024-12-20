@@ -11,12 +11,13 @@ import at.pardus.android.webview.gm.store.ui.ScriptBrowser;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.http.SslError;
 import android.os.Build;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 
-public class WmScriptBrowserWebViewClient_Base extends ScriptBrowser.ScriptBrowserWebViewClientGm {
+public class WmScriptBrowserWebViewClient_Base extends ScriptBrowser.ScriptBrowserWebViewClientGm implements SharedPreferences.OnSharedPreferenceChangeListener {
   protected Context context;
 
   public WmScriptBrowserWebViewClient_Base(Context context, WebViewGm webView) throws Exception {
@@ -40,6 +41,22 @@ public class WmScriptBrowserWebViewClient_Base extends ScriptBrowser.ScriptBrows
     super(scriptStore, jsBridgeName, secret, scriptBrowser);
 
     this.context = context;
+
+    updateRunAtDocumentEndImplementation();
+    SettingsUtils.getPrefs(context).registerOnSharedPreferenceChangeListener(this);
+  }
+
+  private void updateRunAtDocumentEndImplementation() {
+    SettingsUtils.DocumentEndImplementation runAtDocumentEndImplementation = SettingsUtils.getRunAtDocumentEndImplementation(context);
+
+    emulateOnPageFinished = (runAtDocumentEndImplementation == SettingsUtils.DocumentEndImplementation.document_domcontentloaded);
+  }
+
+  @Override
+  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    if (context.getString(R.string.pref_run_at_document_end_implementation_key).equals(key)) {
+      updateRunAtDocumentEndImplementation();
+    }
   }
 
   @Override

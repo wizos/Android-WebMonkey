@@ -2,6 +2,8 @@ apply from: '../../constants.gradle'
 apply plugin: 'com.android.library'
 
 android {
+  namespace "at.pardus.android.webview.gm.store.ui"
+
   compileSdkVersion project.ext.compileSdkVersion
   buildToolsVersion project.ext.buildToolsVersion
 
@@ -31,11 +33,7 @@ android {
       debuggable      false
       jniDebuggable   false
       shrinkResources false
-      minifyEnabled   true
-      proguardFiles = [
-        "proguard-rules.txt",
-        getDefaultProguardFile('proguard-android.txt')
-      ]
+      minifyEnabled   false
     }
     debug {
       debuggable      true

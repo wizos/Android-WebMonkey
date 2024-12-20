@@ -39,13 +39,12 @@ public class WebViewClientGm extends WebViewClient {
     ScriptJsCode.initStaticResources(context);
   }
 
-  private ScriptStore scriptStore;
-
-  private String jsBridgeName;
-
-  private String secret;
-
+  private ScriptStore  scriptStore;
+  private String       jsBridgeName;
+  private String       secret;
   private ScriptJsCode scriptJsCode;
+
+  protected boolean emulateOnPageFinished;
 
   /**
    * Constructs a new WebViewClientGm with a ScriptStore.
@@ -60,10 +59,12 @@ public class WebViewClientGm extends WebViewClient {
    *            a random string that is added to calls of the GM API
    */
   public WebViewClientGm(ScriptStore scriptStore, String jsBridgeName, String secret) {
-    this.scriptStore = scriptStore;
+    this.scriptStore  = scriptStore;
     this.jsBridgeName = jsBridgeName;
-    this.secret = secret;
+    this.secret       = secret;
     this.scriptJsCode = new ScriptJsCode();
+
+    this.emulateOnPageFinished = false;
   }
 
   /**
@@ -129,11 +130,20 @@ public class WebViewClientGm extends WebViewClient {
   @Override
   public void onPageStarted(WebView view, String url, Bitmap favicon) {
     runMatchingScripts(view, url, false, null, null);
+
+    if (emulateOnPageFinished) {
+      String jsBeforeScript = "window.addEventListener('DOMContentLoaded', function(event) {";
+      String jsAfterScript  = "});";
+
+      runMatchingScripts(view, url, true, jsBeforeScript, jsAfterScript);
+    }
   }
 
   @Override
   public void onPageFinished(WebView view, String url) {
-    runMatchingScripts(view, url, true, null, null);
+    if (!emulateOnPageFinished) {
+      runMatchingScripts(view, url, true, null, null);
+    }
   }
 
   /**

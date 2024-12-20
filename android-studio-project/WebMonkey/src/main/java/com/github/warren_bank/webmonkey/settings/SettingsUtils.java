@@ -204,6 +204,30 @@ public class SettingsUtils {
 
   // --------------------
 
+  public enum DocumentEndImplementation {
+    document_domcontentloaded,
+    webviewclient_onpagefinished
+  }
+
+  public static DocumentEndImplementation getRunAtDocumentEndImplementation(Context context) {
+    return getRunAtDocumentEndImplementation(context, getPrefs(context));
+  }
+
+  private static DocumentEndImplementation getRunAtDocumentEndImplementation(Context context, SharedPreferences prefs) {
+    String pref_key     = context.getString(R.string.pref_run_at_document_end_implementation_key);
+    String pref_default = context.getString(R.string.pref_run_at_document_end_implementation_default);
+    String pref_value   = prefs.getString(pref_key, pref_default);
+
+    try {
+      return DocumentEndImplementation.valueOf(pref_value);
+    }
+    catch(Exception e) {
+      return null;
+    }
+  }
+
+  // --------------------
+
   public static String getBadSslPageloadBehavior(Context context) {
     return getBadSslPageloadBehavior(context, getPrefs(context));
   }

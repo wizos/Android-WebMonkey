@@ -93,6 +93,29 @@
   <string name="pref_custom_useragent_title">@string/pref_useragent_array_names_3</string>
   <string name="pref_custom_useragent_summary">@string/pref_useragent_summary</string>
 
+  <!-- Settings: @run-at document-end implementation options -->
+  <string translatable="false" name="pref_run_at_document_end_implementation_array_name_document_domcontentloaded">document: DOMContentLoaded</string>
+  <string translatable="false" name="pref_run_at_document_end_implementation_array_name_webviewclient_onpagefinished">WebViewClient: onPageFinished</string>
+
+  <string translatable="false" name="pref_run_at_document_end_implementation_array_value_document_domcontentloaded">document_domcontentloaded</string>
+  <string translatable="false" name="pref_run_at_document_end_implementation_array_value_webviewclient_onpagefinished">webviewclient_onpagefinished</string>
+
+  <string-array translatable="false" name="pref_run_at_document_end_implementation_array_names">
+    <item>@string/pref_run_at_document_end_implementation_array_name_document_domcontentloaded</item>
+    <item>@string/pref_run_at_document_end_implementation_array_name_webviewclient_onpagefinished</item>
+  </string-array>
+
+  <string-array translatable="false" name="pref_run_at_document_end_implementation_array_values">
+    <item>@string/pref_run_at_document_end_implementation_array_value_document_domcontentloaded</item>
+    <item>@string/pref_run_at_document_end_implementation_array_value_webviewclient_onpagefinished</item>
+  </string-array>
+
+  <!-- Settings: @run-at document-end implementation -->
+  <string translatable="false" name="pref_run_at_document_end_implementation_key">pref_run_at_document_end_implementation</string>
+  <string translatable="false" name="pref_run_at_document_end_implementation_default">@string/pref_run_at_document_end_implementation_array_value_document_domcontentloaded</string>
+  <string translatable="false" name="pref_run_at_document_end_implementation_title">\@run-at document-end</string>
+  <string name="pref_run_at_document_end_implementation_summary">choose implementation..</string>
+
   <!-- Settings: Page Load Behavior -->
   <string name="pref_pageloadbehavior_array_name_cancel">Cancel</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Proceed</string>

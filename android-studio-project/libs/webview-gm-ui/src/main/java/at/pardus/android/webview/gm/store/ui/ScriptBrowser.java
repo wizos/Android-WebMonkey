@@ -118,7 +118,7 @@ public class ScriptBrowser {
     handler = new Handler();
     loadUrlRunnable = new Runnable() {
       public void run() {
-        if ((pendingLoadingUrl != null) && !pendingLoadingUrl.equals(currentLoadingUrl)&& !pendingLoadingUrl.equals(currentUrl)) {
+        if ((pendingLoadingUrl != null) && !pendingLoadingUrl.equals(currentLoadingUrl) && !pendingLoadingUrl.equals(currentUrl)) {
           loadUrlOnUiThread(webView, pendingLoadingUrlWithHash);
         }
         pendingLoadingUrl = null;

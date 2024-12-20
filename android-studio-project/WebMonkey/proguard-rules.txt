@@ -1,0 +1,7 @@
+-keeppackagenames at.pardus.android.webview.gm.**
+-keeppackagenames com.github.warren_bank.webmonkey.**
+
+-keep class at.pardus.android.webview.gm.** { *; }
+-keep class com.github.warren_bank.webmonkey.** { *; }
+
+-keepattributes InnerClasses

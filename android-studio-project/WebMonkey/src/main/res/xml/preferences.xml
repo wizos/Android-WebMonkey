@@ -35,6 +35,14 @@
       android:defaultValue="@string/pref_custom_useragent_default" />
 
     <ListPreference
+      android:key="@string/pref_run_at_document_end_implementation_key"
+      android:title="@string/pref_run_at_document_end_implementation_title"
+      android:summary="@string/pref_run_at_document_end_implementation_summary"
+      android:entries="@array/pref_run_at_document_end_implementation_array_names"
+      android:entryValues="@array/pref_run_at_document_end_implementation_array_values"
+      android:defaultValue="@string/pref_run_at_document_end_implementation_default" />
+
+    <ListPreference
       android:key="@string/pref_badssl_pageloadbehavior_key"
       android:title="@string/pref_badssl_pageloadbehavior_title"
       android:summary="@string/pref_badssl_pageloadbehavior_summary"
