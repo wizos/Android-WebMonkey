@@ -16,9 +16,12 @@
 
 package at.pardus.android.webview.gm.run;
 
+import at.pardus.android.webview.gm.R;
 import at.pardus.android.webview.gm.model.Script;
 import at.pardus.android.webview.gm.store.ScriptStore;
+import at.pardus.android.webview.gm.util.ResourceHelper;
 import at.pardus.android.webview.gm.util.ScriptJsCode;
+import at.pardus.android.webview.gm.util.ScriptJsTemplateHelper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,8 +38,34 @@ public class WebViewClientGm extends WebViewClient {
 
   private static final String TAG = WebViewClientGm.class.getName();
 
+  private static final String EMULATE_ON_PAGE_FINISHED_JS_FUNCTION = "WebViewGM_ON_PAGE_FINISHED";
+
+  private static String EMULATE_ON_PAGE_FINISHED_CLOSURE_1 = "";
+  private static String EMULATE_ON_PAGE_FINISHED_CLOSURE_2 = "";
+
   protected static void initStaticResources(Context context) {
     ScriptJsCode.initStaticResources(context);
+
+    if (TextUtils.isEmpty(EMULATE_ON_PAGE_FINISHED_CLOSURE_1)) {
+      try {
+        EMULATE_ON_PAGE_FINISHED_CLOSURE_1 = ScriptJsTemplateHelper.replace(
+          ResourceHelper.getRawStringResource(context, R.raw.emulate_on_page_finished_closure_1),
+          "{{EMULATE_ON_PAGE_FINISHED_JS_FUNCTION}}",
+          EMULATE_ON_PAGE_FINISHED_JS_FUNCTION
+        );
+      }
+      catch(Exception e) {}
+    }
+    if (TextUtils.isEmpty(EMULATE_ON_PAGE_FINISHED_CLOSURE_2)) {
+      try {
+        EMULATE_ON_PAGE_FINISHED_CLOSURE_2 = ScriptJsTemplateHelper.replace(
+          ResourceHelper.getRawStringResource(context, R.raw.emulate_on_page_finished_closure_2),
+          "{{EMULATE_ON_PAGE_FINISHED_JS_FUNCTION}}",
+          EMULATE_ON_PAGE_FINISHED_JS_FUNCTION
+        );
+      }
+      catch(Exception e) {}
+    }
   }
 
   private ScriptStore  scriptStore;
@@ -132,10 +161,7 @@ public class WebViewClientGm extends WebViewClient {
     runMatchingScripts(view, url, false, null, null);
 
     if (emulateOnPageFinished) {
-      String jsBeforeScript = "document.addEventListener('DOMContentLoaded', function() {";
-      String jsAfterScript  = "});";
-
-      runMatchingScripts(view, url, true, jsBeforeScript, jsAfterScript);
+      runMatchingScripts(view, url, true, EMULATE_ON_PAGE_FINISHED_CLOSURE_1, EMULATE_ON_PAGE_FINISHED_CLOSURE_2);
     }
   }
 

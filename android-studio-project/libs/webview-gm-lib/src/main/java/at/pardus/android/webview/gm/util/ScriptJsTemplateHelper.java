@@ -11,10 +11,7 @@ import java.util.UUID;
 public class ScriptJsTemplateHelper {
 
   public static String initialize(String template, String GLOBAL_JS_OBJECT) {
-    Map<String, String> replacements = new HashMap();
-    replacements.put("{{GLOBAL_JS_OBJECT}}", GLOBAL_JS_OBJECT);
-
-    return replace(template, replacements);
+    return replace(template, "{{GLOBAL_JS_OBJECT}}", GLOBAL_JS_OBJECT);
   }
 
   public static String interpolate(String template, Script script, String jsBridgeName, String secret) {
@@ -51,6 +48,13 @@ public class ScriptJsTemplateHelper {
       sb = null;
       replacements.put("{{callbackPrefix}}", callbackPrefix);
     }
+
+    return replace(template, replacements);
+  }
+
+  public static String replace(String template, String key, String value) {
+    Map<String, String> replacements = new HashMap();
+    replacements.put(key, value);
 
     return replace(template, replacements);
   }
