@@ -197,6 +197,13 @@ Builds upon the [WebView GM library](https://github.com/wbayer/webview-gm) demo 
   - _WebView_
   - _Chrome_ desktop
   - _Custom User Agent_
+* implementation for `@run-at document-end`
+  - document: [_DOMContentLoaded_](https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event)
+  - WebViewClient: [_onPageFinished_](https://developer.android.com/reference/android/webkit/WebViewClient#onPageFinished(android.webkit.WebView,%20java.lang.String))
+    * this option can cause userscripts to run more than once per page load
+      - [issue](https://issuetracker.google.com/issues/36983315)
+      - [discussion](https://stackoverflow.com/q/18282892)
+      - [utility: _WebViewClient_ event observer](https://github.com/warren-bank/Android-WebViewClientObserver)
 * page load behavior on HTTPS certificate error
   - cancel
   - proceed
