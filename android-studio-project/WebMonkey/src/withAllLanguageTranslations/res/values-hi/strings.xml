@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">मनपसंद उपयोगकर्ता एजेंट</string>
   <string name="pref_useragent_title">उपयोक्ता एजेंट</string>
   <string name="pref_useragent_summary">अनुरोध हैडर मान चुनें..</string>
+  <string name="pref_run_at_document_end_implementation_summary">कार्यान्वयन चुनें..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">रद्द करें</string>
   <string name="pref_pageloadbehavior_array_name_proceed">आगे बढ़ें</string>
   <string name="pref_pageloadbehavior_array_name_ask">पूछें</string>

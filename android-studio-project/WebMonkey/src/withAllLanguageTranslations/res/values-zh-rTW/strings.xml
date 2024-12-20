@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">自訂使用者代理程式</string>
   <string name="pref_useragent_title">使用者代理程式</string>
   <string name="pref_useragent_summary">選擇要求標頭值..</string>
+  <string name="pref_run_at_document_end_implementation_summary">選擇實作..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">取消</string>
   <string name="pref_pageloadbehavior_array_name_proceed">继续</string>
   <string name="pref_pageloadbehavior_array_name_ask">询问</string>

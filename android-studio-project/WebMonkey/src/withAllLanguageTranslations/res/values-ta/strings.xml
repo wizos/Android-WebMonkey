@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">தனிப்பயன் பயனர் முகவர்</string>
   <string name="pref_useragent_title">பயனர் அஜென்ட்</string>
   <string name="pref_useragent_summary">கோரிக்கை தலைப்பை தேர்ந்தெடுக்கவும்..</string>
+  <string name="pref_run_at_document_end_implementation_summary">செயலை தேர்வு செய்..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">ரத்து செய்</string>
   <string name="pref_pageloadbehavior_array_name_proceed">மேற்கோள்</string>
   <string name="pref_pageloadbehavior_array_name_ask">கேள்வி</string>

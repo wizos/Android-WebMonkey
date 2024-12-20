@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">વૈવિધ્યપૂર્ણ વપરાશકર્તા ઍજન્ટ</string>
   <string name="pref_useragent_title">User Agent</string>
   <string name="pref_useragent_summary">માંગણી હેડર કિંમત પસંદ કરો..</string>
+  <string name="pref_run_at_document_end_implementation_summary">અમલીકરણ પસંદ કરો..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">રદ કરો</string>
   <string name="pref_pageloadbehavior_array_name_proceed">પ્રક્રિયા કરો</string>
   <string name="pref_pageloadbehavior_array_name_ask">પૂછો</string>

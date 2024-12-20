@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Tilpasset brukeragent</string>
   <string name="pref_useragent_title">Brukeragent</string>
   <string name="pref_useragent_summary">velge overskriftstoppverdi..</string>
+  <string name="pref_run_at_document_end_implementation_summary">velg implementering..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Annuller</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Fortsett</string>
   <string name="pref_pageloadbehavior_array_name_ask">Spør</string>

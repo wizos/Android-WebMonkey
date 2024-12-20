@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Naudotojo agentas</string>
   <string name="pref_useragent_title">Naudotojo agentas</string>
   <string name="pref_useragent_summary">Pasirinkite pageidaujamos antraštės vertę..</string>
+  <string name="pref_run_at_document_end_implementation_summary">Pasirinkite įgyvendinimą..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Atšaukti</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Tęsti</string>
   <string name="pref_pageloadbehavior_array_name_ask">Klausti</string>

@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Prilagođeni korisnički agent.</string>
   <string name="pref_useragent_title">Ag.</string>
   <string name="pref_useragent_summary">Izaberite vrijednost zaglavlja zahtjeva...</string>
+  <string name="pref_run_at_document_end_implementation_summary">Izaberi...</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Otkaži.</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Nastavite.</string>
   <string name="pref_pageloadbehavior_array_name_ask">Pitaj.</string>

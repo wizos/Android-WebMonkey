@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">סוכן משתמש מותאם</string>
   <string name="pref_useragent_title">סוכן משתמש</string>
   <string name="pref_useragent_summary">בחירת ערך כותרת עליונה של בקשה..</string>
+  <string name="pref_run_at_document_end_implementation_summary">בחירת יישום..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">ביטול</string>
   <string name="pref_pageloadbehavior_array_name_proceed">המשך</string>
   <string name="pref_pageloadbehavior_array_name_ask">שאל</string>

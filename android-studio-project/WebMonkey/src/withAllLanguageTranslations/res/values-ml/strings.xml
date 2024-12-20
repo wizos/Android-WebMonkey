@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">ഇഷ്ടപ്പെട്ട ഉപയോക്താവു് ഏജന്റ്</string>
   <string name="pref_useragent_title">ഉപയോക്താവ് ഏജന്റ്</string>
   <string name="pref_useragent_summary">അപേക്ഷ ഹെഡര് മൂല്ല്യം തിരഞ്ഞെടുക്കുക..</string>
+  <string name="pref_run_at_document_end_implementation_summary">നടപടി തെരഞ്ഞെടുക്കുക..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">റദ്ദാക്കുക</string>
   <string name="pref_pageloadbehavior_array_name_proceed">പ്രോസീഡ്</string>
   <string name="pref_pageloadbehavior_array_name_ask">ചോദിയ്ക്കുക</string>

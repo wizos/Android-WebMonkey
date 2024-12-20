@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">యూజర్ అజెంట్Comment</string>
   <string name="pref_useragent_title">యూజర్ అజెంట్</string>
   <string name="pref_useragent_summary">అభ్యర్ధన హెడర్ విలువుని..</string>
+  <string name="pref_run_at_document_end_implementation_summary">అమలు ఎంచుకోండి..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">రద్దు</string>
   <string name="pref_pageloadbehavior_array_name_proceed">ప్రాసెస్</string>
   <string name="pref_pageloadbehavior_array_name_ask">అడిగి</string>

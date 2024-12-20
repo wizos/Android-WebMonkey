@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Προσαρμοσμένη χρήστης</string>
   <string name="pref_useragent_title">Ρουτίνα χρήστη</string>
   <string name="pref_useragent_summary">επιλογή τιμής κεφαλίδας αίτησης..</string>
+  <string name="pref_run_at_document_end_implementation_summary">επιλογή υλοποίησης:..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Ακύρωση.</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Συνεχίστε.</string>
   <string name="pref_pageloadbehavior_array_name_ask">-Ρώτα.</string>

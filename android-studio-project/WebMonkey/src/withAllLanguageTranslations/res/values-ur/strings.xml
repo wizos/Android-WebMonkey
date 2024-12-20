@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">کسٹم یوزر ایجنٹ</string>
   <string name="pref_useragent_title">صارفی ایجنٹ</string>
   <string name="pref_useragent_summary">ہیڈر کی قیمت کا انتخاب کریں..</string>
+  <string name="pref_run_at_document_end_implementation_summary">نفاذ عمل..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">منسوخ</string>
   <string name="pref_pageloadbehavior_array_name_proceed">پراکتاد</string>
   <string name="pref_pageloadbehavior_array_name_ask">پوچھیے</string>

@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Egyéni felhasználói ügynök</string>
   <string name="pref_useragent_title">Felhasználói ügynök</string>
   <string name="pref_useragent_summary">Válassza a kérés fejléc értékét..</string>
+  <string name="pref_run_at_document_end_implementation_summary">Megvalósítás kiválasztása..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Mégse</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Folytatás</string>
   <string name="pref_pageloadbehavior_array_name_ask">Kérdés</string>

@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Angepasster Benutzeragent</string>
   <string name="pref_useragent_title">Benutzeragent</string>
   <string name="pref_useragent_summary">Anforderungsheaderwert auswählen..</string>
+  <string name="pref_run_at_document_end_implementation_summary">Implementierung auswählen..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Abbrechen</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Fortfahren</string>
   <string name="pref_pageloadbehavior_array_name_ask">Fragen</string>

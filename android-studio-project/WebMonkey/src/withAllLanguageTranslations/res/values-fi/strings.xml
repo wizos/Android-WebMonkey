@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Mukautettu käyttäjä</string>
   <string name="pref_useragent_title">Käyttäjän agentti</string>
   <string name="pref_useragent_summary">Valitse pyynnön otsikkoarvo..</string>
+  <string name="pref_run_at_document_end_implementation_summary">Valitse toteutus..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Peruuta</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Jatka.</string>
   <string name="pref_pageloadbehavior_array_name_ask">Kysy</string>

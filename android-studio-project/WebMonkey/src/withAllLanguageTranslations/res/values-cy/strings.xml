@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Asiant Defnyddiwr Cyfaddas</string>
   <string name="pref_useragent_title">Asiant Defnyddiwr</string>
   <string name="pref_useragent_summary">dewis gwerth pennawd cais..</string>
+  <string name="pref_run_at_document_end_implementation_summary">dewis gweithredu..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Diddymu</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Mynd ymlaen</string>
   <string name="pref_pageloadbehavior_array_name_ask">Gofyn</string>

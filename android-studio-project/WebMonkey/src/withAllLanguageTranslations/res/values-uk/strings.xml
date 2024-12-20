@@ -19,6 +19,7 @@
   <string name="pref_useragent_array_names_3">Нетиповий агент користувача</string>
   <string name="pref_useragent_title">Агент користувача</string>
   <string name="pref_useragent_summary">Обрати значення заголовка запиту..</string>
+  <string name="pref_run_at_document_end_implementation_summary">оберіть реалізацію..</string>
   <string name="pref_pageloadbehavior_array_name_cancel">Скасувати</string>
   <string name="pref_pageloadbehavior_array_name_proceed">Продовжити</string>
   <string name="pref_pageloadbehavior_array_name_ask">Запитувати</string>
