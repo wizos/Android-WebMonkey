@@ -393,9 +393,9 @@ public class WmJsApi {
           WebViewClientGm webViewClient = (WebViewClientGm) webview.getWebViewClient();
           jsCode = (
             webViewClient.getMatchingScripts(url, false, null, null) + "\n" +
-            "window.addEventListener('DOMContentLoaded', function(event) {" + "\n" +
+            "document.addEventListener('DOMContentLoaded', function() {" + "\n" +
             webViewClient.getMatchingScripts(url, true,  null, null) + "\n" +
-            "})" + "\n"
+            "});" + "\n"
           );
         }
         catch(Exception e) {

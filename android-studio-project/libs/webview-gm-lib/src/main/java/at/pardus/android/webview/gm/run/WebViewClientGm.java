@@ -132,7 +132,7 @@ public class WebViewClientGm extends WebViewClient {
     runMatchingScripts(view, url, false, null, null);
 
     if (emulateOnPageFinished) {
-      String jsBeforeScript = "window.addEventListener('DOMContentLoaded', function(event) {";
+      String jsBeforeScript = "document.addEventListener('DOMContentLoaded', function() {";
       String jsAfterScript  = "});";
 
       runMatchingScripts(view, url, true, jsBeforeScript, jsAfterScript);
