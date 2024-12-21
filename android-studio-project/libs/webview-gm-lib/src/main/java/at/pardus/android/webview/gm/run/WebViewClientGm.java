@@ -124,6 +124,10 @@ public class WebViewClientGm extends WebViewClient {
     if (TextUtils.isEmpty(jsCode))
       return;
 
+    if (pageFinished && emulateOnPageFinished) {
+      jsCode = EMULATE_ON_PAGE_FINISHED_CLOSURE_1 + jsCode + EMULATE_ON_PAGE_FINISHED_CLOSURE_2;
+    }
+
     if (Build.VERSION.SDK_INT >= 19)
       view.evaluateJavascript(jsCode, null);
     else
@@ -143,11 +147,6 @@ public class WebViewClientGm extends WebViewClient {
     StringBuilder sb = new StringBuilder(4 * 1024);
     int length = 0;
 
-    if (pageFinished && emulateOnPageFinished) {
-      sb.append(EMULATE_ON_PAGE_FINISHED_CLOSURE_1);
-      length = sb.length();
-    }
-
     for (Script script : matchingScripts) {
       sb.append(
         scriptJsCode.getJsCode(script, pageFinished, jsBeforeScript, jsAfterScript, jsBridgeName, secret)
@@ -158,9 +157,6 @@ public class WebViewClientGm extends WebViewClient {
         Log.i(TAG, "Running script \"" + script.toString() + "\" on " + url);
       }
     }
-
-    if (pageFinished && emulateOnPageFinished)
-      sb.append(EMULATE_ON_PAGE_FINISHED_CLOSURE_2);
 
     return sb.toString();
   }
