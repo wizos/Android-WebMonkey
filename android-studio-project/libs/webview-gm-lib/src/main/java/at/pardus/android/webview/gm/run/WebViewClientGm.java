@@ -235,4 +235,11 @@ public class WebViewClientGm extends WebViewClient {
     this.scriptJsCode = scriptJsCode;
   }
 
+  /**
+   * @return the emulateOnPageFinished
+   */
+  public boolean getEmulateOnPageFinished() {
+    return emulateOnPageFinished;
+  }
+
 }

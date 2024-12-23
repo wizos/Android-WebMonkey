@@ -243,6 +243,15 @@ public class ScriptBrowser {
   }
 
   public String getCurrentUrl() {
+    if (currentLoadingUrl != null) {
+      try {
+        WebViewClientGm webViewClient = (WebViewClientGm) webView.getWebViewClient();
+        if (webViewClient.getEmulateOnPageFinished()) {
+          return currentLoadingUrl;
+        }
+      }
+      catch(Exception e) {}
+    }
     return currentUrl;
   }
 
