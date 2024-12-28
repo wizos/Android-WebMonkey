@@ -1,0 +1,10 @@
+
+  };
+
+  if (document.readyState === 'complete') {
+    {{EMULATE_ON_PAGE_FINISHED_JS_FUNCTION}}();
+  }
+  else {
+    window.addEventListener('load', {{EMULATE_ON_PAGE_FINISHED_JS_FUNCTION}});
+  }
+})();

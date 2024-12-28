@@ -217,8 +217,11 @@ public class Script extends ScriptMetadata {
             } else if (propertyName.equals("icon")) {
               icon = DownloadHelper.resolveUrl(propertyValue, url);
             } else if (propertyName.equals("run-at")) {
-              if (propertyValue.equals(RUNATSTART) || propertyValue.equals(RUNATEND)) {
+              if (propertyValue.equals(RUNATSTART) || propertyValue.equals(RUNATEND) || propertyValue.equals(RUNATIDLE)) {
                 runAt = propertyValue;
+              }
+              else if (propertyValue.equals(RUNATBODY)) {
+                runAt = RUNATEND;
               }
             } else if (propertyName.equals("version")) {
               version = propertyValue;

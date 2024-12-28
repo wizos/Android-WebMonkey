@@ -15,6 +15,7 @@ import at.pardus.android.webview.gm.util.ScriptPermissionHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
@@ -391,14 +392,34 @@ public class WmJsApi {
         String jsCode = null;
         try {
           WebViewClientGm webViewClient = (WebViewClientGm) webview.getWebViewClient();
-          jsCode = (
-            webViewClient.getMatchingScripts(url, false, null, null) + "\n" +
-            "document.addEventListener('DOMContentLoaded', function() {" + "\n" +
-            webViewClient.getMatchingScripts(url, true,  null, null) + "\n" +
-            "});" + "\n"
-          );
+          StringBuilder sb = new StringBuilder();
+
+          jsCode = webViewClient.getMatchingScripts(url, null, null, Script.RUNATSTART);
+          if (!TextUtils.isEmpty(jsCode)) {
+            sb.append(jsCode);
+          }
+
+          jsCode = webViewClient.getMatchingScripts(url, null, null, Script.RUNATEND);
+          if (!TextUtils.isEmpty(jsCode)) {
+            sb.append(WebViewClientGm.EMULATE_ON_PAGE_FINISHED_CLOSURE_BEGIN);
+            sb.append(jsCode);
+            sb.append(WebViewClientGm.EMULATE_ON_PAGE_FINISHED_CLOSURE_END_RUNATEND);
+          }
+
+          jsCode = webViewClient.getMatchingScripts(url, null, null, Script.RUNATIDLE);
+          if (!TextUtils.isEmpty(jsCode)) {
+            sb.append(WebViewClientGm.EMULATE_ON_PAGE_FINISHED_CLOSURE_BEGIN);
+            sb.append(jsCode);
+            sb.append(WebViewClientGm.EMULATE_ON_PAGE_FINISHED_CLOSURE_END_RUNATIDLE);
+          }
+
+          if (sb.length() == 0)
+            throw new Exception();
+
+          jsCode = sb.toString();
         }
         catch(Exception e) {
+          jsCode = null;
         }
         return jsCode;
       }

@@ -24,32 +24,23 @@ package at.pardus.android.webview.gm.model;
 public class ScriptMetadata extends ScriptCriteria {
 
   public static final String RUNATSTART = "document-start";
-
-  public static final String RUNATEND = "document-end";
+  public static final String RUNATBODY  = "document-body";  // equivalent to: RUNATEND
+  public static final String RUNATEND   = "document-end";
+  public static final String RUNATIDLE  = "document-idle";  // default
 
   public static String DISABLED = "disabled";
   public static String ENABLED  = "enabled";
 
   private String description;
-
   private String downloadurl;
-
   private String updateurl;
-
   private String installurl;
-
   private String icon;
-
   private String runAt;
-
   private int flags;
-
   private String version;
-
   private ScriptRequire[] requires;
-
   private ScriptResource[] resources;
-
   private boolean enabled;
 
   public ScriptMetadata(String name, String namespace, String[] exclude,

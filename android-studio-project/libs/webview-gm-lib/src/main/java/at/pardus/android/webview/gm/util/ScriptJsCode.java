@@ -90,17 +90,36 @@ public class ScriptJsCode {
   public ScriptJsCode() {
   }
 
-  public String getJsCode(Script script, boolean pageFinished, String jsBeforeScript, String jsAfterScript, String jsBridgeName, String secret) {
-    boolean runNow = (
-        (!pageFinished && Script.RUNATSTART.equals(script.getRunAt()))
-     || (pageFinished && (script.getRunAt() == null || Script.RUNATEND.equals(script.getRunAt())))
-    );
+  public String getJsCode(Script script, String jsBeforeScript, String jsAfterScript, String jsBridgeName, String secret, String readyState) {
+    String[] readyStates = new String[] {readyState};
+
+    return getJsCode(script, jsBeforeScript, jsAfterScript, jsBridgeName, secret, readyStates);
+  }
+
+  public String getJsCode(Script script, String jsBeforeScript, String jsAfterScript, String jsBridgeName, String secret, String[] readyStates) {
+    String runAt = script.getRunAt();
+    if (runAt == null)
+      runAt = Script.RUNATIDLE;
+
+    boolean runNow = false;
+    if (readyStates != null) {
+      for (String readyState : readyStates) {
+        if (runAt.equals(readyState)) {
+          runNow = true;
+          break;
+        }
+      }
+    }
 
     return (!runNow)
       ? ""
-      : script.useJsClosure()
-        ? getJsCodeWithClosure(script, jsBeforeScript, jsAfterScript, jsBridgeName, secret)
-        : getJsCodeNoClosure  (script, jsBeforeScript, jsAfterScript);
+      : getJsCode(script, jsBeforeScript, jsAfterScript, jsBridgeName, secret);
+  }
+
+  private String getJsCode(Script script, String jsBeforeScript, String jsAfterScript, String jsBridgeName, String secret) {
+    return script.useJsClosure()
+      ? getJsCodeWithClosure(script, jsBeforeScript, jsAfterScript, jsBridgeName, secret)
+      : getJsCodeNoClosure  (script, jsBeforeScript, jsAfterScript);
   }
 
   private String getJsCodeNoClosure(Script script, String jsBeforeScript, String jsAfterScript) {
